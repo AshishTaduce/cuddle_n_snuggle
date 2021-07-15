@@ -198,7 +198,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
               widget.category, widget.gender, widget.subcategory);
           List<PetsModel> petsList = (isPlayDate
                   ? pets.petsmodel
-                      .where((element) => element.id != pets.currentUser.id)
+                      .where((element) => element.userId != pets.currentUser.id)
                   : pets.petsmodelByGender)
 
               .where((element) => !rejects.contains(element.id))

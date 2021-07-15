@@ -7,6 +7,7 @@ import 'package:cns/util/database_helper.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cns/main.dart';
 import 'package:cns/New Screens 2/Calenderx.dart';
+import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
   final EventModel? event;
@@ -28,6 +29,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   String header = "Add New Reminder";
   String buttonText = "Save";
   bool addNewTask = true;
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
   @override
   void initState() {

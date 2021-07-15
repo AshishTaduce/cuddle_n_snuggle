@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cns/models/event.dart';
 import 'package:cns/screens/add_event.dart';
@@ -15,12 +16,13 @@ class _CalenderPageState extends State<CalenderPage> {
   // CalendarController _calendarController;
   PageController? _calendarController;
   TextEditingController? _eventController;
-  Map<DateTime, List<dynamic>>? _events;
-  List<dynamic>? _selectedEvents;
+  late Map<DateTime, List<EventModel>> _events;
+  late final ValueNotifier<List<EventModel>> _selectedEvents;
   SharedPreferences? prefs;
   DbService? dbService;
   DatabaseHelper? databaseHelper;
   bool valueFromAddEvent = false;
+  final DateFormat dateFormat = DateFormat("yyyy-mm-dd");
 
   @override
   void initState() {
@@ -28,13 +30,13 @@ class _CalenderPageState extends State<CalenderPage> {
     // _calendarController = PageController();
     _eventController = TextEditingController();
     _events = {};
-    _selectedEvents = [];
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
     dbService = DbService();
     databaseHelper = DatabaseHelper();
   }
 
-  Map<DateTime, List<dynamic>> _fromModelToEvent(List<EventModel> events) {
-    Map<DateTime, List<dynamic>> data = {};
+  Map<DateTime, List<EventModel>> _fromModelToEvent(List<EventModel> events) {
+    Map<DateTime, List<EventModel>> data = {};
     events.forEach((event) {
       DateTime date = DateTime(event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
       if (data[date] == null) data[date] = [];
@@ -83,6 +85,11 @@ class _CalenderPageState extends State<CalenderPage> {
     });
   }
 
+  List<EventModel> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return _events[day] ?? [];
+  }
+
   // _reloadPage() async {
   //   print("reload");
   //   Navigator.of(context, rootNavigator: false).pushAndRemoveUntil(
@@ -100,7 +107,6 @@ class _CalenderPageState extends State<CalenderPage> {
     return Scaffold(
       key: Key(valueFromAddEvent.toString()),
       body: FutureBuilder<List<EventModel>>(
-          //future: dbService.getEvents(),
           future: databaseHelper!.getTaskList(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -144,7 +150,7 @@ class _CalenderPageState extends State<CalenderPage> {
                           //   _selectedEvents =  _events![event] ?? [];
                           // });
 
-                          return _events![event] ?? [];
+                          return _events[event] ?? [];
                         },
                         calendarFormat: CalendarFormat.month,
                         calendarStyle: CalendarStyle(
@@ -171,9 +177,19 @@ class _CalenderPageState extends State<CalenderPage> {
                         },
                         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                         onDaySelected: (selectedDate, focusedDate) {
+                          print("Events are: ${_events[dateFormat.format(selectedDate)]} for ${dateFormat.format(selectedDate)}");
+                          print("All Events are: $_events");
+
+                          ///TODO: Rewrite this concept.
+                          bool temp = _events.keys.toList().any((element) => dateFormat
+                              .format
+                            (element) == dateFormat.format(selectedDate), );
                           setState(() {
                             _focusedDay = focusedDate;
                             _selectedDay = selectedDate;
+                            _selectedEvents.value = (temp ? _events[_events.keys.toList().firstWhere((element) => dateFormat
+                                .format
+                              (element) == dateFormat.format(selectedDate), )] : [])!;
                           });
                         },
                         calendarBuilders: CalendarBuilders(
@@ -206,14 +222,14 @@ class _CalenderPageState extends State<CalenderPage> {
                           'Upcoming Reminders',
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         )),
-                    ..._selectedEvents!.map((event) => Container(
+                    ..._selectedEvents.value.map((event) => Container(
                         padding: EdgeInsets.symmetric(horizontal: 32),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
                                 child: Text(
-                              event.time.format(context),
+                              event.time!.format(context),
                               // event.time.toString(),
                               style: TextStyle(fontSize: 16),
                             )),
@@ -222,6 +238,7 @@ class _CalenderPageState extends State<CalenderPage> {
                                 awaitReturnValueFromAddEventForUpdate(event);
                               },
                               child: Container(
+                                key: Key("$valueFromAddEvent"),
                                   margin: EdgeInsets.only(bottom: 10),
                                   padding: EdgeInsets.all(10),
                                   alignment: Alignment.center,
