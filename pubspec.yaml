@@ -12,7 +12,7 @@ dependencies:
   country_code_picker: ^2.0.2
   pin_code_fields: ^7.2.0
   swipe_stack: ^1.0.0
-
+  introduction_screen: ^2.1.0
   intl: ^0.17.0
   firebase_auth: ^2.0.0
   cloud_firestore: ^2.4.0
