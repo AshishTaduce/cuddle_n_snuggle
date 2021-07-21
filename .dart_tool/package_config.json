@@ -122,12 +122,6 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "curved_splash_screen",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/curved_splash_screen-1.0.0+1",
-      "packageUri": "lib/",
-      "languageVersion": "2.7"
-    },
-    {
       "name": "date_time_picker",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/date_time_picker-2.1.0",
       "packageUri": "lib/",
@@ -836,7 +830,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-07-21T09:51:32.511086Z",
+  "generated": "2021-07-21T10:10:31.176647Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

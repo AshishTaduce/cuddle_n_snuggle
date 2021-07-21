@@ -107,7 +107,7 @@ class _MyAppState extends State<MyApp> {
         primaryColor: primaryColor,
       ),
       home: isLoading
-          ? Splash()
+          ? onboard()
           : isRegistered
               ? NewScreenSecondHomePage() //NewScreenSecondHomePage()
               : isAuth

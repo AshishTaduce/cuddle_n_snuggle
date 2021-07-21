@@ -1,0 +1,731 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.deligence.hookup4u2"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="29" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:5:5-66
+14-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:5:22-64
+15    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+15-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:3:5-80
+15-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:3:22-78
+16    <uses-permission android:name="com.android.vending.BILLING" />
+16-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:4:5-67
+16-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:4:22-64
+17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:6:5-79
+17-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:6:22-76
+18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+18-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:7:5-81
+18-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:7:22-78
+19    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+19-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:8:5-74
+19-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:8:22-72
+20    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+20-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:10:5-71
+20-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:10:22-68
+21    <uses-permission android:name="android.permission.CAMERA" />
+21-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:11:5-65
+21-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:11:22-62
+22    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+22-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:12:5-80
+22-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:12:22-77
+23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+23-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:13:5-79
+23-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:13:22-76
+24    <uses-permission android:name="android.permission.VIBRATE" /> <!-- The Agora SDK requires Bluetooth permissions in case users are using Bluetooth devices. -->
+24-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:14:5-66
+24-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:14:22-63
+25    <uses-permission android:name="android.permission.BLUETOOTH" />
+25-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:16:5-68
+25-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:16:22-65
+26    <uses-permission android:name="android.permission.WAKE_LOCK" />
+26-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-68
+26-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-65
+27    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+27-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-81
+27-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:9:22-78
+28    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+28-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:25:5-82
+28-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:25:22-79
+29    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+29-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:26:5-110
+29-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:26:22-107
+30
+31    <application
+31-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:19:4-101:19
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.5.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\2ed62ab0c76f604a3fae934ff3d9b81c\core-1.5.0\AndroidManifest.xml:24:18-86
+33        android:debuggable="true"
+34        android:icon="@mipmap/launcher_icon"
+34-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:21:8-44
+35        android:label="C&amp;S"
+35-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:20:9-32
+36        android:supportsRtl="true" >
+36-->[com.facebook.android:facebook-login:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\54e4bb9b9831e10a45f79a9263f09c79\jetified-facebook-login-5.15.3\AndroidManifest.xml:28:18-44
+37        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" >
+37-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:22:8-27:19
+37-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:22:18-106
+38            <intent-filter>
+38-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:23:12-26:28
+39                <action android:name="android.intent.action.BOOT_COMPLETED" />
+39-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:24:16-77
+39-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:24:24-75
+40                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+40-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:25:16-82
+40-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:25:24-80
+41            </intent-filter>
+42            <intent-filter>
+42-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-19:29
+43                <action android:name="android.intent.action.BOOT_COMPLETED" />
+43-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:24:16-77
+43-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:24:24-75
+44                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+44-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:25:16-82
+44-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:25:24-80
+45                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+45-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-82
+45-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:17:25-79
+46                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+46-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-82
+46-->[:flutter_local_notifications] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:18:25-79
+47            </intent-filter>
+48        </receiver>
+49        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+49-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:28:8-105
+49-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:28:18-102
+50
+51        <meta-data
+51-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:29:8-30:53
+52            android:name="com.facebook.sdk.ApplicationId"
+52-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:29:19-64
+53            android:value="@string/facebook_app_id" />
+53-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:30:12-51
+54
+55        <activity
+55-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:32:8-35:47
+56            android:name="com.facebook.FacebookActivity"
+56-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:32:18-62
+57            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+57-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:33:12-112
+58            android:label="@string/app_name"
+58-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:35:12-44
+59            android:theme="@style/com_facebook_activity_theme" />
+59-->[com.facebook.android:facebook-common:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\fc55a9cf8c3ba481ef7a825346083b0d\jetified-facebook-common-5.15.3\AndroidManifest.xml:33:13-63
+60        <activity
+60-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:37:8-50:19
+61            android:name="com.facebook.CustomTabActivity"
+61-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:38:12-57
+62            android:exported="true" >
+62-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:39:12-35
+63            <intent-filter>
+63-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:40:12-45:28
+64                <action android:name="android.intent.action.VIEW" />
+64-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:16-68
+64-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:24-65
+65
+66                <category android:name="android.intent.category.DEFAULT" />
+66-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+66-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+67                <category android:name="android.intent.category.BROWSABLE" />
+67-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:16-77
+67-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:26-74
+68
+69                <data android:scheme="@string/fb_login_protocol_scheme" />
+69-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:16-74
+69-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:22-71
+70            </intent-filter>
+71            <intent-filter>
+71-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:46:12-49:28
+72                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+72-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:47:16-68
+72-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:47:24-65
+73
+74                <category android:name="android.intent.category.DEFAULT" />
+74-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+74-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+75            </intent-filter>
+76            <intent-filter>
+76-->[com.facebook.android:facebook-common:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\fc55a9cf8c3ba481ef7a825346083b0d\jetified-facebook-common-5.15.3\AndroidManifest.xml:39:13-48:29
+77                <action android:name="android.intent.action.VIEW" />
+77-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:16-68
+77-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:24-65
+78
+79                <category android:name="android.intent.category.DEFAULT" />
+79-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+79-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+80                <category android:name="android.intent.category.BROWSABLE" />
+80-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:16-77
+80-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:26-74
+81
+82                <data
+82-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:16-74
+83                    android:host="cct.com.deligence.hookup4u2"
+84                    android:scheme="fbconnect" />
+84-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:22-71
+85            </intent-filter>
+86        </activity>
+87        <activity
+87-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:53:9-80:20
+88            android:name="com.deligence.hookup4u2.MainActivity"
+88-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:54:13-41
+89            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+89-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:57:13-163
+90            android:hardwareAccelerated="true"
+90-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:58:13-47
+91            android:launchMode="singleTop"
+91-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:55:13-43
+92            android:showWhenLocked="true"
+92-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:59:12-41
+93            android:theme="@style/LaunchTheme"
+93-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:56:13-47
+94            android:turnScreenOn="true"
+94-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:60:12-39
+95            android:windowSoftInputMode="adjustResize" >
+95-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:61:13-55
+96            <meta-data
+96-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:62:13-65:17
+97                android:name="io.flutter.embedding.android.NormalTheme"
+97-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:63:15-70
+98                android:resource="@style/NormalTheme" />
+98-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:64:15-52
+99            <!--
+100                 Displays an Android View that continues showing the launch screen
+101                 Drawable until Flutter paints its first frame, then this splash
+102                 screen fades out. A splash screen is useful to avoid any visual
+103                 gap between the end of Android's launch screen and the painting of
+104                 Flutter's first frame.
+105            -->
+106            <meta-data
+106-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:71:13-74:17
+107                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+107-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:72:15-79
+108                android:resource="@drawable/launch_background" />
+108-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:73:15-61
+109
+110            <intent-filter>
+110-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:75:13-78:29
+111                <action android:name="android.intent.action.MAIN" />
+111-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:76:17-68
+111-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:76:25-66
+112
+113                <category android:name="android.intent.category.LAUNCHER" />
+113-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:77:17-76
+113-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:77:27-74
+114            </intent-filter>
+115        </activity>
+116        <!--
+117             Don't delete the meta-data below.
+118             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+119        -->
+120
+121        <activity
+121-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:85:8-88:70
+122            android:name="com.yalantis.ucrop.UCropActivity"
+122-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:86:12-59
+123            android:screenOrientation="portrait"
+123-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:87:12-48
+124            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+124-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:88:12-68
+125        <!--
+126            Don't delete the meta-data below.
+127            This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+128        -->
+129        <meta-data
+129-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:91:8-93:32
+130            android:name="flutterEmbedding"
+130-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:92:12-43
+131            android:value="2" />
+131-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:93:12-29
+132        <meta-data
+132-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:94:8-96:61
+133            android:name="com.google.firebase.messaging.default_notification_channel_id"
+133-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:95:12-88
+134            android:value="default_notification_channel_id" />
+134-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:96:12-59
+135        <meta-data
+135-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:97:8-99:68
+136            android:name="com.google.android.gms.ads.APPLICATION_ID"
+136-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:98:12-68
+137            android:value="ca-app-pub-0000000000000000~0000000000" />
+137-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:99:12-66
+138
+139        <service
+139-->[:cloud_firestore] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+140            android:name="com.google.firebase.components.ComponentDiscoveryService"
+140-->[:cloud_firestore] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+141            android:directBootAware="true"
+141-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:35:13-43
+142            android:exported="false" >
+142-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:51:13-37
+143            <meta-data
+143-->[:cloud_firestore] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+144                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+144-->[:cloud_firestore] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-134
+145                android:value="com.google.firebase.components.ComponentRegistrar" />
+145-->[:cloud_firestore] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+146            <meta-data
+146-->[:firebase_auth] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+147                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+147-->[:firebase_auth] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+148                android:value="com.google.firebase.components.ComponentRegistrar" />
+148-->[:firebase_auth] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+149            <meta-data
+149-->[:firebase_storage] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+150                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
+150-->[:firebase_storage] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-126
+151                android:value="com.google.firebase.components.ComponentRegistrar" />
+151-->[:firebase_storage] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+152            <meta-data
+152-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:34:13-36:85
+153                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+153-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:35:17-128
+154                android:value="com.google.firebase.components.ComponentRegistrar" />
+154-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:36:17-82
+155            <meta-data
+155-->[:firebase_core] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+156                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+156-->[:firebase_core] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+157                android:value="com.google.firebase.components.ComponentRegistrar" />
+157-->[:firebase_core] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+158            <meta-data
+158-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:52:13-54:85
+159                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+159-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:53:17-119
+160                android:value="com.google.firebase.components.ComponentRegistrar" />
+160-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:54:17-82
+161            <meta-data
+161-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:77:13-79:85
+162                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+162-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:78:17-109
+163                android:value="com.google.firebase.components.ComponentRegistrar" />
+163-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:79:17-82
+164            <meta-data
+164-->[com.google.firebase:firebase-firestore:23.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\a5cbf841f54edf7ee46c1d83521725c4\jetified-firebase-firestore-23.0.1\AndroidManifest.xml:20:13-22:85
+165                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+165-->[com.google.firebase:firebase-firestore:23.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\a5cbf841f54edf7ee46c1d83521725c4\jetified-firebase-firestore-23.0.1\AndroidManifest.xml:21:17-111
+166                android:value="com.google.firebase.components.ComponentRegistrar" />
+166-->[com.google.firebase:firebase-firestore:23.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\a5cbf841f54edf7ee46c1d83521725c4\jetified-firebase-firestore-23.0.1\AndroidManifest.xml:22:17-82
+167            <meta-data
+167-->[com.google.firebase:firebase-storage:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\682fd5b7de27dcc9e7450e7d3038e6fd\firebase-storage-20.0.0\AndroidManifest.xml:33:13-35:85
+168                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+168-->[com.google.firebase:firebase-storage:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\682fd5b7de27dcc9e7450e7d3038e6fd\firebase-storage-20.0.0\AndroidManifest.xml:34:17-107
+169                android:value="com.google.firebase.components.ComponentRegistrar" />
+169-->[com.google.firebase:firebase-storage:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\682fd5b7de27dcc9e7450e7d3038e6fd\firebase-storage-20.0.0\AndroidManifest.xml:35:17-82
+170            <meta-data
+170-->[com.google.android.gms:play-services-measurement-api:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\4c8620b25c2ccd34413be1e3c25fc183\play-services-measurement-api-19.0.0\AndroidManifest.xml:30:13-32:85
+171                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+171-->[com.google.android.gms:play-services-measurement-api:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\4c8620b25c2ccd34413be1e3c25fc183\play-services-measurement-api-19.0.0\AndroidManifest.xml:31:17-139
+172                android:value="com.google.firebase.components.ComponentRegistrar" />
+172-->[com.google.android.gms:play-services-measurement-api:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\4c8620b25c2ccd34413be1e3c25fc183\play-services-measurement-api-19.0.0\AndroidManifest.xml:32:17-82
+173            <meta-data
+173-->[com.google.firebase:firebase-datatransport:18.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ffba5547d4f13312fa68a3f431eae647\firebase-datatransport-18.0.0\AndroidManifest.xml:28:13-30:85
+174                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+174-->[com.google.firebase:firebase-datatransport:18.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ffba5547d4f13312fa68a3f431eae647\firebase-datatransport-18.0.0\AndroidManifest.xml:29:17-115
+175                android:value="com.google.firebase.components.ComponentRegistrar" />
+175-->[com.google.firebase:firebase-datatransport:18.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ffba5547d4f13312fa68a3f431eae647\firebase-datatransport-18.0.0\AndroidManifest.xml:30:17-82
+176            <meta-data
+176-->[com.google.firebase:firebase-installations:17.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\03115645f700a8ebecf94e4daa447e58\firebase-installations-17.0.0\AndroidManifest.xml:18:13-20:85
+177                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+177-->[com.google.firebase:firebase-installations:17.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\03115645f700a8ebecf94e4daa447e58\firebase-installations-17.0.0\AndroidManifest.xml:19:17-127
+178                android:value="com.google.firebase.components.ComponentRegistrar" />
+178-->[com.google.firebase:firebase-installations:17.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\03115645f700a8ebecf94e4daa447e58\firebase-installations-17.0.0\AndroidManifest.xml:20:17-82
+179        </service>
+180        <service
+180-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-15:72
+181            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+181-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-107
+182            android:exported="false"
+182-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+183            android:permission="android.permission.BIND_JOB_SERVICE" />
+183-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-69
+184        <service
+184-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-22:19
+185            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+185-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-97
+186            android:exported="false" >
+186-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-37
+187            <intent-filter>
+187-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-21:29
+188                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+188-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-78
+188-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:20:25-75
+189            </intent-filter>
+190        </service>
+191
+192        <receiver
+192-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:24:9-31:20
+193            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+193-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-98
+194            android:exported="true"
+194-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-36
+195            android:permission="com.google.android.c2dm.permission.SEND" >
+195-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:27:13-73
+196            <intent-filter>
+196-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:28:13-30:29
+197                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+197-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:29:17-81
+197-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:29:25-78
+198            </intent-filter>
+199        </receiver>
+200
+201        <provider
+201-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:39:9-43:38
+202            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+202-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:40:13-102
+203            android:authorities="com.deligence.hookup4u2.flutterfirebasemessaginginitprovider"
+203-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:41:13-88
+204            android:exported="false"
+204-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:42:13-37
+205            android:initOrder="99" />
+205-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:43:13-35
+206        <provider
+206-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+207            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+207-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-82
+208            android:authorities="com.deligence.hookup4u2.flutter.image_provider"
+208-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-74
+209            android:exported="false"
+209-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+210            android:grantUriPermissions="true" >
+210-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+211            <meta-data
+211-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
+212                android:name="android.support.FILE_PROVIDER_PATHS"
+212-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+213                android:resource="@xml/flutter_image_picker_file_paths" />
+213-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
+214        </provider>
+215        <provider
+215-->[:flutter_webview_plugin] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_webview_plugin\intermediates\library_manifest\debug\AndroidManifest.xml:9:9-18:20
+216            android:name="androidx.core.content.FileProvider"
+216-->[:flutter_webview_plugin] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_webview_plugin\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-62
+217            android:authorities="com.deligence.hookup4u2.fileprovider"
+217-->[:flutter_webview_plugin] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_webview_plugin\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-64
+218            android:exported="false"
+218-->[:flutter_webview_plugin] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_webview_plugin\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-37
+219            android:grantUriPermissions="true" >
+219-->[:flutter_webview_plugin] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\flutter_webview_plugin\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-47
+220            <meta-data
+220-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
+221                android:name="android.support.FILE_PROVIDER_PATHS"
+221-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+222                android:resource="@xml/filepaths" />
+222-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
+223        </provider>
+224
+225        <activity
+225-->[:url_launcher] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+226            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+226-->[:url_launcher] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+227            android:exported="false"
+227-->[:url_launcher] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+228            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+228-->[:url_launcher] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+229
+230        <provider
+230-->[:share] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\share\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+231            android:name="io.flutter.plugins.share.ShareFileProvider"
+231-->[:share] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\share\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-70
+232            android:authorities="com.deligence.hookup4u2.flutter.share_provider"
+232-->[:share] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\share\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-74
+233            android:exported="false"
+233-->[:share] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\share\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+234            android:grantUriPermissions="true" >
+234-->[:share] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\share\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+235            <meta-data
+235-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
+236                android:name="android.support.FILE_PROVIDER_PATHS"
+236-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+237                android:resource="@xml/flutter_share_file_paths" />
+237-->[:image_picker] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
+238        </provider>
+239
+240        <service
+240-->[:location] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-15:56
+241            android:name="com.lyokone.location.FlutterLocationService"
+241-->[:location] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-71
+242            android:enabled="true"
+242-->[:location] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-35
+243            android:exported="false"
+243-->[:location] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+244            android:foregroundServiceType="location" />
+244-->[:location] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-53
+245
+246        <receiver
+246-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:28:9-35:20
+247            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+247-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:29:13-78
+248            android:exported="true"
+248-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:30:13-36
+249            android:permission="com.google.android.c2dm.permission.SEND" >
+249-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:31:13-73
+250            <intent-filter>
+250-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:28:13-30:29
+251                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+251-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:29:17-81
+251-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:29:25-78
+252            </intent-filter>
+253        </receiver>
+254        <!--
+255             FirebaseMessagingService performs security checks at runtime,
+256             but set to not exported to explicitly avoid allowing another app to call it.
+257        -->
+258        <service
+258-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:41:9-48:19
+259            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+259-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:42:13-82
+260            android:directBootAware="true"
+260-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:43:13-43
+261            android:exported="false" >
+261-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\6f45a374f451cdd6954195e6fdec9bd9\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:44:13-37
+262            <intent-filter android:priority="-500" >
+262-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-21:29
+263                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+263-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-78
+263-->[:firebase_messaging] C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:20:25-75
+264            </intent-filter>
+265        </service>
+266
+267        <activity
+267-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:27:9-44:20
+268            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+268-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:28:13-80
+269            android:excludeFromRecents="true"
+269-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:29:13-46
+270            android:exported="true"
+270-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:30:13-36
+271            android:launchMode="singleTask"
+271-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:31:13-44
+272            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+272-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:32:13-72
+273            <intent-filter>
+273-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:33:13-43:29
+274                <action android:name="android.intent.action.VIEW" />
+274-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:16-68
+274-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:24-65
+275
+276                <category android:name="android.intent.category.DEFAULT" />
+276-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+276-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+277                <category android:name="android.intent.category.BROWSABLE" />
+277-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:16-77
+277-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:26-74
+278
+279                <data
+279-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:16-74
+280                    android:host="firebase.auth"
+281                    android:path="/"
+282                    android:scheme="genericidp" />
+282-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:22-71
+283            </intent-filter>
+284        </activity>
+285        <activity
+285-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:45:9-62:20
+286            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+286-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:46:13-79
+287            android:excludeFromRecents="true"
+287-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:47:13-46
+288            android:exported="true"
+288-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:48:13-36
+289            android:launchMode="singleTask"
+289-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:49:13-44
+290            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+290-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:50:13-72
+291            <intent-filter>
+291-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:51:13-61:29
+292                <action android:name="android.intent.action.VIEW" />
+292-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:16-68
+292-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:41:24-65
+293
+294                <category android:name="android.intent.category.DEFAULT" />
+294-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+294-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+295                <category android:name="android.intent.category.BROWSABLE" />
+295-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:16-77
+295-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:43:26-74
+296
+297                <data
+297-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:16-74
+298                    android:host="firebase.auth"
+299                    android:path="/"
+300                    android:scheme="recaptcha" />
+300-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:44:22-71
+301            </intent-filter>
+302        </activity>
+303
+304        <service
+304-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:64:9-73:19
+305            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+305-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:65:13-101
+306            android:enabled="true"
+306-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:66:13-35
+307            android:exported="false" >
+307-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:67:13-37
+308            <intent-filter>
+308-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:68:13-72:29
+309                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+309-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:69:17-89
+309-->[com.google.firebase:firebase-auth:21.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\882c56ddda39272effc9d1846f115737\jetified-firebase-auth-21.0.1\AndroidManifest.xml:69:25-86
+310
+311                <category android:name="android.intent.category.DEFAULT" />
+311-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:16-75
+311-->C:\Users\ASUS\Downloads\CNS\cuddle_n_snuggle\android\app\src\main\AndroidManifest.xml:42:26-72
+312            </intent-filter>
+313        </service>
+314
+315        <provider
+315-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:26:9-31:39
+316            android:name="com.google.firebase.provider.FirebaseInitProvider"
+316-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:27:13-77
+317            android:authorities="com.deligence.hookup4u2.firebaseinitprovider"
+317-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:28:13-72
+318            android:directBootAware="true"
+318-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:29:13-43
+319            android:exported="false"
+319-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:30:13-37
+320            android:initOrder="100" />
+320-->[com.google.firebase:firebase-common:20.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\ad807def9011995efc6850fa298688e6\jetified-firebase-common-20.0.0\AndroidManifest.xml:31:13-36
+321
+322        <activity android:name="com.facebook.CustomTabMainActivity" />
+322-->[com.facebook.android:facebook-common:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\fc55a9cf8c3ba481ef7a825346083b0d\jetified-facebook-common-5.15.3\AndroidManifest.xml:34:9-71
+322-->[com.facebook.android:facebook-common:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\fc55a9cf8c3ba481ef7a825346083b0d\jetified-facebook-common-5.15.3\AndroidManifest.xml:34:19-68
+323        <!--
+324         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+325         with the application context. This config is merged in with the host app's manifest,
+326         but there can only be one provider with the same authority activated at any given
+327         point; so if the end user has two or more different apps that use Facebook SDK, only the
+328         first one will be able to use the provider. To work around this problem, we use the
+329         following placeholder in the authority to identify each host application as if it was
+330         a completely different provider.
+331        -->
+332        <provider
+332-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:39:9-42:40
+333            android:name="com.facebook.internal.FacebookInitProvider"
+333-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:40:13-70
+334            android:authorities="com.deligence.hookup4u2.FacebookInitProvider"
+334-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:41:13-72
+335            android:exported="false" />
+335-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:42:13-37
+336
+337        <receiver
+337-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:44:9-50:20
+338            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+338-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:45:13-86
+339            android:exported="false" >
+339-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:46:13-37
+340            <intent-filter>
+340-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:47:13-49:29
+341                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+341-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:48:17-95
+341-->[com.facebook.android:facebook-core:5.15.3] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\472c268ac71415f42a63109ac3c8177a\jetified-facebook-core-5.15.3\AndroidManifest.xml:48:25-92
+342            </intent-filter>
+343        </receiver>
+344        <receiver
+344-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:29:9-33:20
+345            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+345-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:30:13-85
+346            android:enabled="true"
+346-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:31:13-35
+347            android:exported="false" >
+347-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:32:13-37
+348        </receiver>
+349
+350        <service
+350-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:35:9-38:40
+351            android:name="com.google.android.gms.measurement.AppMeasurementService"
+351-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:36:13-84
+352            android:enabled="true"
+352-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:37:13-35
+353            android:exported="false" />
+353-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:38:13-37
+354        <service
+354-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:39:9-43:72
+355            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+355-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:40:13-87
+356            android:enabled="true"
+356-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:41:13-35
+357            android:exported="false"
+357-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:42:13-37
+358            android:permission="android.permission.BIND_JOB_SERVICE" />
+358-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e534b00d0a7172eee8d4c12958d31169\play-services-measurement-19.0.0\AndroidManifest.xml:43:13-69
+359
+360        <activity
+360-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+361            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+361-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+362            android:excludeFromRecents="true"
+362-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+363            android:exported="false"
+363-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+364            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+364-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+365        <!--
+366            Service handling Google Sign-In user revocation. For apps that do not integrate with
+367            Google Sign-In, this service will never be started.
+368        -->
+369        <service
+369-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+370            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+370-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+371            android:exported="true"
+371-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+372            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+372-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\3a162443f2b188e9431f5ff853153b00\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+373
+374        <activity
+374-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e97808e1b772c2936edb4f862b6e7bdf\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+375            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+375-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e97808e1b772c2936edb4f862b6e7bdf\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+376            android:exported="false"
+376-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e97808e1b772c2936edb4f862b6e7bdf\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+377            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+377-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\e97808e1b772c2936edb4f862b6e7bdf\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+378
+379        <meta-data
+379-->[com.google.android.gms:play-services-basement:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\84853f3a5abbed7c0daf5db76cb0c48f\jetified-play-services-basement-17.1.0\AndroidManifest.xml:23:9-25:69
+380            android:name="com.google.android.gms.version"
+380-->[com.google.android.gms:play-services-basement:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\84853f3a5abbed7c0daf5db76cb0c48f\jetified-play-services-basement-17.1.0\AndroidManifest.xml:24:13-58
+381            android:value="@integer/google_play_services_version" />
+381-->[com.google.android.gms:play-services-basement:17.1.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\84853f3a5abbed7c0daf5db76cb0c48f\jetified-play-services-basement-17.1.0\AndroidManifest.xml:25:13-66
+382
+383        <service
+383-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:29:9-35:19
+384            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+384-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:30:13-103
+385            android:exported="false" >
+385-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:31:13-37
+386            <meta-data
+386-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:32:13-34:39
+387                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+387-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:33:17-94
+388                android:value="cct" />
+388-->[com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\b33c571a072e6c09c04954fa1527c6f4\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:34:17-36
+389        </service>
+390        <service
+390-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:26:9-30:19
+391            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+391-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:27:13-117
+392            android:exported="false"
+392-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:28:13-37
+393            android:permission="android.permission.BIND_JOB_SERVICE" >
+393-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:29:13-69
+394        </service>
+395
+396        <receiver
+396-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:32:9-34:40
+397            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+397-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:33:13-132
+398            android:exported="false" />
+398-->[com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\ASUS\.gradle\caches\transforms-2\files-2.1\650ea35eb9a82c81fb03e695f39268d0\jetified-transport-runtime-3.0.0\AndroidManifest.xml:34:13-37
+399    </application>
+400
+401</manifest>
