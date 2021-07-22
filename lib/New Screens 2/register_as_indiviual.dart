@@ -26,57 +26,69 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+    Widget background = new Image.asset(
+      "asset/semicircle.png",
+      fit: BoxFit.fill,
+      width: MediaQuery.of(context).size.width,
+      height: 250,
+    );
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
 
-
-      ),
       body: SingleChildScrollView(
+        
         child: Column(
+
+          
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              "Continue",
-              textAlign: TextAlign.center,
-              // style: TextStyle(
-              //   fontSize: 32,
-              //   color: Colors.black,
-              //   fontStyle: FontStyle.normal,
-              // ),
-              style: GoogleFonts.merriweather(
-                fontSize: 25.0,
-                color: Colors.black,
-                fontWeight: FontWeight.bold
-              ),
+
+            Stack(
+              children: <Widget>[
+                background,
+
+                Positioned(
+                    top: 100.0,
+                    left: 150.0,
+                    child: Text("Continue",textAlign: TextAlign.center,
+                      style: GoogleFonts.merriweather(
+                          fontSize: 25.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold
+                      ),
+                    )
+
+                ),
+              ],
             ),
-           
+
+
             SizedBox(
               height: 20,
             ),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 20),
-            //   child: TextFormField(
-            //     controller: nameController,
-            //     onChanged: (v) => nameController.text,
-            //     decoration: new InputDecoration(
-            //       border: new OutlineInputBorder(
-            //           borderSide: new BorderSide(color: Colors.teal)),
-            //       hintText: 'Enter your name',
-            //       labelText: 'Name',
-            //       prefixIcon: const Icon(
-            //         Icons.person,
-            //         color: Color(0xff01b4c9),
-            //       ),
-            //       suffixStyle: const TextStyle(color: Colors.green),
-            //     ),
-            //   ),
-            // ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: TextFormField(
+                controller: nameController,
+                onChanged: (v) => nameController.text,
+                decoration: new InputDecoration(
+                  border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal)),
+                  hintText: 'Enter your name',
+                  labelText: 'Name',
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Color(0xff01b4c9),
+                  ),
+                  suffixStyle: const TextStyle(color: Colors.green),
+                ),
+              ),
+            ),
             // SizedBox(
             //   height: 8,
             // ),
