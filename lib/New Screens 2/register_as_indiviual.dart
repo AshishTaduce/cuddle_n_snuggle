@@ -39,6 +39,13 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+
+
+        backgroundColor: Colors.deepOrangeAccent,
+        elevation: 0,
+      ),
 
       body: SingleChildScrollView(
         
@@ -54,12 +61,30 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
 
                 Positioned(
                     top: 100.0,
-                    left: 150.0,
-                    child: Text("Continue",textAlign: TextAlign.center,
-                      style: GoogleFonts.merriweather(
-                          fontSize: 25.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold
+
+                    child: Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Continue",textAlign: TextAlign.center,
+                              style: GoogleFonts.merriweather(
+                                  fontSize: 25.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Text("COntinue registering to be a part",textAlign: TextAlign.center,
+                              style: GoogleFonts.merriweather(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )
 
@@ -72,45 +97,50 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 18),
               child: TextFormField(
                 controller: nameController,
                 onChanged: (v) => nameController.text,
                 decoration: new InputDecoration(
                   border: new OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.teal)),
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(28.0)
+                      ),
                   hintText: 'Enter your name',
                   labelText: 'Name',
                   prefixIcon: const Icon(
                     Icons.person,
-                    color: Color(0xff01b4c9),
+                    color: Colors.black,
                   ),
-                  suffixStyle: const TextStyle(color: Colors.green),
+                  
                 ),
               ),
             ),
-            // SizedBox(
-            //   height: 8,
-            // ),
-            // Container(
-            //
-            //   padding: EdgeInsets.symmetric(horizontal: 20),
-            //   child: TextFormField(
-            //     controller: emailController,
-            //     onChanged: (v) => emailController.text,
-            //     decoration: new InputDecoration(
-            //       border: new OutlineInputBorder(
-            //           borderSide: new BorderSide(color: Colors.teal)),
-            //       hintText: 'Enter your Email Id',
-            //       labelText: 'Email Id',
-            //       prefixIcon: const Icon(
-            //         Icons.mail,
-            //         color: Color(0xff01b4c9),
-            //       ),
-            //       suffixStyle: const TextStyle(color: Colors.green),
-            //     ),
-            //   ),
-            // ),
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              child: TextFormField(
+                controller: emailController,
+                onChanged: (v) => emailController.text,
+                
+                decoration: new InputDecoration(
+                  border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.teal),
+                      borderRadius: BorderRadius.circular(28.0),
+                      ),
+                  hintText: 'Enter Your Phone Number',
+                  labelText: 'Phone Number',
+                  prefixIcon: const Icon(
+                    Icons.mail,
+                    color: Color(0xff01b4c9),
+                  ),
+                 
+                ),
+              ),
+            ),
             // SizedBox(
             //   height: 8,
             // ),

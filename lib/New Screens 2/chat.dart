@@ -44,8 +44,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     print("object    -${widget.chatId}");
     super.initState();
-    chatReference =
-        db.collection("chats").doc(widget.chatId).collection('messages');
+    // chatReference =
+    //     db.collection("chats").doc(widget.chatId).collection('messages');
     // checkblock();
   }
 

@@ -90,7 +90,7 @@ class MainProvider extends ChangeNotifier {
       if (data.docs.isNotEmpty) {
         for (int i = 0; i < totalCount; i++) {
           orders.add(PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
-          orders.removeWhere((element) => element.userId == currentUser!.id);
+          orders = orders.where((element) => element.userId != currentUser!.id).toList();
           pet_adoption_model = orders;
           notifyListeners();
         }
@@ -138,7 +138,7 @@ class MainProvider extends ChangeNotifier {
     assert(!_user.isAnonymous);
     assert(await _user.getIdToken() != null);
     User currentUser = _auth.currentUser!;
-    assert(_user.uid == currentUser!.uid);
+    assert(_user.uid == currentUser.uid);
     print("User Name NEW INDividual: ${_user.displayName}");
     print("User Email NEW Individual: ${_user.email}");
     if (currentUser != null) {
@@ -284,7 +284,9 @@ class MainProvider extends ChangeNotifier {
     try {
       String _uploadedFileURL = "";
       Reference storageReference = FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
-      UploadTask uploadTask = storageReference.putFile(_image);
+      UploadTask uploadTask = storageReference
+          .putFile(
+          _image);
       await storageReference.getDownloadURL().then((fileURL) {
         _uploadedFileURL = fileURL;
       });
@@ -326,7 +328,9 @@ class MainProvider extends ChangeNotifier {
     try {
       String _uploadedFileURL = "";
       Reference storageReference = FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
-      UploadTask uploadTask = storageReference.putFile(_image);
+      UploadTask uploadTask = storageReference
+          .putFile(
+          _image);
       // await uploadTask.onComplete;
       await storageReference.getDownloadURL().then((fileURL) {
         _uploadedFileURL = fileURL;
@@ -371,9 +375,13 @@ class MainProvider extends ChangeNotifier {
     try {
       String _uploadedFileURL = "";
       Reference storageReference = FirebaseStorage.instance.ref().child("PetAdoption/${_image.hashCode}.jpg");
-      UploadTask uploadTask = storageReference.putFile(_image);
+      print("Hello");
+      UploadTask uploadTask = storageReference
+          .putFile(
+          _image);
       // await uploadTask.onComplete;
-      await storageReference.getDownloadURL().then((fileURL) {
+      await storageReference
+          .getDownloadURL().then((fileURL) {
         _uploadedFileURL = fileURL;
       });
       FirebaseFirestore.instance.collection("PetAdoption").doc().set(
@@ -479,7 +487,7 @@ class MainProvider extends ChangeNotifier {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     User user = _auth.currentUser!;
     print(user.uid);
-    FirebaseFirestore.instance.collection('PetAdoption').where('userId', isEqualTo: user.uid).get().then((data) {
+    FirebaseFirestore.instance.collection('PetAdoption').get().then((data) {
       List<PetsAdoption> orders = <PetsAdoption>[];
       List<String> petcat = [];
       List<String> petsubcat = [];
@@ -492,7 +500,7 @@ class MainProvider extends ChangeNotifier {
         pet_adopt = [];
         petcat = [];
         petsubcat = [];
-        notifyListeners();
+
       }
       if (data.docs.isNotEmpty) {
         print(data.docs[0].data());
@@ -503,8 +511,12 @@ class MainProvider extends ChangeNotifier {
         }
         petCategory = petcat;
         petSubCategory = petsubcat;
-        pet_adoption_model = orders; // not sure
-        notifyListeners();
+
+        pet_adoption_model = orders.where((element) => element.userId != currentUser!.id).toList(); // not sure
+        orders.removeWhere((element) => element.userId != currentUser!.id);
+        pet_adopt = orders;
+        print("Lengthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        print(pet_adopt.length);
         for (int i = 0; i < petcat.length; i++) {
           petadoption(
             pet_adopt[i].category.toString(),
@@ -512,6 +524,10 @@ class MainProvider extends ChangeNotifier {
             pet_adopt[i].subcategory.toString(),
           );
         }
+        print("AFterrrrrrrrrrr");
+        print(pet_adopt.length);
+        notifyListeners();
+
       } else {
         print("Error");
       }

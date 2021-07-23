@@ -292,7 +292,7 @@ class _AddPetState extends State<AddPet> {
               insetAnimationCurve: Curves.decelerate,
               actions: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: GestureDetector(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -302,7 +302,7 @@ class _AddPetState extends State<AddPet> {
                           size: 28,
                         ),
                         Text(
-                          " Camera",
+                          "Camera",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,

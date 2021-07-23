@@ -150,10 +150,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                           size: 28,
                         ),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddPetAdoption())),
+                        onPressed:  () async
+                        {
+                          bool res = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddPetAdoption()));
+                          if(res == true) {
+                            final snackBar = SnackBar(
+                              content: Text('Pet Added Successfully'),
+
+                            );
+
+                            // Find the ScaffoldMessenger in the widget tree
+                            // and use it to show a SnackBar.
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                        },
+                        
                       ),
                     ),
                     ...info.pet_adopt

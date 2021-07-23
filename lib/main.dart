@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
       });
     } else {
       setState(() {
-        isLoading = false;
+        isLoading = true;
       });
     }
     await Provider.of<MainProvider>(context, listen: false).loadUserDetails();

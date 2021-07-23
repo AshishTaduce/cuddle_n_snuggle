@@ -681,10 +681,12 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                       setState(() {
                         save = "Saving..";
                       });
-                      final dynamic res = await Provider.of<MainProvider>(
-                        context,
-                        listen: false,
-                      ).addPetsAdoption(
+                      try{
+                        dynamic res = await Provider.of<MainProvider>(
+                          context,
+                          listen: false,
+                        ).addPetsAdoption(
+
                           nameController.text.toString(),
                           date.toString(),
                           apartment.toString(),
@@ -693,23 +695,17 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           aboutController.text.toString(),
                           _switchValue,
                           _switchValue2,
-                          _verticalGroupValue.toString()
-                      );
-                      if (res == "Success") {
-                        setState(() {
-                          nameController.text = "";
-                          date = "";
-                          save = "Saved";
-                        });
+                          _verticalGroupValue.toString(),
 
-                        // _scaffoldKey.currentState.showSnackBar(
-                        //   SnackBar(
-                        //     content: Text('Pet Added Successfully!'),
-                        //     duration: Duration(seconds: 3),
-                        //   ),
-                        //
-                        // );
+                        );
+
+                        Navigator.pop(context,true);
+                      }catch(e){
+                        print("BUTTONNNNNNNNNNNNNNNN");
+                        print(e);
                       }
+
+
                     }
                   },
                   child: Container(

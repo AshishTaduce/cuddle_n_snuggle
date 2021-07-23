@@ -106,6 +106,15 @@ class _PetAdoptionState extends State<PetAdoption> {
 
                                     Consumer<MainProvider>(
                                       builder: (_, account, __) {
+                                        print(
+                                          chatId(
+                                            account.currentUser!.id,
+                                            account
+                                                .pet_adoption_model[
+                                            index]
+                                                .id,
+                                          ),
+                                        );
                                         return InkWell(
                                             onTap: () {
                                               Navigator.push(
