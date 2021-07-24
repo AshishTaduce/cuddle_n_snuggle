@@ -221,18 +221,18 @@ class RecentChats extends StatelessWidget {
         ),
       ),
       child:  ListView.builder(
-        itemCount: (account.petsByGender.length == null) ? 0 : account.petsByGender.length,
+        itemCount: (account.pet_adoption_model.length == null) ? 0 : account.pet_adoption_model.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (_) => ChatPage(
-                  chatId: chatId(currentUser.id, account.petsByGender[index].id),
+                  chatId: chatId(currentUser.id, account.pet_adoption_model[index].id),
                   sender: currentUser,
-                  second_id: account.petsByGender[index].id,
-                  second_name: account.petsByGender[index].petName.toString(),
-                  imageUrl: account.petsByGender[index].imageUrl[0],
+                  second_id: account.pet_adoption_model[index].id,
+                  second_name: account.pet_adoption_model[index].petName.toString(),
+                  imageUrl: account.pet_adoption_model[index].imageUrl[0],
                 ),
               ),
             ),
@@ -241,7 +241,7 @@ class RecentChats extends StatelessWidget {
                   .collection("chats")
                   .doc(
                 chatId(currentUser.id,
-                    account.petsByGender[index].id,
+                    account.pet_adoption_model[index].id,
                 ),
               )
                   .collection('messages')

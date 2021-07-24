@@ -44,8 +44,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     print("object    -${widget.chatId}");
     super.initState();
-    // chatReference =
-    //     db.collection("chats").doc(widget.chatId).collection('messages');
+    chatReference =
+        db.collection("chats").doc(widget.chatId).collection('messages');
     // checkblock();
   }
 
@@ -410,20 +410,7 @@ class _ChatPageState extends State<ChatPage> {
           margin: const EdgeInsets.symmetric(vertical: 10.0),
           child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: (doc.data as Map)['type'] == "Call"
-              ? [
-              Text((doc.data as Map)["time"] != null
-                  ? "${(doc.data as Map)['text']} : " +
-                  DateFormat.yMMMd()
-                      .add_jm()
-                      .format((doc.data as Map)["time"].toDate())
-                      .toString() +
-                  " by ${(doc.data as Map)['sender_id'] == widget.sender.id
-                      ? "You"
-                      : "${widget.second_name.toString()}"}"
-                  : "")
-              ]
-                  : (doc.data as Map)['sender_id'] != widget.sender.id
+              children: (doc.data() as Map)['sender_id'] != widget.sender.id
               ? generateReceiverLayout(doc)
               : generateSenderLayout(doc),
         ),
@@ -491,7 +478,7 @@ class _ChatPageState extends State<ChatPage> {
                       : _buildTextComposer(),
                 ),
               ],
-            ),
+            ),/**/
           ),
         ),
       ),

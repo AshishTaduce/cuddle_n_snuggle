@@ -106,13 +106,14 @@ class _PetAdoptionState extends State<PetAdoption> {
 
                                     Consumer<MainProvider>(
                                       builder: (_, account, __) {
+                                        print("WEEWE");
                                         print(
                                           chatId(
                                             account.currentUser!.id,
                                             account
                                                 .pet_adoption_model[
                                             index]
-                                                .id,
+                                                .userId,
                                           ),
                                         );
                                         return InkWell(
@@ -128,7 +129,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                           .toString(),
                                                       second_id: account
                                                           .pet_adoption_model[index]
-                                                          .id
+                                                          .userId
                                                           .toString(),
                                                       second_name: account
                                                           .pet_adoption_model[index]
@@ -138,8 +139,8 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                         account.currentUser!.id,
                                                         account
                                                             .pet_adoption_model[
-                                                                index]
-                                                            .id,
+                                                                index].userId
+                                                            ,
                                                       ),
                                                     ),
                                                   ));
@@ -222,9 +223,10 @@ class GradientAppBar extends StatelessWidget {
 
 var groupChatId;
 chatId(currentUser, sender) {
-  if (currentUser.hashCode <= sender.hashCode) {
+  if (currentUser.hashCode != sender.hashCode) {
     return groupChatId = '$currentUser-$sender';
   } else {
     return groupChatId = '$sender-$currentUser';
+    // return groupChatId = '$sender';
   }
 }
