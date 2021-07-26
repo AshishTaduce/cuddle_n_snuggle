@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -10,8 +11,11 @@ import 'package:cns/util/color.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:progress_state_button/iconed_button.dart';
+import 'package:progress_state_button/progress_button.dart';
 import 'package:provider/provider.dart';
 import 'package:cns/New Screens 2/Welcome_homepage.dart';
+
 enum Pets { dog, cats, fish, hamster, mice, rabbits }
 
 class AddPetAdoption extends StatefulWidget {
@@ -51,6 +55,8 @@ class _AddPetAdoption extends State<AddPetAdoption> {
     _image = null;
     date = "";
   }
+
+  ButtonState _buttonState = ButtonState.idle;
 
   Widget switchWithString(String petType) {
     print(petType);
@@ -281,8 +287,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-              title: Text(
-                  isProfilePicture ? "Update profile picture" : "Add pictures"),
+              title: Text(isProfilePicture ? "Update profile picture" : "Add pictures"),
               content: Text(
                 "Select source",
               ),
@@ -300,10 +305,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                         ),
                         Text(
                           " Camera",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
+                          style: TextStyle(fontSize: 15, color: Colors.black, decoration: TextDecoration.none),
                         ),
                       ],
                     ),
@@ -312,14 +314,12 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            getImage(
-                                ImageSource.camera, context, isProfilePicture);
+                            getImage(ImageSource.camera, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                                ));
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ));
                           });
                     },
                   ),
@@ -336,10 +336,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                         ),
                         Text(
                           " Gallery",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
+                          style: TextStyle(fontSize: 15, color: Colors.black, decoration: TextDecoration.none),
                         ),
                       ],
                     ),
@@ -349,14 +346,12 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           barrierDismissible: false,
                           context: context,
                           builder: (context) {
-                            getImage(
-                                ImageSource.gallery, context, isProfilePicture);
+                            getImage(ImageSource.gallery, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                                ));
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ));
                           });
                     },
                   ),
@@ -370,14 +365,13 @@ class _AddPetAdoption extends State<AddPetAdoption> {
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
     i.Image? imagefile = i.decodeImage(await image.readAsBytes());
-    final compressedImagefile = File('$path.jpg')
-      ..writeAsBytesSync(i.encodeJpg(imagefile!, quality: 80));
+    final compressedImagefile = File('$path.jpg')..writeAsBytesSync(i.encodeJpg(imagefile!, quality: 80));
     return compressedImagefile;
   }
 
   Future getImage(ImageSource imageSource, context, isProfilePicture) async {
     PickedFile? image = await ImagePicker().getImage(source: imageSource);
-    
+
     if (image != null) {
       File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
@@ -414,10 +408,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
         title: Text(
           "Add Pet",
           style: Theme.of(context).textTheme.bodyText1!.merge(
-            TextStyle(
-              fontSize: 25,
-            ),
-          ),
+                TextStyle(
+                  fontSize: 25,
+                ),
+              ),
         ),
       ),
       backgroundColor: Colors.white,
@@ -435,28 +429,25 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                   child: Center(
                       child: _image == null
                           ? CircleAvatar(
-                        radius: 50,
-                        child: Center(
-                          child: Icon(Icons.camera),
-                        ),
-                      )
+                              radius: 50,
+                              child: Center(
+                                child: Icon(Icons.camera),
+                              ),
+                            )
                           : CircleAvatar(
-                        radius: 50,
-                        backgroundImage: FileImage(_image!),
-                      )),
+                              radius: 50,
+                              backgroundImage: FileImage(_image!),
+                            )),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-
                 Container(
-
                   child: TextFormField(
                     controller: nameController,
                     onChanged: (v) => nameController.text,
                     decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.teal)),
+                      border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.teal)),
                       hintText: 'Enter Your Pets Name',
                       labelText: 'Pets Name',
                       prefixIcon: const Icon(
@@ -470,7 +461,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 SizedBox(
                   height: 10,
                 ),
-
                 Card(
                   elevation: 2,
                   child: DateTimePicker(
@@ -509,17 +499,15 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     Container(
                       height: 48,
                       margin: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          borderRadius: BorderRadius.circular(4)),
+                      decoration: BoxDecoration(border: Border.all(width: 0.5), borderRadius: BorderRadius.circular(4)),
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       child: DropdownButton(
                         items: aparts.keys
                             .toList()
                             .map((e) => DropdownMenuItem(
-                          child: Text(e),
-                          value: e,
-                        ))
+                                  child: Text(e),
+                                  value: e,
+                                ))
                             .toList(),
                         value: apartment,
                         isExpanded: true,
@@ -537,7 +525,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                   height: 20,
                 ),
                 Align(
-                  alignment : Alignment.bottomLeft,
+                  alignment: Alignment.bottomLeft,
                   child: Text(
                     "What is Breed of your pet ?",
                     style: TextStyle(fontSize: 20),
@@ -549,18 +537,15 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
-
                     margin: EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5),
-                        borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(border: Border.all(width: 0.5), borderRadius: BorderRadius.circular(4)),
                     padding: EdgeInsets.symmetric(horizontal: 12),
                     child: DropdownButton(
                       items: List.of(aparts[apartment] ?? [])
                           .map((e) => DropdownMenuItem(
-                        child: Text(e),
-                        value: e,
-                      ))
+                                child: Text(e),
+                                value: e,
+                              ))
                           .toList(),
                       value: block,
                       onChanged: (value) {
@@ -574,15 +559,12 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 SizedBox(
                   height: 20,
                 ),
-
                 Container(
-
                   child: TextFormField(
                     controller: aboutController,
                     onChanged: (v) => aboutController.text,
                     decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.teal)),
+                      border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.teal)),
                       hintText: 'Describe Your Pet to let the world know',
                       labelText: 'About Your Pet',
                       prefixIcon: const Icon(
@@ -618,7 +600,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-
                   children: [
                     Text("KCI Certified"),
                     SizedBox(
@@ -670,23 +651,26 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     if (nameController.text.length == 0 ||
                         date.toString() == "" ||
                         apartment == "" ||
-                        block.toString() == "" || _verticalGroupValue == "" || _image == null) {
+                        block.toString() == "" ||
+                        _verticalGroupValue == "" ||
+                        _image == null) {
                       // _scaffoldKey.currentState.showSnackBar(
                       //   SnackBar(
                       //     content: Text('Fill all the details'),
                       //     duration: Duration(seconds: 3),
                       //   ),
                       // );
-                    } else {
+                    }
+
+                    else {
                       setState(() {
                         save = "Saving..";
                       });
-                      try{
+                      try {
                         dynamic res = await Provider.of<MainProvider>(
                           context,
                           listen: false,
                         ).addPetsAdoption(
-
                           nameController.text.toString(),
                           date.toString(),
                           apartment.toString(),
@@ -696,20 +680,16 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           _switchValue,
                           _switchValue2,
                           _verticalGroupValue.toString(),
-
                         );
 
-                        Navigator.pop(context,true);
-                      }catch(e){
+                        Navigator.pop(context, true);
+                      } catch (e) {
                         print("BUTTONNNNNNNNNNNNNNNN");
                         print(e);
                       }
-
-
                     }
                   },
                   child: Container(
-
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(25),
@@ -727,13 +707,93 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     child: Center(
                       child: Text(
                         "$save",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: textColor,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 15, color: textColor, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
+                ),
+                ProgressButton.icon(
+                  iconedButtons: {
+                    ButtonState.idle: IconedButton(
+                      text: "Send",
+                      icon: Icon(Icons.send, color: Colors.white),
+                      color: Colors.deepPurple.shade500,
+                    ),
+                    ButtonState.loading: IconedButton(
+                      text: "Loading",
+                      color: Colors.deepPurple.shade700,
+                    ),
+                    ButtonState.fail: IconedButton(
+                      text: "Failed",
+                      icon: Icon(Icons.cancel, color: Colors.white),
+                      color: Colors.red.shade300,
+                    ),
+                    ButtonState.success: IconedButton(
+                        text: "Success",
+                        icon: Icon(
+                          Icons.check_circle,
+                          color: Colors.white,
+                        ),
+                        color: Colors.green.shade400)
+                  },
+                  onPressed: () async{
+                    try  {
+                      setState(() {
+                        _buttonState = ButtonState.loading;
+                      });
+
+                      if (nameController.text.length == 0 ||
+                          date.toString() == "" ||
+                          apartment == "" ||
+                          block.toString() == "" ||
+                          _verticalGroupValue == "" ||
+                          _image == null) {
+                        // _scaffoldKey.currentState.showSnackBar(
+                        //   SnackBar(
+                        //     content: Text('Fill all the details'),
+                        //     duration: Duration(seconds: 3),
+                        //   ),
+                        // );
+                      }
+
+                      else {
+                        setState(() {
+                          save = "Saving..";
+                        });
+                        try {
+                          dynamic res = await Provider.of<MainProvider>(
+                            context,
+                            listen: false,
+                          ).addPetsAdoption(
+                            nameController.text.toString(),
+                            date.toString(),
+                            apartment.toString(),
+                            _image!,
+                            block.toString(),
+                            aboutController.text.toString(),
+                            _switchValue,
+                            _switchValue2,
+                            _verticalGroupValue.toString(),
+                          );
+
+                          // Navigator.pop(context, true);
+                        } catch (e) {
+                          print("BUTTONNNNNNNNNNNNNNNN");
+                          throw e;
+                        }
+                      }
+
+                      setState(() {
+                        _buttonState = ButtonState.success;
+                      });
+                    }
+                    catch (e){
+                      setState(() {
+                        _buttonState = ButtonState.fail;
+                      });
+                    }
+                  },
+                  state: _buttonState,
                 ),
               ],
             ),
