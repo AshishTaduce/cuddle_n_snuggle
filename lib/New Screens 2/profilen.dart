@@ -8,6 +8,8 @@ import 'package:cns/models/pets.dart';
 import 'package:cns/New Screens 2/add_pets.dart';
 import "package:provider/src/consumer.dart";
 
+import 'ngo_or_indiviual.dart';
+
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -44,7 +46,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NgoOrIndiviualPage()));
             },
           )
         ],
@@ -85,10 +90,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                           size: 28,
                         ),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddPet())),
+                        onPressed:  () async
+                        {
+                        bool res = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => AddPet()));
+                        if(res == true) {
+                        final snackBar = SnackBar(
+                        content: Text('Pet Added Successfully'),
+
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                        },
                       ),
                     ),
                     ...info.petsModel

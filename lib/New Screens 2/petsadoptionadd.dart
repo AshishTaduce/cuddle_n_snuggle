@@ -58,236 +58,13 @@ class _AddPetAdoption extends State<AddPetAdoption> {
 
   ButtonState _buttonState = ButtonState.idle;
 
-  Widget switchWithString(String petType) {
-    print(petType);
-    switch (petType) {
-      case 'cats':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      case 'dog':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      case 'fish':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      case 'hamster':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      case 'mice':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      case 'Rabbit':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-        break;
-      default:
-        return Text("No Pet");
-    }
-  }
-
   Future source(BuildContext context, bool isProfilePicture) async {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-              title: Text(isProfilePicture ? "Update profile picture" : "Add pictures"),
+              title: Text(
+                  isProfilePicture ? "Update profile picture" : "Add pictures"),
               content: Text(
                 "Select source",
               ),
@@ -305,7 +82,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                         ),
                         Text(
                           " Camera",
-                          style: TextStyle(fontSize: 15, color: Colors.black, decoration: TextDecoration.none),
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              decoration: TextDecoration.none),
                         ),
                       ],
                     ),
@@ -314,11 +94,13 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            getImage(ImageSource.camera, context, isProfilePicture);
+                            getImage(
+                                ImageSource.camera, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             ));
                           });
                     },
@@ -336,7 +118,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                         ),
                         Text(
                           " Gallery",
-                          style: TextStyle(fontSize: 15, color: Colors.black, decoration: TextDecoration.none),
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              decoration: TextDecoration.none),
                         ),
                       ],
                     ),
@@ -346,11 +131,13 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           barrierDismissible: false,
                           context: context,
                           builder: (context) {
-                            getImage(ImageSource.gallery, context, isProfilePicture);
+                            getImage(
+                                ImageSource.gallery, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             ));
                           });
                     },
@@ -365,7 +152,8 @@ class _AddPetAdoption extends State<AddPetAdoption> {
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
     i.Image? imagefile = i.decodeImage(await image.readAsBytes());
-    final compressedImagefile = File('$path.jpg')..writeAsBytesSync(i.encodeJpg(imagefile!, quality: 80));
+    final compressedImagefile = File('$path.jpg')
+      ..writeAsBytesSync(i.encodeJpg(imagefile!, quality: 80));
     return compressedImagefile;
   }
 
@@ -447,7 +235,8 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     controller: nameController,
                     onChanged: (v) => nameController.text,
                     decoration: new InputDecoration(
-                      border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.teal)),
+                      border: new OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.teal)),
                       hintText: 'Enter Your Pets Name',
                       labelText: 'Pets Name',
                       prefixIcon: const Icon(
@@ -499,7 +288,9 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     Container(
                       height: 48,
                       margin: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(border: Border.all(width: 0.5), borderRadius: BorderRadius.circular(4)),
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 0.5),
+                          borderRadius: BorderRadius.circular(4)),
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       child: DropdownButton(
                         items: aparts.keys
@@ -538,7 +329,9 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                   alignment: Alignment.bottomLeft,
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(border: Border.all(width: 0.5), borderRadius: BorderRadius.circular(4)),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 0.5),
+                        borderRadius: BorderRadius.circular(4)),
                     padding: EdgeInsets.symmetric(horizontal: 12),
                     child: DropdownButton(
                       items: List.of(aparts[apartment] ?? [])
@@ -564,7 +357,8 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                     controller: aboutController,
                     onChanged: (v) => aboutController.text,
                     decoration: new InputDecoration(
-                      border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.teal)),
+                      border: new OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.teal)),
                       hintText: 'Describe Your Pet to let the world know',
                       labelText: 'About Your Pet',
                       prefixIcon: const Icon(
@@ -646,76 +440,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
-                  onTap: () async {
-                    if (nameController.text.length == 0 ||
-                        date.toString() == "" ||
-                        apartment == "" ||
-                        block.toString() == "" ||
-                        _verticalGroupValue == "" ||
-                        _image == null) {
-                      // _scaffoldKey.currentState.showSnackBar(
-                      //   SnackBar(
-                      //     content: Text('Fill all the details'),
-                      //     duration: Duration(seconds: 3),
-                      //   ),
-                      // );
-                    }
-
-                    else {
-                      setState(() {
-                        save = "Saving..";
-                      });
-                      try {
-                        dynamic res = await Provider.of<MainProvider>(
-                          context,
-                          listen: false,
-                        ).addPetsAdoption(
-                          nameController.text.toString(),
-                          date.toString(),
-                          apartment.toString(),
-                          _image!,
-                          block.toString(),
-                          aboutController.text.toString(),
-                          _switchValue,
-                          _switchValue2,
-                          _verticalGroupValue.toString(),
-                        );
-
-                        Navigator.pop(context, true);
-                      } catch (e) {
-                        print("BUTTONNNNNNNNNNNNNNNN");
-                        print(e);
-                      }
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(25),
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Color(0xff01b4c9),
-                          Color(0xff01b4c9),
-                        ],
-                      ),
-                    ),
-                    height: MediaQuery.of(context).size.height * .065,
-                    width: MediaQuery.of(context).size.width * .75,
-                    child: Center(
-                      child: Text(
-                        "$save",
-                        style: TextStyle(fontSize: 15, color: textColor, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
                 ProgressButton.icon(
                   iconedButtons: {
                     ButtonState.idle: IconedButton(
-                      text: "Send",
+                      text: "Add",
                       icon: Icon(Icons.send, color: Colors.white),
                       color: Colors.deepPurple.shade500,
                     ),
@@ -736,8 +464,8 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                         ),
                         color: Colors.green.shade400)
                   },
-                  onPressed: () async{
-                    try  {
+                  onPressed: () async {
+                    try {
                       setState(() {
                         _buttonState = ButtonState.loading;
                       });
@@ -748,18 +476,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           block.toString() == "" ||
                           _verticalGroupValue == "" ||
                           _image == null) {
-                        // _scaffoldKey.currentState.showSnackBar(
-                        //   SnackBar(
-                        //     content: Text('Fill all the details'),
-                        //     duration: Duration(seconds: 3),
-                        //   ),
-                        // );
-                      }
-
-                      else {
                         setState(() {
-                          save = "Saving..";
+                          _buttonState = ButtonState.fail;
                         });
+                      } else {
                         try {
                           dynamic res = await Provider.of<MainProvider>(
                             context,
@@ -776,7 +496,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                             _verticalGroupValue.toString(),
                           );
 
-                          // Navigator.pop(context, true);
+                          Navigator.pop(context, true);
                         } catch (e) {
                           print("BUTTONNNNNNNNNNNNNNNN");
                           throw e;
@@ -786,8 +506,7 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                       setState(() {
                         _buttonState = ButtonState.success;
                       });
-                    }
-                    catch (e){
+                    } catch (e) {
                       setState(() {
                         _buttonState = ButtonState.fail;
                       });

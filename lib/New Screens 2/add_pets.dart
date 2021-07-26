@@ -40,7 +40,6 @@ class _AddPetState extends State<AddPet> {
   Map<String, dynamic> aparts = {};
   ButtonState? buttonstate;
 
-
   @override
   void initState() {
     super.initState();
@@ -49,15 +48,12 @@ class _AddPetState extends State<AddPet> {
       if (apartment == null) {
         apartment = aparts.keys.toList().first;
         block = List.of(aparts[aparts.keys.toList().first] ?? []).first;
-        print("------- Apartments ----------");
-        print(apartment);
       }
       setState(() {});
     });
     // _image != null;
     date = "";
   }
-
 
   Future source(BuildContext context, bool isProfilePicture) async {
     return showDialog(
@@ -107,7 +103,6 @@ class _AddPetState extends State<AddPet> {
                     },
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: GestureDetector(
@@ -185,6 +180,7 @@ class _AddPetState extends State<AddPet> {
     Navigator.pop(context);
   }
 
+  ButtonState _buttonState = ButtonState.idle;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -439,83 +435,80 @@ class _AddPetState extends State<AddPet> {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
-                  onTap: () async {
-                    if (nameController.text.length == 0 ||
-                        date.toString() == "" ||
-                        apartment == "" ||
-                        block.toString() == "" ||
-                        _verticalGroupValue == "") {
-
-                    } else {
+                ProgressButton.icon(
+                  iconedButtons: {
+                    ButtonState.idle: IconedButton(
+                      text: "Send",
+                      icon: Icon(Icons.send, color: Colors.white),
+                      color: Colors.deepPurple.shade500,
+                    ),
+                    ButtonState.loading: IconedButton(
+                      text: "Loading",
+                      color: Colors.deepPurple.shade700,
+                    ),
+                    ButtonState.fail: IconedButton(
+                      text: "Failed",
+                      icon: Icon(Icons.cancel, color: Colors.white),
+                      color: Colors.red.shade300,
+                    ),
+                    ButtonState.success: IconedButton(
+                        text: "Success",
+                        icon: Icon(
+                          Icons.check_circle,
+                          color: Colors.white,
+                        ),
+                        color: Colors.green.shade400)
+                  },
+                  onPressed: () async {
+                    try {
                       setState(() {
-                        save = "Saving..";
+                        _buttonState = ButtonState.loading;
                       });
-                      final dynamic res = await Provider.of<MainProvider>(
-                        context,
-                        listen: false,
-                      ).addPetsPublic(
-                          nameController.text.toString(),
-                          date.toString(),
-                          apartment.toString(),
-                          _image!,
-                          block.toString(),
-                          aboutController.text.toString(),
-                          _switchValue,
-                          _switchValue2,
-                          _verticalGroupValue.toString());
-                      if (res == "Success") {
-                        setState(() {
-                          nameController.text = "";
-                          date = "";
-                          save = "Saved";
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Pet Added Successfully'),
-                            ),
-                          );
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      NewScreenSecondHomePage()));
-                        });
 
+                      if (nameController.text.length == 0 ||
+                          date.toString() == "" ||
+                          apartment == "" ||
+                          block.toString() == "" ||
+                          _verticalGroupValue == "" ||
+                          _image == null) {
+                        setState(() {
+                          _buttonState = ButtonState.fail;
+                        });
                       } else {
-                        setState(() {
-                          save = "Save";
-                        });
+                        try {
+                          dynamic res = await Provider.of<MainProvider>(
+                            context,
+                            listen: false,
+                          ).addPetsPublic(
+                            nameController.text.toString(),
+                            date.toString(),
+                            apartment.toString(),
+                            _image!,
+                            block.toString(),
+                            aboutController.text.toString(),
+                            _switchValue,
+                            _switchValue2,
+                            _verticalGroupValue.toString(),
+                          );
 
+                          Navigator.pop(context, true);
+                        } catch (e) {
+                          print("BUTTONNNNNNNNNNNNNNNN");
+                          throw e;
+                        }
                       }
+
+                      setState(() {
+                        _buttonState = ButtonState.success;
+                      });
+                    } catch (e) {
+                      setState(() {
+                        _buttonState = ButtonState.fail;
+                      });
                     }
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(25),
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Color(0xff01b4c9),
-                          Color(0xff01b4c9),
-                        ],
-                      ),
-                    ),
-                    height: MediaQuery.of(context).size.height * .065,
-                    width: MediaQuery.of(context).size.width * .75,
-                    child: Center(
-                      child: Text(
-                        "$save",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: textColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
+                  state: _buttonState,
                 ),
-
               ],
             ),
           ),

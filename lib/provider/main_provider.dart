@@ -20,7 +20,8 @@ class MainProvider extends ChangeNotifier {
 
   List<PetsAdoption> pet_adoption_model = [];
   List<PetsAdoption> pet_adopt = [];
-  ValueNotifier<List<DocumentSnapshot>> petNotifier = ValueNotifier<List<DocumentSnapshot>>([]);
+  ValueNotifier<List<DocumentSnapshot>> petNotifier =
+      ValueNotifier<List<DocumentSnapshot>>([]);
   dynamic petCategory;
   dynamic petSubCategory;
   Stream<DocumentSnapshot>? petDetail;
@@ -31,33 +32,35 @@ class MainProvider extends ChangeNotifier {
 
   static const your_client_id = '859647244877727';
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  static const your_redirect_url = 'https://cnsi-b4f1c.firebaseapp.com/__/auth/handler';
+  static const your_redirect_url =
+      'https://cnsi-b4f1c.firebaseapp.com/__/auth/handler';
 
-  Future<dynamic> petmatch(String cate, String sex, String subcat) async {
-    await FirebaseFirestore.instance
-        .collection('Pets')
-        .where('category', isEqualTo: cate)
-        .where('subcategory', isEqualTo: subcat)
-        .where('sex', isEqualTo: sex.contains("fe") ? "Male" : "Female")
-        .get()
-        .then((data) {
-      List<PetsModel> orders = <PetsModel>[];
-      int totalCount = data.docs.length;
-      if (data.docs.isNotEmpty) {
-        for (int i = 0; i < totalCount; i++) {
-          print(data.docs[i]["subcategory"]);
-          orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
-        }
-        petMatch = orders;
-        notifyListeners();
-        // print(pet_match[0].category.toString());
-      } else {
-        print("No data for pet match");
-      }
-    });
-  }
+  // Future<dynamic> petmatch(String cate, String sex, String subcat) async {
+  //   await FirebaseFirestore.instance
+  //       .collection('Pets')
+  //       .where('category', isEqualTo: cate)
+  //       .where('subcategory', isEqualTo: subcat)
+  //       .where('sex', isEqualTo: sex.contains("fe") ? "Male" : "Female")
+  //       .get()
+  //       .then((data) {
+  //     List<PetsModel> orders = <PetsModel>[];
+  //     int totalCount = data.docs.length;
+  //     if (data.docs.isNotEmpty) {
+  //       for (int i = 0; i < totalCount; i++) {
+  //         print(data.docs[i]["subcategory"]);
+  //         orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
+  //       }
+  //       petMatch = orders;
+  //       notifyListeners();
+  //       // print(pet_match[0].category.toString());
+  //     } else {
+  //       print("No data for pet match");
+  //     }
+  //   });
+  // }
 
-  Future<dynamic> petmatchByGender(String cate, String sex, String subcat) async {
+  Future<dynamic> petmatchByGender(
+      String cate, String sex, String subcat) async {
     await FirebaseFirestore.instance
         .collection('Pets')
         .where('category', isEqualTo: cate)
@@ -82,15 +85,21 @@ class MainProvider extends ChangeNotifier {
   }
 
   Future<dynamic> petadoption(String cate, String sex, String subcat) async {
-    await FirebaseFirestore.instance.collection('PetAdoption').get().then((data) {
+    await FirebaseFirestore.instance
+        .collection('PetAdoption')
+        .get()
+        .then((data) {
       List<PetsAdoption> orders = <PetsAdoption>[];
       int totalCount = data.docs.length;
       print("____________________________");
       print(totalCount);
       if (data.docs.isNotEmpty) {
         for (int i = 0; i < totalCount; i++) {
-          orders.add(PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
-          orders = orders.where((element) => element.userId != currentUser!.id).toList();
+          orders.add(
+              PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
+          orders = orders
+              .where((element) => element.userId != currentUser!.id)
+              .toList();
           pet_adoption_model = orders;
           notifyListeners();
         }
@@ -106,12 +115,13 @@ class MainProvider extends ChangeNotifier {
         List<PetsModel> orders = <PetsModel>[];
         int totalCount = data.docs.length;
         if (data.docs.isNotEmpty) {
-          print("========== Length ==========");
-          print(data.docs.length);
+          
+          
           for (int i = 0; i < totalCount; i++) {
-            print("Name------------");
-            print(data.docs[i].data()["name"]);
-            orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
+          
+          
+            orders
+                .add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
             orders.removeWhere((element) => element.userId == currentUser!.id);
             petMatch = orders;
             notifyListeners();
@@ -123,12 +133,14 @@ class MainProvider extends ChangeNotifier {
     );
   }
 
-  Future<dynamic> handleGoogleSign(BuildContext context, String isIndiviual) async {
+  Future<dynamic> handleGoogleSign(
+      BuildContext context, String isIndiviual) async {
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn _googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
@@ -148,7 +160,8 @@ class MainProvider extends ChangeNotifier {
           .get()
           .then((QuerySnapshot snapshot) async {
         if (snapshot.docs.length <= 0) {
-          await setDataUser(authResult.user!, isIndiviual, authResult.user!.displayName!);
+          await setDataUser(
+              authResult.user!, isIndiviual, authResult.user!.displayName!);
         }
         await loadUserDetails();
       });
@@ -166,7 +179,8 @@ class MainProvider extends ChangeNotifier {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn _googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
@@ -186,7 +200,8 @@ class MainProvider extends ChangeNotifier {
           .get()
           .then((QuerySnapshot snapshot) async {
         if (snapshot.docs.length <= 0) {
-          await setDataUser(authResult.user!, isNGO, authResult.user!.displayName!);
+          await setDataUser(
+              authResult.user!, isNGO, authResult.user!.displayName!);
         }
         await loadUserDetails();
       });
@@ -279,40 +294,45 @@ class MainProvider extends ChangeNotifier {
   //   }
   // }
 
-  Future<dynamic> addPets(String name, String dob, String category, File _image, String subcategory, String bio,
-      bool vaccinated, bool kssi) async {
-    try {
-      String _uploadedFileURL = "";
-      Reference storageReference = FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
-      UploadTask uploadTask = storageReference
-          .putFile(
-          _image);
-      await storageReference.getDownloadURL().then((fileURL) {
-        _uploadedFileURL = fileURL;
-      });
-      final FirebaseAuth _auth = FirebaseAuth.instance;
-      FirebaseFirestore.instance.collection("Users/${_auth.currentUser!.uid}/Pets").doc().set(
-        {
-          "name": name.toString(),
-          "petdob": dob.toString(),
-          "category": category.toString(),
-          "image": FieldValue.arrayUnion([
-            _uploadedFileURL,
-          ]),
-          "subcategory": subcategory.toString(),
-          "bio": bio.toString(),
-          "vaccinated": vaccinated.toString(),
-          "kssi_certified": kssi.toString()
-        },
-      );
-      getPets();
-      return "Success";
-    } catch (e) {
-      print("------- Error ---------");
-      print(e);
-      print("------- Error ---------");
-    }
-  }
+  // Future<dynamic> addPets(String name, String dob, String category, File _image,
+  //     String subcategory, String bio, bool vaccinated, bool kssi) async {
+  //   try {
+  //     String _uploadedFileURL = "";
+  //     Reference storageReference =
+  //         FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
+  //     UploadTask uploadTask = storageReference.putFile(_image);
+  //     await Future.delayed(Duration(seconds: 5));
+  //     await storageReference.getDownloadURL().then((fileURL) {
+  //       _uploadedFileURL = fileURL;
+  //     });
+  //     await Future.delayed(Duration(seconds: 3));
+  //     final FirebaseAuth _auth = FirebaseAuth.instance;
+  //     FirebaseFirestore.instance
+  //         .collection("Users/${_auth.currentUser!.uid}/Pets")
+  //         .doc()
+  //         .set(
+  //       {
+  //         "name": name.toString(),
+  //         "petdob": dob.toString(),
+  //         "category": category.toString(),
+  //         "image": FieldValue.arrayUnion([
+  //           _uploadedFileURL,
+  //         ]),
+  //         "subcategory": subcategory.toString(),
+  //         "bio": bio.toString(),
+  //         "vaccinated": vaccinated.toString(),
+  //         "kssi_certified": kssi.toString()
+  //       },
+  //     );
+  //     await Future.delayed(Duration(seconds: 2));
+  //     getPets();
+  //     return "Success";
+  //   } catch (e) {
+  //     print("------- Error ---------");
+  //     print(e);
+  //     print("------- Error ---------");
+  //   }
+  // }
 
   Future<dynamic> addPetsPublic(
     String name,
@@ -327,14 +347,15 @@ class MainProvider extends ChangeNotifier {
   ) async {
     try {
       String _uploadedFileURL = "";
-      Reference storageReference = FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
-      UploadTask uploadTask = storageReference
-          .putFile(
-          _image);
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child("Pets/${_image.hashCode}.jpg");
+      UploadTask uploadTask = storageReference.putFile(_image);
       // await uploadTask.onComplete;
+      await Future.delayed(Duration(seconds: 5));
       await storageReference.getDownloadURL().then((fileURL) {
         _uploadedFileURL = fileURL;
       });
+      await Future.delayed(Duration(seconds: 3));
       FirebaseFirestore.instance.collection("Pets").doc().set(
         {
           "name": name.toString(),
@@ -352,7 +373,8 @@ class MainProvider extends ChangeNotifier {
           "sex": sex.toString()
         },
       );
-      getPets();
+      await Future.delayed(Duration(seconds: 2));
+      //  getPets();
       return "Success";
     } catch (e) {
       print("------- Error ---------");
@@ -373,17 +395,32 @@ class MainProvider extends ChangeNotifier {
     String sex,
   ) async {
     try {
+      print([
+        name,
+        dob,
+        category,
+        _image,
+        subcategory,
+        bio,
+        vaccinated,
+        kssi,
+        sex
+      ]);
       String _uploadedFileURL = "";
-      Reference storageReference = FirebaseStorage.instance.ref().child("PetAdoption/${_image.hashCode}.jpg");
+      print("___________image");
+      print(_image.hashCode);
+      Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child("PetAdoption/${_image.hashCode}.jpg");
       print("Hello");
-      UploadTask uploadTask = storageReference
-          .putFile(
-          _image);
+      print(storageReference.fullPath);
+      UploadTask uploadTask = storageReference.putFile(_image);
+      await Future.delayed(Duration(seconds: 5));
       // await uploadTask.onComplete;
-      await storageReference
-          .getDownloadURL().then((fileURL) {
+      await storageReference.getDownloadURL().then((fileURL) {
         _uploadedFileURL = fileURL;
       });
+      await Future.delayed(Duration(seconds: 3));
       FirebaseFirestore.instance.collection("PetAdoption").doc().set(
         {
           "name": name.toString(),
@@ -401,35 +438,44 @@ class MainProvider extends ChangeNotifier {
           "sex": sex.toString()
         },
       );
-      getAdoptionPets();
+      await Future.delayed(Duration(seconds: 2));
+
+      // getAdoptionPets();
       return "Success";
     } catch (e) {
       print("------- Error ---------");
       print(e);
+
+      throw (e);
       print("------- Error ---------");
     }
   }
 
-  Future<dynamic> petDetailId(String documentId) async {
-    petDetail =
-        FirebaseFirestore.instance.collection('Users/${_auth.currentUser!.uid}/Pets').doc(documentId).snapshots();
-    notifyListeners();
-  }
+  // Future<dynamic> petDetailId(String documentId) async {
+  //   petDetail = FirebaseFirestore.instance
+  //       .collection('Users/${_auth.currentUser!.uid}/Pets')
+  //       .doc(documentId)
+  //       .snapshots();
+  //   notifyListeners();
+  // }
 
-  Future<dynamic> Petadoptiondetail(String documentId) async {
-    petDetail = FirebaseFirestore.instance
-        .collection('Users/${_auth.currentUser!.uid}/PetAdoption')
-        .doc(documentId)
-        .snapshots();
-    notifyListeners();
-  }
+  // Future<dynamic> Petadoptiondetail(String documentId) async {
+  //   petDetail = FirebaseFirestore.instance
+  //       .collection('Users/${_auth.currentUser!.uid}/PetAdoption')
+  //       .doc(documentId)
+  //       .snapshots();
+  //   notifyListeners();
+  // }
 
-  Future<dynamic> update_pet_details(String documentId) async {
-    await FirebaseFirestore.instance.doc("Users/${currentUser!.id}/Pets/$documentId").update({});
-  }
+  // Future<dynamic> update_pet_details(String documentId) async {
+  //   await FirebaseFirestore.instance
+  //       .doc("Users/${currentUser!.id}/Pets/$documentId")
+  //       .update({});
+  // }
 
   Future<dynamic> uploadFile(File _image) async {
-    Reference storageReference = FirebaseStorage.instance.ref().child('chats/(_image.path)}}');
+    Reference storageReference =
+        FirebaseStorage.instance.ref().child('chats/(_image.path)}}');
     UploadTask uploadTask = storageReference.putFile(_image);
     // await uploadTask.onComplete;
     print('File Uploaded');
@@ -440,7 +486,11 @@ class MainProvider extends ChangeNotifier {
       final FirebaseAuth _auth = FirebaseAuth.instance;
       User user = _auth.currentUser!;
       print(user.uid);
-      FirebaseFirestore.instance.collection('Pets').where('userId', isEqualTo: user.uid).get().then((data) {
+      FirebaseFirestore.instance
+          .collection('Pets')
+          .where('userId', isEqualTo: user.uid)
+          .get()
+          .then((data) {
         List<PetsModel> orders = <PetsModel>[];
         List<String> petcat = [];
         List<String> petsubcat = [];
@@ -456,7 +506,8 @@ class MainProvider extends ChangeNotifier {
         if (data.docs.isNotEmpty) {
           print(data.docs[0].data());
           for (int i = 0; i < totalCount; i++) {
-            orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
+            orders
+                .add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
             petcat.add(data.docs[i]["category"]);
             petsubcat.add(data.docs[i]["subcategory"]);
           }
@@ -465,7 +516,7 @@ class MainProvider extends ChangeNotifier {
           petsModel = orders;
           notifyListeners();
           for (int i = 0; i < petcat.length; i++) {
-            petmatch(
+            petmatchByGender(
               petsModel[i].category.toString(),
               petsModel[i].sex.toString() == "Male" ? "Female" : "Male",
               petsModel[i].subcategory.toString(),
@@ -500,34 +551,33 @@ class MainProvider extends ChangeNotifier {
         pet_adopt = [];
         petcat = [];
         petsubcat = [];
-
       }
       if (data.docs.isNotEmpty) {
         print(data.docs[0].data());
         for (int i = 0; i < totalCount; i++) {
-          orders.add(PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
+          orders.add(
+              PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
           petcat.add(data.docs[i]["category"]);
           petsubcat.add(data.docs[i]["subcategory"]);
         }
         petCategory = petcat;
         petSubCategory = petsubcat;
 
-        pet_adoption_model = orders.where((element) => element.userId != currentUser!.id).toList(); // not sure
+        pet_adoption_model = orders
+            .where((element) => element.userId != currentUser!.id)
+            .toList(); // not sure
         orders.removeWhere((element) => element.userId != currentUser!.id);
         pet_adopt = orders;
-        print("Lengthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        print(pet_adopt.length);
-        for (int i = 0; i < petcat.length; i++) {
+
+        for (int i = 0; i < pet_adopt.length; i++) {
           petadoption(
             pet_adopt[i].category.toString(),
             pet_adopt[i].sex.toString() == "Male" ? "Female" : "Male",
             pet_adopt[i].subcategory.toString(),
           );
         }
-        print("AFterrrrrrrrrrr");
-        print(pet_adopt.length);
-        notifyListeners();
 
+        notifyListeners();
       } else {
         print("Error");
       }
@@ -574,7 +624,9 @@ class MainProvider extends ChangeNotifier {
     );
     try {
       final facebookAuthCred = FacebookAuthProvider.credential(result);
-      user = (await FirebaseAuth.instance.signInWithCredential(facebookAuthCred)).user!;
+      user =
+          (await FirebaseAuth.instance.signInWithCredential(facebookAuthCred))
+              .user!;
       print('user $user');
       return "Success";
     } catch (e) {
