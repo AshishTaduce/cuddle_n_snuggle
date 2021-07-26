@@ -80,7 +80,8 @@ class _MessagePageState extends State<MessagePage>
                       Expanded(
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
-                            return RecentChats(acc.currentUser!, acc);
+                            print(acc.petsByGender);
+                            return RecentChats(acc.currentUser!, acc.petsByGender);
                           },
                         ),
                       )
@@ -109,7 +110,8 @@ class _MessagePageState extends State<MessagePage>
                       Expanded(
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
-                            return RecentChats(acc.currentUser!, acc);
+                            print(acc.pet_adoption_model);
+                            return RecentChats(acc.currentUser!, acc.pet_adoption_model);
                           },
                         ),
                       )
@@ -205,13 +207,14 @@ class GradientAppBar extends StatelessWidget {
 class RecentChats extends StatelessWidget {
   final db = FirebaseFirestore.instance;
   final NewUser currentUser;
-  final MainProvider account;
+  final List petslist;
 
 
-  RecentChats(this.currentUser, this.account);
+  RecentChats(this.currentUser, this.petslist);
 
   @override
   Widget build(BuildContext context) {
+    print(petslist.length);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -221,18 +224,18 @@ class RecentChats extends StatelessWidget {
         ),
       ),
       child:  ListView.builder(
-        itemCount: (account.pet_adoption_model.length == null) ? 0 : account.pet_adoption_model.length,
+        itemCount: petslist.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (_) => ChatPage(
-                  chatId: chatId(currentUser.id, account.pet_adoption_model[index].id),
+                  chatId: chatId(currentUser.id, petslist[index].id),
                   sender: currentUser,
-                  second_id: account.pet_adoption_model[index].id,
-                  second_name: account.pet_adoption_model[index].petName.toString(),
-                  imageUrl: account.pet_adoption_model[index].imageUrl[0],
+                  second_id: petslist[index].id,
+                  second_name: petslist[index].petName.toString(),
+                  imageUrl: petslist[index].imageUrl[0],
                 ),
               ),
             ),
@@ -241,7 +244,7 @@ class RecentChats extends StatelessWidget {
                   .collection("chats")
                   .doc(
                 chatId(currentUser.id,
-                    account.pet_adoption_model[index].id,
+                    petslist[index].userId,
                 ),
               )
                   .collection('messages')
@@ -253,19 +256,23 @@ class RecentChats extends StatelessWidget {
                   return Container(
                     child: CupertinoActivityIndicator(),
                   );
-                else if (snapshot.data.documents.length == 0) {
+                else if (snapshot.data.docs.length == 0) {
                   return Container(
                   );
                 }
-                // index.lastmsg = snapshot.data.documents[0]['time'];
+                print("hishis");
+                print(snapshot.data.docs.length);
+                print(index);
+                print(petslist.isEmpty);
+                // index.lastmsg = snapshot.data.docs[0]['time'];
                 return Container(
                   margin:
                   EdgeInsets.only(top: 5.0, bottom: 5.0, right: 10.0,left: 10.0),
 
                   decoration: BoxDecoration(
-                    color: snapshot.data.documents[0]['sender_id'] !=
+                    color: snapshot.data.docs[0]['sender_id'] !=
                         currentUser.id &&
-                        !snapshot.data.documents[0]['isRead']
+                        !snapshot.data.docs[0]['isRead']
                         ? Colors.white.withOpacity(.1)
                         : Colors.white.withOpacity(.2),
 
@@ -274,14 +281,14 @@ class RecentChats extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: secondryColor,
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(
-                              "${account.petsByGender[index].imageUrl[0].toString()}"),
-                        ),
+                        // /**/leading: CircleAvatar(
+                        //   backgroundColor: secondryColor,
+                        //   radius: 30.0,
+                        //   backgroundImage: NetworkImage(
+                        //       "${account[index].imageUrl[0].toString()}"),
+                        // ),
                         title: Text(
-                          account.petsByGender[index].petName
+                          petslist[0].petName
                               .toString(),
                           style: TextStyle(
                             color: Colors.grey,
@@ -289,77 +296,77 @@ class RecentChats extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        subtitle: Text(
-                          snapshot.data.documents[0]['image_url']
-                              .toString()
-                              .length >
-                              0
-                              ? "Photo"
-                              : snapshot.data.documents[0]['text'],
-                          style: TextStyle(
-                            color: Color(0xff01b4c9),
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              snapshot.data.documents[0]["time"] != null
-                                  ? DateFormat.MMMd()
-                                  .add_jm()
-                                  .format(snapshot
-                                  .data.documents[0]["time"]
-                                  .toDate())
-                                  .toString()
-                                  : "",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            snapshot.data.documents[0]['sender_id'] !=
-                                currentUser.id &&
-                                !snapshot.data.documents[0]['isRead']
-                                ? Container(
-                              width: 40.0,
-                              height: 20.0,
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius:
-                                BorderRadius.circular(30.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'NEW',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            )
-                                : Text(""),
-                            snapshot.data.documents[0]['sender_id'] ==
-                                currentUser.id
-                                ? !snapshot.data.documents[0]['isRead']
-                                ? Icon(
-                              Icons.done,
-                              color: secondryColor,
-                              size: 15,
-                            )
-                                : Icon(
-                              Icons.done_all,
-                              color: primaryColor,
-                              size: 15,
-                            )
-                                : Text("")
-                          ],
-                        ),
+                        // subtitle: Text(
+                        //   snapshot.data.docs[0]['image_url']
+                        //       .toString()
+                        //       .length >
+                        //       0
+                        //       ? "Photo"
+                        //       : snapshot.data.docs[0]['text'],
+                        //   style: TextStyle(
+                        //     color: Color(0xff01b4c9),
+                        //     fontSize: 15.0,
+                        //     fontWeight: FontWeight.w600,
+                        //   ),
+                        //   overflow: TextOverflow.ellipsis,
+                        // ),
+                        // trailing: Column(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   crossAxisAlignment: CrossAxisAlignment.end,
+                        //   children: <Widget>[
+                        //     Text(
+                        //       snapshot.data.docs[0]["time"] != null
+                        //           ? DateFormat.MMMd()
+                        //           .add_jm()
+                        //           .format(snapshot
+                        //           .data.docs[0]["time"]
+                        //           .toDate())
+                        //           .toString()
+                        //           : "",
+                        //       style: TextStyle(
+                        //         color: Colors.grey,
+                        //         fontSize: 15.0,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //     snapshot.data.docs[0]['sender_id'] !=
+                        //         currentUser.id &&
+                        //         !snapshot.data.docs[0]['isRead']
+                        //         ? Container(
+                        //       width: 40.0,
+                        //       height: 20.0,
+                        //       decoration: BoxDecoration(
+                        //         color: primaryColor,
+                        //         borderRadius:
+                        //         BorderRadius.circular(30.0),
+                        //       ),
+                        //       alignment: Alignment.center,
+                        //       child: Text(
+                        //         'NEW',
+                        //         style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontSize: 12.0,
+                        //           fontWeight: FontWeight.bold,
+                        //         ),
+                        //       ),
+                        //     )
+                        //         : Text(""),
+                        //     snapshot.data.docs[0]['sender_id'] ==
+                        //         currentUser.id
+                        //         ? !snapshot.data.docs[0]['isRead']
+                        //         ? Icon(
+                        //       Icons.done,
+                        //       color: secondryColor,
+                        //       size: 15,
+                        //     )
+                        //         : Icon(
+                        //       Icons.done_all,
+                        //       color: primaryColor,
+                        //       size: 15,
+                        //     )
+                        //         : Text("")
+                        //   ],
+                        // ),
                       ),
                     ),
                   ),

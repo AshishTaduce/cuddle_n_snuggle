@@ -31,7 +31,7 @@ dependencies:
   share: ^2.0.4
   firebase_messaging: ^10.0.3
   flutter_webview_plugin: ^0.4.0
-
+  progress_state_button: ^1.0.3
   rflutter_alert: ^2.0.2
 
   google_sign_in: ^5.0.4

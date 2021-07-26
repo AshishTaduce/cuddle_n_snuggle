@@ -72,7 +72,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
         .collection('rejects')
         .doc(currentUser.uid.toString())
         .get();
-    //Check if match has a value of true. If yes, then its a old match.
+    //Check if match has a value of true. If yes, then its a old matolh.
     data = temp.data() as Map;
 
     rejects = data == null ? [] : data.keys.toList();
@@ -130,7 +130,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
     matches.set({matchId: false}, SetOptions(merge: true));
   }
 
-  bool isPlayDate = false;
+  bool isPlayDate = true;
 
   @override
   Widget build(BuildContext context) {
@@ -174,17 +174,15 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(
               context,
-              MaterialPageRoute(
-                builder: (context) => PetMatchSelect(),
-              ),
+
             );
           },
         ),
         centerTitle: true,
         title: Text(
-          "Pet Match",
+          isPlayDate?"Pet Match":"PlayDate",
           style: Theme.of(context).textTheme.bodyText1!.merge(
                 TextStyle(
                   fontSize: 25,
@@ -194,12 +192,15 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
       ),
       body: Consumer<MainProvider>(
         builder: (_, pets, __) {
+          print(pets.petMatch.length);
+          print(pets.petsByGender.length);
           pets.petmatchByGender(
               widget.category, widget.gender, widget.subcategory);
           List<PetsModel> petsList = (isPlayDate
-                  ? pets.petsModel
-                      .where((element) => element.userId != pets.currentUser!.id)
-                  : pets.petsByGender)
+                  ? pets.petsByGender
+
+                  : pets.petMatch
+              ).where((element) => element.userId != pets.currentUser!.id)
 
               .where((element) => !rejects.contains(element.id))
               // .where((element) => !oldMatches.contains(element.id))
@@ -217,7 +218,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                         0.9, //Need to be same as max child height
                     child: noMorePets
                         ? Container(
-                      color: Colors.red,
+
                           height: MediaQuery.of(context).size.height * .78,
                           width: MediaQuery.of(context).size.width,
                           child: Column(
@@ -410,7 +411,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
               heroTag: UniqueKey(),
               backgroundColor: Colors.white,
               child: Icon(
-                Icons.pets_rounded,
+                isPlayDate? Icons.pets_rounded:Icons.home,
                 color: Colors.lightBlueAccent,
                 size: 30,
 
@@ -418,6 +419,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
               onPressed: () {
                 setState(() {
                   isPlayDate = !isPlayDate;
+
                 });
               },
             ),

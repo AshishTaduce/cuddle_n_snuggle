@@ -118,7 +118,8 @@ class PetMatchSelect extends StatelessWidget {
                                           color: Colors.white, fontSize: 20),
                                     ),
                                     onPressed: () {
-                                      Navigator.push(
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PetMatchScreen(

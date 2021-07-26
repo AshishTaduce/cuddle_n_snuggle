@@ -12,7 +12,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:progress_state_button/progress_button.dart';
+import 'package:progress_state_button/iconed_button.dart';
 
 enum Pets { dog, cats, fish, hamster, mice, rabbits }
 
@@ -37,6 +38,8 @@ class _AddPetState extends State<AddPet> {
   String? apartment;
   String? block;
   Map<String, dynamic> aparts = {};
+  ButtonState? buttonstate;
+
 
   @override
   void initState() {
@@ -55,229 +58,6 @@ class _AddPetState extends State<AddPet> {
     date = "";
   }
 
-  // Widget switchWithString(String petType) {
-  //   print(petType);
-  //   switch (petType) {
-  //     case 'cats':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     case 'dog':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     case 'fish':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     case 'hamster':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     case 'mice':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     case 'Rabbit':
-  //       print(petType);
-  //       return DropdownButton(
-  //         iconEnabledColor: primaryColor,
-  //         iconDisabledColor: secondryColor,
-  //         isExpanded: true,
-  //         items: [
-  //           DropdownMenuItem(
-  //             child: Text("German Shepherd"),
-  //             value: "German Shepherd",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Bulldog"),
-  //             value: "Bulldog",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Poodle"),
-  //             value: "Poodle",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Labrador Retriever"),
-  //             value: "Labrador Retriever",
-  //           ),
-  //           DropdownMenuItem(
-  //             child: Text("Golden Retriever"),
-  //             value: "Golden Retriever",
-  //           ),
-  //         ],
-  //         onChanged: (val) {
-  //           setState(() {
-  //             _showMe = val;
-  //           });
-  //         },
-  //         value: _showMe,
-  //       );
-  //       break;
-  //     default:
-  //       return Text("No Pet");
-  //   }
-  // }
 
   Future source(BuildContext context, bool isProfilePicture) async {
     return showDialog(
@@ -327,6 +107,7 @@ class _AddPetState extends State<AddPet> {
                     },
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: GestureDetector(
@@ -379,7 +160,7 @@ class _AddPetState extends State<AddPet> {
   }
 
   Future getImage(ImageSource imageSource, context, isProfilePicture) async {
-    var image = await ImagePicker().getImage(source: imageSource);
+    PickedFile? image = await ImagePicker().getImage(source: imageSource);
     if (image != null) {
       File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
@@ -734,6 +515,7 @@ class _AddPetState extends State<AddPet> {
                     ),
                   ),
                 ),
+
               ],
             ),
           ),
