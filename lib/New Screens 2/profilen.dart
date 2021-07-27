@@ -111,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         bool res = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                        builder: (context) => AddPetScreen(isAdoption: true,)));
+                        builder: (context) => AddPetScreen(isAdoption: false,)));
                           if(res == true) {
                     final snackBar = SnackBar(
                     content: Text('Pet Added Successfully'),

@@ -413,7 +413,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
           color: Colors.black, //change your color here
         ),
         title: Text(
-          "Add Pet",
+          widget.isAdoption ? "Add Adoption" : "Add Pet",
           style: Theme.of(context).textTheme.bodyText1!.merge(
                 TextStyle(
                   fontSize: 25,
@@ -660,10 +660,10 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   height: 20,
                 ),
                 ProgressButton.icon(
+                  minWidth: MediaQuery.of(context).size.width * 0.7,
                   iconedButtons: {
                     ButtonState.idle: IconedButton(
-                      text: "Add",
-                      icon: Icon(Icons.send, color: Colors.white),
+                      text: "Add Pet",
                       color: Colors.deepPurple.shade500,
                     ),
                     ButtonState.loading: IconedButton(
@@ -671,7 +671,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                       color: Colors.deepPurple.shade700,
                     ),
                     ButtonState.fail: IconedButton(
-                      text: "Failed",
+                      text: "Invalid Values",
                       icon: Icon(Icons.cancel, color: Colors.white),
                       color: Colors.red.shade300,
                     ),
@@ -698,7 +698,9 @@ class _AddPetAdoption extends State<AddPetScreen> {
                         setState(() {
                           _buttonState = ButtonState.fail;
                         });
-                      } else {
+                        return;
+                      }
+                      else {
                         try {
                           await Provider.of<MainProvider>(
                             context,
@@ -713,7 +715,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                             _switchValue,
                             _switchValue2,
                             _verticalGroupValue.toString(),
-                            true,
+                            widget.isAdoption,
                           );
                           Navigator.pop(context, true);
                         } catch (e) {
