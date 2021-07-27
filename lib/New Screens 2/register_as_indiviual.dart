@@ -40,12 +40,7 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
 
-
-        backgroundColor: Colors.deepOrangeAccent,
-        elevation: 0,
-      ),
 
       body: SingleChildScrollView(
         
@@ -96,51 +91,51 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
             SizedBox(
               height: 20,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 18),
-              child: TextFormField(
-                controller: nameController,
-                onChanged: (v) => nameController.text,
-                decoration: new InputDecoration(
-                  border: new OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.teal),
-                      borderRadius: BorderRadius.circular(28.0)
-                      ),
-                  hintText: 'Enter your name',
-                  labelText: 'Name',
-                  prefixIcon: const Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                  
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-
-              padding: EdgeInsets.symmetric(horizontal: 18),
-              child: TextFormField(
-                controller: emailController,
-                onChanged: (v) => emailController.text,
-                
-                decoration: new InputDecoration(
-                  border: new OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.teal),
-                      borderRadius: BorderRadius.circular(28.0),
-                      ),
-                  hintText: 'Enter Your Phone Number',
-                  labelText: 'Phone Number',
-                  prefixIcon: const Icon(
-                    Icons.mail,
-                    color: Color(0xff01b4c9),
-                  ),
-                 
-                ),
-              ),
-            ),
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 18),
+            //   child: TextFormField(
+            //     controller: nameController,
+            //     onChanged: (v) => nameController.text,
+            //     decoration: new InputDecoration(
+            //       border: new OutlineInputBorder(
+            //           borderSide: new BorderSide(color: Colors.teal),
+            //           borderRadius: BorderRadius.circular(28.0)
+            //           ),
+            //       hintText: 'Enter your name',
+            //       labelText: 'Name',
+            //       prefixIcon: const Icon(
+            //         Icons.person,
+            //         color: Colors.black,
+            //       ),
+            //
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 12,
+            // ),
+            // Container(
+            //
+            //   padding: EdgeInsets.symmetric(horizontal: 18),
+            //   child: TextFormField(
+            //     controller: emailController,
+            //     onChanged: (v) => emailController.text,
+            //
+            //     decoration: new InputDecoration(
+            //       border: new OutlineInputBorder(
+            //           borderSide: new BorderSide(color: Colors.teal),
+            //           borderRadius: BorderRadius.circular(28.0),
+            //           ),
+            //       hintText: 'Enter Your Phone Number',
+            //       labelText: 'Phone Number',
+            //       prefixIcon: const Icon(
+            //         Icons.mail,
+            //         color: Color(0xff01b4c9),
+            //       ),
+            //
+            //     ),
+            //   ),
+            // ),
             // SizedBox(
             //   height: 8,
             // ),
@@ -278,7 +273,7 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                           barrierDismissible: false,
                           context: context,
                           builder: (_) {
-                            Future.delayed(Duration(seconds: 1), () async {
+                            Future.delayed(Duration(seconds: 3), () async {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
