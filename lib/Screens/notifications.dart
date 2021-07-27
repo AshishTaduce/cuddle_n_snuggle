@@ -2,11 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cns/Screens/Information.dart';
 import 'package:cns/models/user_model.dart';
 import 'package:cns/util/color.dart';
 
-import 'Tab.dart';
 
 class Notifications extends StatefulWidget {
   final User currentUser;
@@ -176,47 +174,10 @@ class _NotificationsState extends State<Notifications> {
                                                             Colors.white),
                                                   ));
                                                 });
-                                            DocumentSnapshot userdoc = await db
-                                                .collection("Users")
-                                                .doc((doc.data as Map)["Matches"])
-                                                .get();
-                                            if (userdoc.exists) {
-                                              Navigator.pop(context);
-                                              User tempuser =
-                                                  User.fromDocument(userdoc);
-                                              tempuser.distanceBW =
-                                                  calculateDistance(
-                                                          widget.currentUser
-                                                                  .coordinates[
-                                                              'latitude'],
-                                                          widget.currentUser
-                                                                  .coordinates[
-                                                              'longitude'],
-                                                          tempuser.coordinates[
-                                                              'latitude'],
-                                                          tempuser.coordinates[
-                                                              'longitude'])
-                                                      .round();
-
-                                              await showDialog(
-                                                  barrierDismissible: false,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    if (!(doc.data as Map)["isRead"]) {
-                                                      FirebaseFirestore.instance
-                                                          .collection(
-                                                              "/Users/${widget.currentUser.id}/Matches")
-                                                          .doc(
-                                                              '${(doc.data as Map)["Matches"]}')
-                                                          .updateData(
-                                                              {'isRead': true});
-                                                    }
-                                                    return Info(
-                                                        tempuser,
-                                                        widget.currentUser,
-                                                        null);
-                                                  });
-                                            }
+                                            // DocumentSnapshot userdoc = await db
+                                            //     .collection("Users")
+                                            //     .doc((doc.data as Map)["Matches"])
+                                            //     .get();
                                           },
                                         )
                                         //  : Container()

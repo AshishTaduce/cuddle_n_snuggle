@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cns/models/new_user_model.dart';
-import 'package:cns/New%20Screens%202/petsadoptionadd.dart';
+import 'package:cns/New%20Screens%202/add_pet_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cns/models/pets.dart';
-import 'package:cns/New Screens 2/add_pets.dart';
 import "package:provider/src/consumer.dart";
 
 class ProfileScreen extends StatefulWidget {
@@ -19,7 +17,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    getdata();
+    _getData();
+  }
+
+  NewUser? user;
+
+  void _getData() async {
+    setState(() {
+      loader = true;
+    });
+    currentUser = firebaseAuth.currentUser!;
+    FirebaseFirestore.instance
+        .collection('Users')
+        .where('userId', isEqualTo: currentUser!.uid)
+        .get()
+        .then((QuerySnapshot snapshot) async {
+      if (snapshot.docs.length <= 0) {
+        setState(() {
+          user = NewUser.fromDocument(snapshot.docs[0]);
+        });
+      }
+    });
+
+    setState(() {
+      loader = false;
+    });
   }
 
   bool loader = false;
@@ -85,13 +107,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                           size: 28,
                         ),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddPet())),
+                        onPressed: () async {
+                        bool res = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => AddPetScreen(isAdoption: true,)));
+                          if(res == true) {
+                    final snackBar = SnackBar(
+                    content: Text('Pet Added Successfully'),
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    },
                       ),
                     ),
-                    ...info.petsModel
+                    ...info.myPets
                         .map(
                           (pet) => ListTile(
                             contentPadding: EdgeInsets.all(16),
@@ -155,11 +188,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           bool res = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddPetAdoption()));
+                                  builder: (context) => AddPetScreen(isAdoption: true,)));
                           if(res == true) {
                             final snackBar = SnackBar(
                               content: Text('Pet Added Successfully'),
-
                             );
 
                             // Find the ScaffoldMessenger in the widget tree
@@ -170,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         
                       ),
                     ),
-                    ...info.pet_adopt
+                    ...info.myPetAdoptions
                         .map(
                           (pet) => ListTile(
                         contentPadding: EdgeInsets.all(16),
@@ -531,56 +563,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  NewUser? user;
 
-  void getdata() async {
-    setState(() {
-      loader = true;
-    });
-    currentUser = await firebaseAuth.currentUser!;
-    FirebaseFirestore.instance
-        .collection('Users')
-        .where('userId', isEqualTo: currentUser!.uid)
-        .get()
-        .then((QuerySnapshot snapshot) async {
-      if (snapshot.docs.length <= 0) {
-        setState(() {
-          user = NewUser.fromDocument(snapshot.docs[0]);
-        });
-      }
-    });
-
-    setState(() {
-      loader = false;
-    });
-  }
-
-  void getpets() async {
-    setState(() {
-      loader = true;
-    });
-    currentUser = await firebaseAuth.currentUser!;
-    FirebaseFirestore.instance
-        .collection('Pets')
-        .where('userId', isEqualTo: user!.id)
-        .get()
-        .then((QuerySnapshot snapshot) async {
-      List<PetsModel> orders = <PetsModel>[];
-      List<String> petcat = [];
-      List<String> petsubcat = [];
-      int totalCount = snapshot.docs.length;
-      if (snapshot.docs.isNotEmpty) {
-        print(snapshot.docs[0].data());
-
-        for (int i = 0; i < totalCount; i++) {
-          orders.add(PetsModel.fromDocument(
-              snapshot.docs[i], snapshot.docs[i].data()));
-          petcat.add(snapshot.docs[i]["category"]);
-          petsubcat.add(snapshot.docs[i]["subcategory"]);
-        }
-      }
-    });
-  }
 }
 
 

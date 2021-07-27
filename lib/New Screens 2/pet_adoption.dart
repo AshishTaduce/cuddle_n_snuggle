@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,6 @@ class _PetAdoptionState extends State<PetAdoption> {
   bool exceedSwipes = true;
   @override
   Widget build(BuildContext context) {
-    CardController controller;
 
     return Scaffold(
       body: Center(
@@ -23,7 +21,6 @@ class _PetAdoptionState extends State<PetAdoption> {
                 GradientAppBar("Pet Adoption"),
                 Consumer<MainProvider>(
                   builder: (_, petsadoption, __) {
-                    petsadoption.petadoption;
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.9,
                       child: ListView.separated(
@@ -33,7 +30,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                           );
 
                         },
-                        itemCount: petsadoption.pet_adoption_model.length,
+                        itemCount: petsadoption.matchedPetAdoption.length,
 
                         itemBuilder: (context, index) {
 
@@ -52,7 +49,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                         CircleAvatar(
                                           radius: 50,
                                           backgroundImage: NetworkImage(
-                                            petsadoption.pet_adoption_model[index].imageUrl[0]
+                                            petsadoption.matchedPetAdoption[index].imageUrl[0]
                                                 .toString(),
                                           ),
                                         ),
@@ -65,7 +62,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              petsadoption.pet_adoption_model[index].petName
+                                              petsadoption.matchedPetAdoption[index].petName
                                                   .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
@@ -78,7 +75,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                               height: 3,
                                             ),
                                             Text(
-                                              petsadoption.pet_adoption_model[index].age
+                                              petsadoption.matchedPetAdoption[index].age
                                                   .toString() +
                                                   " Years",
                                               style: Theme.of(context)
@@ -92,7 +89,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                               height: 2,
                                             ),
                                             Text(
-                                              "${petsadoption.pet_adoption_model[index].about}",
+                                              "${petsadoption.matchedPetAdoption[index].about}",
                                               maxLines: 2,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -111,7 +108,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                           chatId(
                                             account.currentUser!.id,
                                             account
-                                                .pet_adoption_model[
+                                                .matchedPetAdoption[
                                             index]
                                                 .userId,
                                           ),
@@ -124,21 +121,21 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                     builder: (context) => ChatPage(
                                                       sender: account.currentUser!,
                                                       imageUrl: account
-                                                          .pet_adoption_model[index]
+                                                          .matchedPetAdoption[index]
                                                           .imageUrl[0]
                                                           .toString(),
                                                       second_id: account
-                                                          .pet_adoption_model[index]
+                                                          .matchedPetAdoption[index]
                                                           .userId
                                                           .toString(),
                                                       second_name: account
-                                                          .pet_adoption_model[index]
+                                                          .matchedPetAdoption[index]
                                                           .petName
                                                           .toString(),
                                                       chatId: chatId(
                                                         account.currentUser!.id,
                                                         account
-                                                            .pet_adoption_model[
+                                                            .matchedPetAdoption[
                                                                 index].userId
                                                             ,
                                                       ),

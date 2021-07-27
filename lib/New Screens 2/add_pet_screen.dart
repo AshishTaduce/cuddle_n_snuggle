@@ -14,16 +14,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:provider/provider.dart';
-import 'package:cns/New Screens 2/Welcome_homepage.dart';
 
 enum Pets { dog, cats, fish, hamster, mice, rabbits }
 
-class AddPetAdoption extends StatefulWidget {
+class AddPetScreen extends StatefulWidget {
+  final bool isAdoption;
+  AddPetScreen({required this.isAdoption});
+
   @override
   _AddPetAdoption createState() => _AddPetAdoption();
 }
 
-class _AddPetAdoption extends State<AddPetAdoption> {
+class _AddPetAdoption extends State<AddPetScreen> {
   bool _switchValue = true;
   bool _switchValue2 = true;
   String petType = "dog";
@@ -36,7 +38,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
   TextEditingController nameController = TextEditingController();
   TextEditingController aboutController = TextEditingController();
   String? date;
-  Pets _site = Pets.dog;
   String? apartment;
   String? block;
   Map<String, dynamic> aparts = {};
@@ -96,7 +97,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       case 'dog':
         print(petType);
         return DropdownButton(
@@ -132,7 +132,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       case 'fish':
         print(petType);
         return DropdownButton(
@@ -168,7 +167,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       case 'hamster':
         print(petType);
         return DropdownButton(
@@ -204,7 +202,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       case 'mice':
         print(petType);
         return DropdownButton(
@@ -240,7 +237,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       case 'Rabbit':
         print(petType);
         return DropdownButton(
@@ -276,7 +272,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
           },
           value: _showMe,
         );
-        break;
       default:
         return Text("No Pet");
     }
@@ -646,72 +641,6 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
-                  onTap: () async {
-                    if (nameController.text.length == 0 ||
-                        date.toString() == "" ||
-                        apartment == "" ||
-                        block.toString() == "" ||
-                        _verticalGroupValue == "" ||
-                        _image == null) {
-                      // _scaffoldKey.currentState.showSnackBar(
-                      //   SnackBar(
-                      //     content: Text('Fill all the details'),
-                      //     duration: Duration(seconds: 3),
-                      //   ),
-                      // );
-                    }
-
-                    else {
-                      setState(() {
-                        save = "Saving..";
-                      });
-                      try {
-                        dynamic res = await Provider.of<MainProvider>(
-                          context,
-                          listen: false,
-                        ).addPetsAdoption(
-                          nameController.text.toString(),
-                          date.toString(),
-                          apartment.toString(),
-                          _image!,
-                          block.toString(),
-                          aboutController.text.toString(),
-                          _switchValue,
-                          _switchValue2,
-                          _verticalGroupValue.toString(),
-                        );
-
-                        Navigator.pop(context, true);
-                      } catch (e) {
-                        print("BUTTONNNNNNNNNNNNNNNN");
-                        print(e);
-                      }
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(25),
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Color(0xff01b4c9),
-                          Color(0xff01b4c9),
-                        ],
-                      ),
-                    ),
-                    height: MediaQuery.of(context).size.height * .065,
-                    width: MediaQuery.of(context).size.width * .75,
-                    child: Center(
-                      child: Text(
-                        "$save",
-                        style: TextStyle(fontSize: 15, color: textColor, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
                 ProgressButton.icon(
                   iconedButtons: {
                     ButtonState.idle: IconedButton(
@@ -761,10 +690,10 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                           save = "Saving..";
                         });
                         try {
-                          dynamic res = await Provider.of<MainProvider>(
+                          await Provider.of<MainProvider>(
                             context,
                             listen: false,
-                          ).addPetsAdoption(
+                          ).addPet(
                             nameController.text.toString(),
                             date.toString(),
                             apartment.toString(),
@@ -774,11 +703,11 @@ class _AddPetAdoption extends State<AddPetAdoption> {
                             _switchValue,
                             _switchValue2,
                             _verticalGroupValue.toString(),
+                            true,
                           );
-
-                          // Navigator.pop(context, true);
+                          Navigator.pop(context, true);
                         } catch (e) {
-                          print("BUTTONNNNNNNNNNNNNNNN");
+
                           throw e;
                         }
                       }

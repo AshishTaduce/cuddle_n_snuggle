@@ -5,8 +5,6 @@ import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/New%20Screens%202/pet_adoption.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/provider/main_provider.dart';
-import 'package:cns/util/color.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MessagePage extends StatefulWidget {
@@ -17,7 +15,6 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage>
     with TickerProviderStateMixin {
   TabController? _controller;
-  int _selectedIndex = 0;
   List<Widget> list = [
     Tab(icon: Icon(Icons.pets_sharp,
     color: Colors.white,)),
@@ -25,18 +22,11 @@ class _MessagePageState extends State<MessagePage>
     color: Colors.white,)),
   ];
 
+
   @override
   void initState() {
     super.initState();
-    // Create TabController for getting the index of current tab
     _controller = TabController(length: list.length, vsync: this);
-
-    _controller!.addListener(() {
-      setState(() {
-        _selectedIndex = _controller!.index;
-      });
-      // print("Selected Index: " + _controller.index.toString());
-    });
   }
 
   @override
@@ -80,8 +70,8 @@ class _MessagePageState extends State<MessagePage>
                       Expanded(
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
-                            print(acc.petsByGender);
-                            return RecentChats(acc.currentUser!, acc.petsByGender);
+                            print(acc.matchesByGender);
+                            return RecentChats(acc.currentUser!, acc.matchesByGender);
                           },
                         ),
                       )
@@ -110,8 +100,8 @@ class _MessagePageState extends State<MessagePage>
                       Expanded(
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
-                            print(acc.pet_adoption_model);
-                            return RecentChats(acc.currentUser!, acc.pet_adoption_model);
+                            print(acc.matchedPetAdoption);
+                            return RecentChats(acc.currentUser!, acc.matchedPetAdoption);
                           },
                         ),
                       )

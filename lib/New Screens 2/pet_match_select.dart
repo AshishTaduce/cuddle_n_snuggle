@@ -1,14 +1,13 @@
+import 'package:cns/New%20Screens%202/add_pet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cns/New Screens 2/pet_match.dart';
-import 'package:cns/New%20Screens%202/add_pets.dart';
 import 'package:cns/New%20Screens%202/pet_match.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:cns/New Screens 2/pet_match_updated.dart';
 
 class PetMatchSelect extends StatelessWidget {
   @override
@@ -41,9 +40,9 @@ class PetMatchSelect extends StatelessWidget {
           ),
           Consumer<MainProvider>(
             builder: (_, pets, __) {
-              print(pets.petsModel);
+              print(pets.myPets);
 
-              return (pets.petsModel.isEmpty) //Pet model can be empty too
+              return (pets.myPets.isEmpty) //Pet model can be empty too
                   ? SizedBox(
                       height: 60,
                       child: InkWell(
@@ -51,7 +50,7 @@ class PetMatchSelect extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddPet()));
+                                  builder: (context) => AddPetScreen(isAdoption: false,),),);
                         },
                         child: SizedBox(
                           height: 50,
@@ -60,7 +59,7 @@ class PetMatchSelect extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AddPet()));
+                                      builder: (context) => AddPetScreen(isAdoption: false,),),);
                             },
                             child: Icon(
                               Icons.add_outlined,
@@ -92,11 +91,11 @@ class PetMatchSelect extends StatelessWidget {
                           );
                         },
                         padding: EdgeInsets.all(10),
-                        itemCount: pets.petsModel.length == 0
+                        itemCount: pets.myPets.length == 0
                             ? 1
-                            : pets.petsModel.length + 1,
+                            : pets.myPets.length + 1,
                         itemBuilder: (context, index) {
-                          if (index == pets.petsModel.length) {
+                          if (index == pets.myPets.length) {
                             return SizedBox(
                               height: 50,
                             );
@@ -108,7 +107,7 @@ class PetMatchSelect extends StatelessWidget {
                                 type: AlertType.none,
                                 title: "Confirm",
                                 desc: "Are you sure that you want to select " +
-                                    (pets.petsModel[index].petName.toString())
+                                    (pets.myPets[index].petName.toString())
                                         .toString(),
                                 buttons: [
                                   DialogButton(
@@ -124,11 +123,11 @@ class PetMatchSelect extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder: (context) => PetMatchScreen(
                                               category: pets
-                                                  .petsModel[index].category,
+                                                  .myPets[index].category,
                                               subcategory: pets
-                                                  .petsModel[index].subcategory,
+                                                  .myPets[index].subcategory,
                                               gender:
-                                                  pets.petsModel[index].sex,),
+                                                  pets.myPets[index].sex,),
                                         ),
                                       );
                                       // Navigator.push(
@@ -147,7 +146,7 @@ class PetMatchSelect extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                  pets.petsModel[index].imageUrl[0].toString(),
+                                  pets.myPets[index].imageUrl[0].toString(),
                                 ),
 
                                 backgroundColor: Colors.grey.withOpacity(0.4),

@@ -8,7 +8,6 @@ import 'package:cns/provider/main_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe_stack/swipe_stack.dart';
 import 'pet_match_select.dart';
-import 'package:cns/New Screens 2/Welcome_homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
@@ -192,14 +191,11 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
       ),
       body: Consumer<MainProvider>(
         builder: (_, pets, __) {
-          print(pets.petMatch.length);
-          print(pets.petsByGender.length);
-          pets.petmatchByGender(
+          pets.updateMatchesByGender(
               widget.category, widget.gender, widget.subcategory);
           List<PetsModel> petsList = (isPlayDate
-                  ? pets.petsByGender
-
-                  : pets.petMatch
+                  ? pets.matchesByGender
+                  : pets.petMatches
               ).where((element) => element.userId != pets.currentUser!.id)
 
               .where((element) => !rejects.contains(element.id))
