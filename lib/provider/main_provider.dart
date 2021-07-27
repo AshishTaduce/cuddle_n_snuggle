@@ -186,7 +186,7 @@ class MainProvider extends ChangeNotifier {
           print(data.docs[i]["subcategory"]);
           orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
         }
-        petMatches = orders;
+        matchesByGender = orders;
         notifyListeners();
         // print(pet_match[0].category.toString());
       } else {
