@@ -269,45 +269,13 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                             listen: false)
                         .handleGoogleSign(context, "Indiviual");
                     if (res == "Success") {
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (_) {
-                            Future.delayed(Duration(seconds: 3), () async {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      NewScreenSecondHomePage(),
-                                ),
-                              );
-                            });
-                            return Center(
-                                child: Container(
-                                    width: 180.0,
-                                    height: 200.0,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Image.asset(
-                                          "asset/auth/verified.jpg",
-                                          height: 100,
-                                        ),
-                                        Text(
-                                          "Verified\n Successfully",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              decoration: TextDecoration.none,
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                        )
-                                      ],
-                                    )));
-                          });
+                     final snackbar = SnackBar(
+                         content: Text("Sign In Successfull"));
+                     ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                     Navigator.pushReplacement(context, MaterialPageRoute(
+                       builder: (BuildContext context) =>
+                           NewScreenSecondHomePage(),
+                     ),);
                     } else {
                       // _scaffoldKey.currentState.showSnackBar(SnackBar(
                       //   content: Text('Sign In Failed!'),

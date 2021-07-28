@@ -221,7 +221,7 @@ class RecentChats extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => ChatPage(
-                  chatId: chatId(currentUser.id, petslist[index].id),
+                  chatId: "0aMqpuHWpfMTHpnxGGUBUg8gzGr2-6w4jhaxvjTWD1zuAdF11blRC5e02",
                   sender: currentUser,
                   second_id: petslist[index].id,
                   second_name: petslist[index].petName.toString(),
@@ -232,11 +232,11 @@ class RecentChats extends StatelessWidget {
             child: StreamBuilder(
               stream: db
                   .collection("chats")
-                  .doc(
-                chatId(currentUser.id,
-                    petslist[index].userId,
-                ),
-              )
+                  .doc("0aMqpuHWpfMTHpnxGGUBUg8gzGr2-6w4jhaxvjTWD1zuAdF11blRC5e02")
+                // chatId(currentUser.id,
+                //     petslist[index].userId,
+                // ),
+              // )
                   .collection('messages')
                   .orderBy('time', descending: true)
                   .snapshots(),
