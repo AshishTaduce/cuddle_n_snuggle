@@ -127,7 +127,8 @@ class PetMatchSelect extends StatelessWidget {
                                               subcategory: pets
                                                   .myPets[index].subcategory,
                                               gender:
-                                                  pets.myPets[index].sex,),
+                                                  pets.myPets[index].sex,
+                                          selectedPetID:  pets.myPets[index].id,),
                                         ),
                                       );
                                       // Navigator.push(
@@ -141,6 +142,7 @@ class PetMatchSelect extends StatelessWidget {
                                   )
                                 ],
                               ).show();
+
                             },
                             child: Container(
                               child: CircleAvatar(
@@ -161,6 +163,9 @@ class PetMatchSelect extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+
+      },),
     );
   }
 }

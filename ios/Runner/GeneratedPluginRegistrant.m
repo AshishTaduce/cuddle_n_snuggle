@@ -118,6 +118,12 @@
 @import sqflite;
 #endif
 
+#if __has_include(<unique_ids/UniqueIdsPlugin.h>)
+#import <unique_ids/UniqueIdsPlugin.h>
+#else
+@import unique_ids;
+#endif
+
 #if __has_include(<url_launcher/FLTURLLauncherPlugin.h>)
 #import <url_launcher/FLTURLLauncherPlugin.h>
 #else
@@ -146,6 +152,7 @@
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SignInWithApplePlugin registerWithRegistrar:[registry registrarForPlugin:@"SignInWithApplePlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
+  [UniqueIdsPlugin registerWithRegistrar:[registry registrarForPlugin:@"UniqueIdsPlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
 }
 

@@ -8,6 +8,7 @@ import 'package:cns/models/custom_web_view.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/models/petadoption.dart';
 import 'package:cns/models/pets.dart';
+import 'package:unique_ids/unique_ids.dart';
 
 class MainProvider extends ChangeNotifier {
   NewUser? currentUser;
@@ -259,6 +260,7 @@ class MainProvider extends ChangeNotifier {
           "bio": bio.toString(),
           "vaccinated": vaccinated.toString(),
           "kssi_certified": kssi.toString(),
+
           "userId": currentUser!.id.toString(),
           "userName": currentUser!.name.toString(),
           "sex": sex.toString()
@@ -267,6 +269,7 @@ class MainProvider extends ChangeNotifier {
       isAdoption ? getAdoptionPets() : getPets();
       return "Success";
     } catch (e) {
+      print(e);
       throw e;
     }
   }

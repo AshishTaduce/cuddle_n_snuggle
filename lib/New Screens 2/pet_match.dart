@@ -20,8 +20,9 @@ class PetMatchScreen extends StatefulWidget {
   final String category;
   final String subcategory;
   final String gender;
+  final String selectedPetID;
 
-  const PetMatchScreen({ Key? key, required this.category, required this.gender, required this.subcategory})
+  const PetMatchScreen({ Key? key, required this.category, required this.gender, required this.subcategory,required this.selectedPetID})
       : super(key: key);
 
   @override
@@ -49,10 +50,12 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
   void fetchMatches() async {
     //Gets current logged in user
     User currentUser = _firebaseAuth.currentUser!;
+    print("DOC ID");
+    print(widget.selectedPetID);
 
     DocumentReference ref = FirebaseFirestore.instance
         .collection('matches')
-        .doc(currentUser.uid.toString());
+        .doc(widget.selectedPetID);
 
     DocumentSnapshot temp = await ref.get();
     Map? data = temp.data() as Map;
@@ -82,38 +85,39 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
 
   void updateMatchList(
     NewUser currentUser,
-    PetsModel matchUser,
+    PetsModel matchedPet,
     bool isMatch,
   ) async {
-    print("init with ${matchUser.id}");
+    print("init with ${matchedPet.id}");
     DocumentReference matches = FirebaseFirestore.instance
         .collection('matches')
-        .doc(matchUser.id.toString());
+        .doc(matchedPet.id.toString());
 
     print("A");
+    print([widget.selectedPetID, matchedPet.id]);
 
-    if (isMatch) {
+    if (isMatch) { ///TODO: Change to isMatch
       FirebaseFirestore.instance
           .collection("chats")
-          .doc(chatId(currentUser.id, matchUser.id))
+          .doc(chatId(widget.selectedPetID, matchedPet.id))
           .collection('messages')
           .add({
-        "sender_id": matchUser.id,
+        "sender_id": matchedPet.id,
         "receiver_id": currentUser.id,
         "isRead": false,
-        'image_url': matchUser.imageUrl[0],
+        'image_url': matchedPet.imageUrl[0],
         "time": new DateTime.now(),
         "message": "Its a match! Say Hi Now!",
         "type": "Msg",
       });
-      matches.update({currentUser.id.toString(): isMatch});
+      matches.update({widget.selectedPetID: isMatch});
       FirebaseFirestore.instance
           .collection('matches')
-          .doc(currentUser.id.toString())
-          .update({matchUser.id: isMatch});
+          .doc(widget.selectedPetID)
+          .update({matchedPet.id: isMatch});
     } else {
       print("B");
-      matches.set({currentUser.id.toString(): isMatch}, SetOptions(merge: true));
+      matches.set({widget.selectedPetID: isMatch}, SetOptions(merge: true));
     }
   }
 
@@ -125,7 +129,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
     print([currentUser, matchId]);
     DocumentReference matches = FirebaseFirestore.instance
         .collection('rejects')
-        .doc(currentUser.id.toString());
+        .doc(widget.selectedPetID);
     matches.set({matchId: false}, SetOptions(merge: true));
   }
 
@@ -134,7 +138,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
   @override
   Widget build(BuildContext context) {
 
-    Future<void> _showMyDialog() async {
+    Future<void> _showMatchedDialog() async {
       return showDialog<void>(
         context: context,
         barrierDismissible: true, // user must tap button!
@@ -370,7 +374,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                                     matches.contains(petsList[index].id));
 
                                 if (matches.contains(petsList[index].id)) {
-                                  _showMyDialog();
+                                  _showMatchedDialog();
                                 }
                               }
                               print("Pets list size: ${petsList.length}, $index, ${index == (petsList.length - 1)}");

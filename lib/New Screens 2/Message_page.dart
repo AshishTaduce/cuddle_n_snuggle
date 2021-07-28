@@ -172,7 +172,7 @@ class GradientAppBar extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.bodyText1!.merge(
                       TextStyle(
-                                                fontSize: 25,
+                        fontSize: 25,
                       ),
                     ),
               ),
@@ -221,9 +221,9 @@ class RecentChats extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => ChatPage(
-                  chatId: "0aMqpuHWpfMTHpnxGGUBUg8gzGr2-6w4jhaxvjTWD1zuAdF11blRC5e02",
+                  chatId: "X0tK5eTUoS3sbtwTRimH-BultibG8Tuovq8IqcyRa",
                   sender: currentUser,
-                  second_id: petslist[index].id,
+                  second_id: petslist[index],
                   second_name: petslist[index].petName.toString(),
                   imageUrl: petslist[index].imageUrl[0],
                 ),
@@ -232,7 +232,7 @@ class RecentChats extends StatelessWidget {
             child: StreamBuilder(
               stream: db
                   .collection("chats")
-                  .doc("0aMqpuHWpfMTHpnxGGUBUg8gzGr2-6w4jhaxvjTWD1zuAdF11blRC5e02")
+                  .doc("X0tK5eTUoS3sbtwTRimH-BultibG8Tuovq8IqcyRa")
                 // chatId(currentUser.id,
                 //     petslist[index].userId,
                 // ),

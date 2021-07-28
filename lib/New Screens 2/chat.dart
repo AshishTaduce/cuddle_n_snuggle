@@ -6,15 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/New Screens 2/pet_adoption.dart';
-import 'package:cns/New%20Screens%202/Welcome_homepage.dart';
 
-import 'package:cns/Screens/Chat/largeImage.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/util/color.dart';
 import 'package:cns/util/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ChatPage extends StatefulWidget {
   final NewUser sender;

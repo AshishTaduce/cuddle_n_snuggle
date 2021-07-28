@@ -50,7 +50,7 @@ class PetsModel {
               },
             )
           : [],
-      id: documetId.toString(),
+      id: doc.id,
     );
   }
 }

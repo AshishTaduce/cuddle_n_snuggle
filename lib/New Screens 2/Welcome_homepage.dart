@@ -1,6 +1,7 @@
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -43,7 +44,6 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     _pageController = PageController(
       initialPage: 0,
       viewportFraction: 1.0,
-
     );
     // _pageController.page..addListener(handlePageChange);
     super.initState();
@@ -137,19 +137,26 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
           ),
         ],
       ),
-      body: PageView(
-        key: Key("A"),
-        controller: _pageController,
-        children: [
-          HomePageBottomBar(),
-          CalenderPage(),
-          MessagePage(),
-          ProfileScreen(),
-        ],
-        onPageChanged: (page) {
-          _menuPositionController.absolutePosition = _pageController.page;
-        },
-      ),
+      body: FirebaseAuth.instance.currentUser == null
+          ? Center(
+              child: Container(
+                height: 60,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : PageView(
+              key: Key("A"),
+              controller: _pageController,
+              children: [
+                HomePageBottomBar(),
+                CalenderPage(),
+                MessagePage(),
+                ProfileScreen(),
+              ],
+              onPageChanged: (page) {
+                _menuPositionController.absolutePosition = _pageController.page;
+              },
+            ),
     );
   }
 
@@ -206,7 +213,7 @@ class GradientAppBar extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Color(0xff1fa2ea),Color(0xff1fa2ea)],
+              colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
             ),
           ),
         );
@@ -273,7 +280,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           gradient: LinearGradient(
-                            colors: [Color(0xff1fa2ea),Color(0xff1fa2ea)],
+                            colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
                           ),
                         ),
                         child: Column(
@@ -328,7 +335,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           gradient: LinearGradient(
-                            colors: [Color(0xff1fa2ea),Color(0xff1fa2ea)],
+                            colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
                           ),
                         ),
                         child: Column(
@@ -336,9 +343,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 16.0,
-                                  right: 16.0,
-                                  top: 16.0),
+                                  left: 16.0, right: 16.0, top: 16.0),
                               child: Container(
                                 height: 45,
                                 width: 45,
