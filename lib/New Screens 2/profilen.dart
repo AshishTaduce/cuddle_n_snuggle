@@ -1,3 +1,4 @@
+import 'package:cns/New%20Screens%202/edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/New%20Screens%202/add_pet_screen.dart';
@@ -240,7 +241,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 // size: 45,
                               ),
                               // color: Colors.black,
-                              onPressed: () => null,
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> EditScreen()));
+                              },
                             ),
                           ),
                         )
