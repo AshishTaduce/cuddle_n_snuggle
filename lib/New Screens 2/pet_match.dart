@@ -135,42 +135,43 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
 
   bool isPlayDate = true;
 
+  Future<void> _showMatchedDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ITS A MATCH!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Looks like you Match!.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go To Messages.'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MessagePage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    Future<void> _showMatchedDialog() async {
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: true, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('ITS A MATCH!'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: const <Widget>[
-                  Text('Looks like you Match!.'),
-                  Text('Would you like to approve of this message?'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Go To Messages.'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => MessagePage(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -388,6 +389,9 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                   ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print(chatId("BultibG8Tuovq8IqcyRa","X0tK5eTUoS3sbtwTRimH",)),
       ),
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(16),

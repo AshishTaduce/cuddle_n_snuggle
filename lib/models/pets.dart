@@ -11,22 +11,22 @@ class PetsModel {
   final dynamic age;
   final dynamic about;
   final dynamic vaccinated;
-  final dynamic kssi_certified;
-  dynamic imageUrl = [];
+  final dynamic kssiCertified;
+  List imageUrl = [];
 
   PetsModel({
     this.userId,
     this.about,
     this.age,
     this.vaccinated,
-    this.kssi_certified,
+    this.kssiCertified,
     this.id,
     this.petName,
     this.category,
     this.petdob,
     this.subcategory,
     this.sex,
-    this.imageUrl,
+    required this.imageUrl,
   });
   factory PetsModel.fromDocument(DocumentSnapshot doc, dynamic documetId) {
     return PetsModel(
@@ -40,7 +40,7 @@ class PetsModel {
               365.2425)
           .truncate(),
       about: doc['bio'],
-      kssi_certified: doc['kssi_certified'],
+      kssiCertified: doc['kssi_certified'],
       vaccinated: doc['vaccinated'],
       imageUrl: doc['image'] != null
           ? List.generate(

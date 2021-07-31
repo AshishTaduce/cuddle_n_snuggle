@@ -664,6 +664,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   iconedButtons: {
                     ButtonState.idle: IconedButton(
                       text: "Add Pet",
+                      icon: Icon(Icons.add_circle_outline, color: Colors.white),
                       color: Colors.deepPurple.shade500,
                     ),
                     ButtonState.loading: IconedButton(
@@ -685,48 +686,48 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   },
                   onPressed: () async {
                     try {
-                      setState(() {
-                        _buttonState = ButtonState.loading;
-                      });
-
-                      if (nameController.text.length == 0 ||
-                          date.toString() == "" ||
-                          apartment == "" ||
-                          block.toString() == "" ||
-                          _verticalGroupValue == "" ||
-                          _image == null) {
+                      if (_buttonState == ButtonState.idle){
                         setState(() {
-                          _buttonState = ButtonState.fail;
+                          _buttonState = ButtonState.loading;
                         });
-                        return;
-                      }
-                      else {
-                        try {
-                          await Provider.of<MainProvider>(
-                            context,
-                            listen: false,
-                          ).addPet(
-                            nameController.text.toString(),
-                            date.toString(),
-                            apartment.toString(),
-                            _image!,
-                            block.toString(),
-                            aboutController.text.toString(),
-                            _switchValue,
-                            _switchValue2,
-                            _verticalGroupValue.toString(),
-                            widget.isAdoption,
-                          );
-                          Navigator.pop(context, true);
-                        } catch (e) {
 
-                          throw e;
+                        if (nameController.text.length == 0 ||
+                            date.toString() == "" ||
+                            apartment == "" ||
+                            block.toString() == "" ||
+                            _verticalGroupValue == "" ||
+                            _image == null) {
+                          setState(() {
+                            _buttonState = ButtonState.fail;
+                          });
+                          return;
+                        } else {
+                          try {
+                            await Provider.of<MainProvider>(
+                              context,
+                              listen: false,
+                            ).addPet(
+                              nameController.text.toString(),
+                              date.toString(),
+                              apartment.toString(),
+                              _image!,
+                              block.toString(),
+                              aboutController.text.toString(),
+                              _switchValue,
+                              _switchValue2,
+                              _verticalGroupValue.toString(),
+                              widget.isAdoption,
+                            );
+                            Navigator.pop(context, true);
+                          } catch (e) {
+                            throw e;
+                          }
                         }
-                      }
 
-                      setState(() {
-                        _buttonState = ButtonState.success;
-                      });
+                        setState(() {
+                          _buttonState = ButtonState.success;
+                        });
+                      }
                     } catch (e) {
                       setState(() {
                         _buttonState = ButtonState.fail;

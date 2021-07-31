@@ -86,8 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       title: Text(
                         currentUser!.displayName.toString(),
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       subtitle: Text(
                         currentUser!.email.toString(),
@@ -108,20 +107,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           size: 28,
                         ),
                         onPressed: () async {
-                        bool res = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => AddPetScreen(isAdoption: false,)));
-                          if(res == true) {
-                    final snackBar = SnackBar(
-                    content: Text('Pet Added Successfully'),
-                    );
+                          bool res = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddPetScreen(
+                                        isAdoption: false,
+                                      )));
+                          if (res == true) {
+                            final snackBar = SnackBar(
+                              content: Text('Pet Added Successfully'),
+                            );
 
-                    // Find the ScaffoldMessenger in the widget tree
-                    // and use it to show a SnackBar.
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                    },
+                            // Find the ScaffoldMessenger in the widget tree
+                            // and use it to show a SnackBar.
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
                       ),
                     ),
                     ...info.myPets
@@ -153,10 +155,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                            leading: Icon(
-                              Icons.pets,
-                              size: 45,
-                              color: Colors.black,
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(pet.imageUrl[0]),
                             ),
                             trailing: IconButton(
                               icon: Icon(
@@ -169,7 +169,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         )
                         .toList(),
-
                     ListTile(
                       contentPadding: EdgeInsets.all(16),
                       title: Text(
@@ -183,69 +182,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                           size: 28,
                         ),
-                        onPressed:  () async
-                        {
+                        onPressed: () async {
                           bool res = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddPetScreen(isAdoption: true,)));
-                          if(res == true) {
+                                  builder: (context) => AddPetScreen(
+                                        isAdoption: true,
+                                      )));
+                          if (res == true) {
                             final snackBar = SnackBar(
                               content: Text('Pet Added Successfully'),
                             );
 
                             // Find the ScaffoldMessenger in the widget tree
                             // and use it to show a SnackBar.
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
-                        
                       ),
                     ),
                     ...info.myPetAdoptions
                         .map(
                           (pet) => ListTile(
-                        contentPadding: EdgeInsets.all(16),
-                        title: Text(
-                          pet.petName,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Age: ${pet.age}",
+                            contentPadding: EdgeInsets.all(16),
+                            title: Text(
+                              pet.petName,
                               style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                              ),
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                            Text(
-                              "Sex: ${pet.sex}",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                              ),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Age: ${pet.age}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  "Sex: ${pet.sex}",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        leading: Icon(
-                          Icons.pets,
-                          size: 45,
-                          color: Colors.black,
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            // size: 45,
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(pet.imageUrl[0]),
+                            ),
+                            trailing: IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                // size: 45,
+                              ),
+                              // color: Colors.black,
+                              onPressed: () => null,
+                            ),
                           ),
-                          // color: Colors.black,
-                          onPressed: () => null,
-                        ),
-                      ),
-                    )
+                        )
                         .toList(),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -562,8 +560,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
     );
   }
-
-
 }
-
-
