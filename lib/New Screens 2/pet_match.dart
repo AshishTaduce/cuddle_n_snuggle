@@ -85,7 +85,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
 
   void updateMatchList(
     NewUser currentUser,
-    PetsModel matchedPet,
+    PetModel matchedPet,
     bool isMatch,
   ) async {
     print("init with ${matchedPet.id}");
@@ -198,7 +198,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
         builder: (_, pets, __) {
           pets.updateMatchesByGender(
               widget.category, widget.gender, widget.subcategory);
-          List<PetsModel> petsList = (isPlayDate
+          List<PetModel> petsList = (isPlayDate
                   ? pets.matchesByGender
                   : pets.petMatches
               ).where((element) => element.userId != pets.currentUser!.id)

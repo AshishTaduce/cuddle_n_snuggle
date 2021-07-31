@@ -2,29 +2,24 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cns/models/pets.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cns/New Screens 2/pet_adoption.dart';
-
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/util/color.dart';
-import 'package:cns/util/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
-  final NewUser sender;
+  final NewUser currentUser;
   final String chatId;
-  final String second_name;
-  final String imageUrl;
-  final dynamic second_id;
+  final PetModel matchedPet;
   ChatPage(
-      {required this.sender,
+      {required this.currentUser,
       required this.chatId,
-      required this.second_name,
-      required this.second_id,
-      required this.imageUrl});
+      required this.matchedPet,
+      });
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -34,7 +29,7 @@ class _ChatPageState extends State<ChatPage> {
   final db = FirebaseFirestore.instance;
   CollectionReference? chatReference;
   final TextEditingController _textController = new TextEditingController();
-  bool _isWritting = false;
+  bool _isWriting = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,26 +38,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     chatReference =
         db.collection("chats").doc(widget.chatId).collection('messages');
-    // checkblock();
   }
-
-  // var blockedBy;
-  // checkblock() {
-  //   chatReference.doc('blocked').snapshots().listen((onData) {
-  //     if (onData.data != null) {
-  //       blockedBy = onData.data['blockedBy'];
-  //       if (onData.data['isBlocked']) {
-  //         isBlocked = true;
-  //       } else {
-  //         isBlocked = false;
-  //       }
-  //
-  //       if (mounted) setState(() {});
-  //     }
-  //     // print(onData.data['blockedBy']);
-  //   });
-  // }
-
   List<Widget> generateSenderLayout(DocumentSnapshot documentSnapshot) {
     return <Widget>[
       Expanded(
@@ -232,7 +208,8 @@ class _ChatPageState extends State<ChatPage> {
     ];
   }
 
-  _messagesIsRead(documentSnapshot) {
+  List<Widget>_messagesIsRead(DocumentSnapshot documentSnapshot) {
+    Map data = (documentSnapshot.data() as Map);
     return <Widget>[
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +221,7 @@ class _ChatPageState extends State<ChatPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(90),
                 child: CachedNetworkImage(
-                  imageUrl: widget.imageUrl.toString(),
+                  imageUrl: widget.matchedPet.imageUrl[0].toString(),
                   useOldImageOnUrlChange: true,
                   placeholder: (context, url) =>
                       CupertinoActivityIndicator(
@@ -268,7 +245,7 @@ class _ChatPageState extends State<ChatPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              child: documentSnapshot.data['image_url'] != ''
+              child: data['image_url'] != ''
                   ? InkWell(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -294,7 +271,7 @@ class _ChatPageState extends State<ChatPage> {
                             .size
                             .width * .9,
                         imageUrl:
-                        documentSnapshot.data['image_url'] ?? '',
+                        data['image_url'] ?? '',
                         fit: BoxFit.fitWidth,
                       ),
                       height: 150,
@@ -305,10 +282,10 @@ class _ChatPageState extends State<ChatPage> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Text(
-                          documentSnapshot.data["time"] != null
+                          data["time"] != null
                               ? DateFormat.yMMMd()
                               .add_jm()
-                              .format(documentSnapshot.data["time"]
+                              .format(data["time"]
                               .toDate())
                               .toString()
                               : "",
@@ -349,7 +326,7 @@ class _ChatPageState extends State<ChatPage> {
                           Expanded(
                             child: Container(
                               child: Text(
-                                documentSnapshot.data['text'],
+                                data['text'],
                                 style: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 16.0,
@@ -362,11 +339,10 @@ class _ChatPageState extends State<ChatPage> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                documentSnapshot.data["time"] != null
+                                data["time"] != null
                                     ? DateFormat.MMMd()
                                     .add_jm()
-                                    .format(documentSnapshot
-                                    .data["time"]
+                                    .format(data["time"]
                                     .toDate())
                                     .toString()
                                     : "",
@@ -394,8 +370,6 @@ class _ChatPageState extends State<ChatPage> {
       chatReference!.doc(documentSnapshot.id).update({
         'isRead': true,
       });
-
-      return _messagesIsRead(documentSnapshot);
     }
     return _messagesIsRead(documentSnapshot);
   }
@@ -407,7 +381,7 @@ class _ChatPageState extends State<ChatPage> {
           margin: const EdgeInsets.symmetric(vertical: 10.0),
           child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: (doc.data() as Map)['sender_id'] != widget.sender.id
+              children: (doc.data() as Map)['sender_id'] != widget.currentUser.id
               ? generateReceiverLayout(doc)
               : generateSenderLayout(doc),
         ),
@@ -426,7 +400,7 @@ class _ChatPageState extends State<ChatPage> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Color(0xff0e289f),
-        title: Text(widget.second_name.toString()),
+        title: Text(widget.matchedPet.petName.toString()),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
@@ -492,7 +466,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
       color: primaryColor,
-      onPressed: _isWritting
+      onPressed: _isWriting
           ? () => _sendText(_textController.text.trimRight())
           : null,
     );
@@ -500,7 +474,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildTextComposer() {
     return IconTheme(
-        data: IconThemeData(color: _isWritting ? primaryColor : secondryColor),
+        data: IconThemeData(color: _isWriting ? primaryColor : secondryColor),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
@@ -524,9 +498,12 @@ class _ChatPageState extends State<ChatPage> {
                           '.jpg');
                       UploadTask uploadTask = storageReference.putFile(
                           File(image!.path));
+                      await uploadTask.whenComplete(() async{
+                        String fileUrl = await storageReference.getDownloadURL();
+                        _sendImage(messageText: 'Photo', imageUrl: fileUrl);
+                      });
                       // await uploadTask.onComplete;
-                      String fileUrl = await storageReference.getDownloadURL();
-                      _sendImage(messageText: 'Photo', imageUrl: fileUrl);
+
                     }),
               ),
               new Flexible(
@@ -537,7 +514,7 @@ class _ChatPageState extends State<ChatPage> {
                   autofocus: false,
                   onChanged: (String messageText) {
                     setState(() {
-                      _isWritting = messageText
+                      _isWriting = messageText
                           .trim()
                           .length > 0;
                     });
@@ -558,19 +535,19 @@ class _ChatPageState extends State<ChatPage> {
         ));
   }
 
-  Future<Null> _sendText(String text) async {
+  void _sendText(String text) async {
     _textController.clear();
     chatReference!.add({
       'type': 'Msg',
       'text': text,
-      'sender_id': widget.sender.id,
-      'receiver_id': widget.second_id.toString(),
+      'sender_id': widget.currentUser.id,
+      'receiver_id': widget.matchedPet.userId,
       'isRead': false,
       'image_url': '',
       'time': FieldValue.serverTimestamp(),
     }).then((documentReference) {
       setState(() {
-        _isWritting = false;
+        _isWriting = false;
       });
     }).catchError((e) {});
   }
@@ -579,49 +556,11 @@ class _ChatPageState extends State<ChatPage> {
     chatReference!.add({
       'type': 'Image',
       'text': messageText,
-      'sender_id': widget.sender.id,
-      'receiver_id': widget.second_id.toString(),
+      'sender_id': widget.currentUser.id,
+      'receiver_id': widget.matchedPet.userId,
       'isRead': false,
       'image_url': imageUrl,
       'time': FieldValue.serverTimestamp(),
     });
-  }
-
-//   Future<void> onJoin(callType) async {
-//     if (!isBlocked) {
-//       // await for camera and mic permissions before pushing video page
-//
-//       await handleCameraAndMic(callType);
-//       await chatReference!.add({
-//         'type': 'Call',
-//         'text': callType,
-//         'sender_id': widget.sender.id,
-//         'receiver_id': widget.second_id.toString(),
-//         'isRead': false,
-//         'image_url': "",
-//         'time': FieldValue.serverTimestamp(),
-//       });
-//
-//       // push video page with given channel name
-//       await Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => DialCall(
-//             channelName: widget.chatId,
-//             callType: callType,
-//           ),
-//         ),
-//       );
-//     } else {
-//       CustomSnackbar.snackbar("Blocked !", _scaffoldKey);
-//     }
-//   }
-// }
-
-  Future<void> handleCameraAndMic(callType) async {
-    ///TODO: Request permissions.
-    // await PermissionHandler().requestPermissions(callType == "VideoCall"
-    //     ? [PermissionGroup.camera, PermissionGroup.microphone]
-    //     : [PermissionGroup.microphone]);
   }
 }

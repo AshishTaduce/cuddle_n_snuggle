@@ -222,10 +222,8 @@ class RecentChats extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => ChatPage(
                   chatId: "X0tK5eTUoS3sbtwTRimH-BultibG8Tuovq8IqcyRa",
-                  sender: currentUser,
-                  second_id: petslist[index],
-                  second_name: petslist[index].petName.toString(),
-                  imageUrl: petslist[index].imageUrl[0],
+                  currentUser: currentUser,
+                  matchedPet: petslist[index],
                 ),
               ),
             ),

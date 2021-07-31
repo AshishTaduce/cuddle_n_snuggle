@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PetsModel {
+class PetModel {
   final dynamic userId;
   final dynamic id;
   final dynamic petName;
@@ -12,9 +12,10 @@ class PetsModel {
   final dynamic about;
   final dynamic vaccinated;
   final dynamic kssiCertified;
-  List imageUrl = [];
+  List<String> imageUrl = [];
+  bool isAdoption;
 
-  PetsModel({
+  PetModel({
     this.userId,
     this.about,
     this.age,
@@ -27,9 +28,10 @@ class PetsModel {
     this.subcategory,
     this.sex,
     required this.imageUrl,
+    required this.isAdoption,
   });
-  factory PetsModel.fromDocument(DocumentSnapshot doc, dynamic documetId) {
-    return PetsModel(
+  factory PetModel.fromDocument(DocumentSnapshot doc, dynamic docId, _isAdoption) {
+    return PetModel(
       userId: doc['userId'],
       petName: doc['name'],
       category: doc['category'],
@@ -42,15 +44,13 @@ class PetsModel {
       about: doc['bio'],
       kssiCertified: doc['kssi_certified'],
       vaccinated: doc['vaccinated'],
-      imageUrl: doc['image'] != null
-          ? List.generate(
+      imageUrl: List.generate(
               doc['image'].length,
               (index) {
                 return doc['image'][index];
               },
-            )
-          : [],
-      id: doc.id,
+            ),
+      id: doc.id, isAdoption: _isAdoption,
     );
   }
 }

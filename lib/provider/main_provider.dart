@@ -6,19 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cns/models/custom_web_view.dart';
 import 'package:cns/models/new_user_model.dart';
-import 'package:cns/models/petadoption.dart';
 import 'package:cns/models/pets.dart';
-import 'package:unique_ids/unique_ids.dart';
 
 class MainProvider extends ChangeNotifier {
   NewUser? currentUser;
 
-  List<PetsModel> myPets = [];
-  List<PetsAdoption> myPetAdoptions = [];
+  List<PetModel> myPets = [];
+  List<PetModel> myPetAdoptions = [];
 
-  List<PetsModel> petMatches = [];
-  List<PetsModel> matchesByGender = [];
-  List<PetsAdoption> matchedPetAdoption = [];
+  List<PetModel> petMatches = [];
+  List<PetModel> matchesByGender = [];
+  List<PetModel> matchedPetAdoption = [];
 
   ValueNotifier<List<DocumentSnapshot>> petNotifier = ValueNotifier<List<DocumentSnapshot>>([]);
 
@@ -48,7 +46,7 @@ class MainProvider extends ChangeNotifier {
         ));
   }
 
-  Future<dynamic> handleGoogleSign(BuildContext context, String isIndiviual) async {
+  Future<dynamic> handleGoogleSign(BuildContext context, String isIndividual) async {
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -62,8 +60,8 @@ class MainProvider extends ChangeNotifier {
     _user = authResult.user!;
     assert(!_user.isAnonymous);
     assert(await _user.getIdToken() != null);
-    User currentUser = _auth.currentUser!;
-    assert(_user.uid == currentUser.uid);
+    User? currentUser = _auth.currentUser;
+    assert(_user.uid == currentUser!.uid);
     print("User Name NEW INDividual: ${_user.displayName}");
     print("User Email NEW Individual: ${_user.email}");
     if (currentUser != null) {
@@ -73,7 +71,7 @@ class MainProvider extends ChangeNotifier {
           .get()
           .then((QuerySnapshot snapshot) async {
         if (snapshot.docs.length <= 0) {
-          await setDataUser(authResult.user!, isIndiviual, authResult.user!.displayName!);
+          await setDataUser(authResult.user!, isIndividual, authResult.user!.displayName!);
         }
         await loadUserDetails();
       });
@@ -180,12 +178,12 @@ class MainProvider extends ChangeNotifier {
         .where('sex', isEqualTo: sex.contains("fe") ? "Male" : "Female")
         .get()
         .then((data) {
-      List<PetsModel> orders = <PetsModel>[];
+      List<PetModel> orders = <PetModel>[];
       int totalCount = data.docs.length;
       if (data.docs.isNotEmpty) {
         for (int i = 0; i < totalCount; i++) {
           print(data.docs[i]["subcategory"]);
-          orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
+          orders.add(PetModel.fromDocument(data.docs[i], data.docs[i].data(), false));
         }
         matchesByGender = orders;
         notifyListeners();
@@ -204,10 +202,10 @@ class MainProvider extends ChangeNotifier {
         .where('sex', isEqualTo: sex.contains("fe") ? "Male" : "Female")
         .get()
         .then((data) {
-      List<PetsModel> orders = <PetsModel>[];
+      List<PetModel> orders = <PetModel>[];
       if (data.docs.isNotEmpty) {
         for (QueryDocumentSnapshot doc in data.docs) {
-          orders.add(PetsModel.fromDocument(doc, doc.data()));
+          orders.add(PetModel.fromDocument(doc, doc.data(), false));
         }
         orders.removeWhere((element) => element.userId == currentUser!.id);
         matchesByGender = orders;
@@ -220,11 +218,11 @@ class MainProvider extends ChangeNotifier {
 
   Future<dynamic> updatePetMatches(String _category, String sex, String _subCategory) async {
     await FirebaseFirestore.instance.collection('PetAdoption').get().then((data) {
-      List<PetsAdoption> orders = <PetsAdoption>[];
+      List<PetModel> orders = <PetModel>[];
       int totalCount = data.docs.length;
       if (data.docs.isNotEmpty) {
         for (int i = 0; i < totalCount; i++) {
-          orders.add(PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
+          orders.add(PetModel.fromDocument(data.docs[i], data.docs[i].data(), true));
           orders = orders.where((element) => element.userId != currentUser!.id).toList();
           matchedPetAdoption = orders;
         }
@@ -278,7 +276,7 @@ class MainProvider extends ChangeNotifier {
     try {
       User user = FirebaseAuth.instance.currentUser!;
       await FirebaseFirestore.instance.collection('Pets').where('userId', isEqualTo: user.uid).get().then((data) {
-        List<PetsModel> orders = <PetsModel>[];
+        List<PetModel> orders = <PetModel>[];
         List<String> _categories = [];
         List<String> _subCategories = [];
 
@@ -288,7 +286,7 @@ class MainProvider extends ChangeNotifier {
           _subCategories = [];
         } else {
           for (int i = 0; i < data.docs.length; i++) {
-            orders.add(PetsModel.fromDocument(data.docs[i], data.docs[i].data()));
+            orders.add(PetModel.fromDocument(data.docs[i], data.docs[i].data(),false), );
             _categories.add(data.docs[i]["category"]);
             _subCategories.add(data.docs[i]["subcategory"]);
           }
@@ -319,7 +317,7 @@ class MainProvider extends ChangeNotifier {
 
       if (data.docs.isNotEmpty) {
         for (int i = 0; i < data.docs.length; i++) {
-          matchedPetAdoption.add(PetsAdoption.fromDocument(data.docs[i], data.docs[i].data()));
+          matchedPetAdoption.add(PetModel.fromDocument(data.docs[i], data.docs[i].data(), true));
           petCategory.add(data.docs[i]["category"]);
           petSubCategory.add(data.docs[i]["subcategory"]);
         }

@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image/image.dart' as i;
 import 'package:flutter/material.dart';
-import 'package:cns/Screens/UpdateLocation.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/util/color.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -16,7 +15,7 @@ import 'package:path_provider/path_provider.dart';
 class EditScreen extends StatefulWidget {
   final NewUser currentUser;
 
-  const EditScreen({Key key, this.currentUser}) : super(key: key);
+  const EditScreen({required Key key, required this.currentUser}) : super(key: key);
   @override
   _EditScreenState createState() => _EditScreenState();
 }
@@ -63,10 +62,10 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   void currentlocation() async {
-    var currentLocation = await getLocationCoordinates();
-    setState(() {
-      livingCtlr.text = currentLocation["PlaceName"];
-    });
+    // var currentLocation = await getLocationCoordinates();
+    // setState(() {
+    //   livingCtlr.text = currentLocation["PlaceName"];
+    // });
   }
 
   Future updateData() async {
@@ -188,9 +187,10 @@ class _EditScreenState extends State<EditScreen> {
 
   Future getImage(
       ImageSource imageSource, context, currentUser, isProfilePicture) async {
-    var image = await ImagePicker.pickImage(source: imageSource);
+
+    var image = await ImagePicker().getImage(source: imageSource);
     if (image != null) {
-      File croppedFile = await ImageCropper.cropImage(
+      File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
           cropStyle: CropStyle.circle,
           aspectRatioPresets: [CropAspectRatioPreset.square],
@@ -205,7 +205,7 @@ class _EditScreenState extends State<EditScreen> {
           ));
       if (croppedFile != null) {
         await uploadFile(
-            await compressimage(croppedFile), currentUser, isProfilePicture);
+            await compressImage(croppedFile), currentUser, isProfilePicture);
       }
     }
     Navigator.pop(context);
@@ -216,46 +216,43 @@ class _EditScreenState extends State<EditScreen> {
         .ref()
         .child('users/${currentUser.id}/${image.hashCode}.jpg');
     UploadTask uploadTask = storageReference.putFile(image);
-    if (uploadTask.isInProgress == true) {}
-    if (await uploadTask.onComplete != null) {
-      storageReference.getDownloadURL().then((fileURL) async {
-        Map<String, dynamic> updateObject = {
-          "Pictures": FieldValue.arrayUnion([
-            fileURL,
-          ])
-        };
-        try {
-          if (isProfilePicture) {
-            //currentUser.imageUrl.removeAt(0);
-            currentUser.imageUrl.insert(0, fileURL);
-            print("object");
-            await FirebaseFirestore.instance
-                .collection("Users")
-                .doc(currentUser.id)
-                .set({"Pictures": currentUser.imageUrl}, SetOptions(merge: true));
-          } else {
-            await FirebaseFirestore.instance
-                .collection("Users")
-                .doc(currentUser.id)
-                .set(updateObject, SetOptions(merge: true));
-            widget.currentUser.imageUrl.add(fileURL);
-          }
-          if (mounted) setState(() {});
-        } catch (err) {
-          print("Error: $err");
+    await uploadTask.whenComplete(() => storageReference.getDownloadURL().then((fileURL) async {
+      Map<String, dynamic> updateObject = {
+        "Pictures": FieldValue.arrayUnion([
+          fileURL,
+        ])
+      };
+      try {
+        if (isProfilePicture) {
+          //currentUser.imageUrl.removeAt(0);
+          currentUser.imageUrl.insert(0, fileURL);
+          print("object");
+          await FirebaseFirestore.instance
+              .collection("Users")
+              .doc(currentUser.id)
+              .set({"Pictures": currentUser.imageUrl}, SetOptions(merge: true));
+        } else {
+          await FirebaseFirestore.instance
+              .collection("Users")
+              .doc(currentUser.id)
+              .set(updateObject, SetOptions(merge: true));
+          widget.currentUser.imageUrl.add(fileURL);
         }
-      });
-    }
+        if (mounted) setState(() {});
+      } catch (err) {
+        print("Error: $err");
+      }
+    }));
   }
 
-  Future compressimage(File image) async {
-    final tempdir = await getTemporaryDirectory();
-    final path = tempdir.path;
-    i.Image imagefile = i.decodeImage(image.readAsBytesSync());
-    final compressedImagefile = File('$path.jpg')
-      ..writeAsBytesSync(i.encodeJpg(imagefile, quality: 80));
+  Future compressImage(File image) async {
+    final tempDir = await getTemporaryDirectory();
+    final path = tempDir.path;
+    i.Image? imageFile = i.decodeImage(image.readAsBytesSync());
+    final compressedImage = File('$path.jpg')
+      ..writeAsBytesSync(i.encodeJpg(imageFile!, quality: 80));
     // setState(() {
-    return compressedImagefile;
+    return compressedImage;
     // });
   }
 
@@ -694,9 +691,9 @@ class _EditScreenState extends State<EditScreen> {
   void _deletePicture(index) async {
     if (widget.currentUser.imageUrl[index] != null) {
       try {
-        Reference _ref = await FirebaseStorage.instance
-            .getReferenceFromUrl(widget.currentUser.imageUrl[index]);
-        print(_ref.path);
+        Reference _ref = FirebaseStorage.instance
+            .ref(widget.currentUser.imageUrl[index]);
+        print(_ref.fullPath);
         await _ref.delete();
       } catch (e) {
         print(e);
@@ -711,123 +708,5 @@ class _EditScreenState extends State<EditScreen> {
         .collection("Users")
         .doc("${widget.currentUser.id}")
         .set({"Pictures": temp[0]},SetOptions(merge: true));
-  }
-
-  void _updateAddress(Map _address) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (ctx) {
-          return Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .4,
-            child: Column(
-              children: <Widget>[
-                Material(
-                  child: ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'New address:',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.none),
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.cancel,
-                        color: Colors.black26,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    subtitle: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          _address['PlaceName'] ?? '',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              decoration: TextDecoration.none),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                RaisedButton(
-                  color: Colors.white,
-                  child: Text(
-                    "Confirm",
-                    style: TextStyle(color: primaryColor),
-                  ),
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await FirebaseFirestore.instance
-                        .collection("Users")
-                        .doc('${widget.currentUser.id}')
-                        .updateData({
-                          'location': {
-                            'latitude': _address['latitude'],
-                            'longitude': _address['longitude'],
-                            'address': _address['PlaceName']
-                          },
-                        })
-                        .whenComplete(() => showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (_) {
-                              Future.delayed(Duration(seconds: 3), () {
-                                setState(() {
-                                  // widget.currentUser.address =
-                                  //     _address['PlaceName'];
-                                });
-
-                                Navigator.pop(context);
-                              });
-                              return Center(
-                                  child: Container(
-                                      width: 160.0,
-                                      height: 120.0,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Image.asset(
-                                            "asset/auth/verified.jpg",
-                                            height: 60,
-                                            color: primaryColor,
-                                            colorBlendMode: BlendMode.color,
-                                          ),
-                                          Text(
-                                            "location\nchanged",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                decoration: TextDecoration.none,
-                                                color: Colors.black,
-                                                fontSize: 20),
-                                          )
-                                        ],
-                                      )));
-                            }))
-                        .catchError((e) {
-                          print(e);
-                        });
-
-                    // .then((_) {
-                    //   Navigator.pop(context);
-                    // });
-                  },
-                )
-              ],
-            ),
-          );
-        });
   }
 }

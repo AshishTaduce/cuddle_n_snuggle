@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/Welcome_homepage.dart';
-import 'package:cns/models/petadoption.dart';
 import 'package:cns/models/pets.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:cns/util/color.dart';
@@ -16,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdoptionEdit extends StatefulWidget {
-  final PetsAdoption e;
+  final PetModel e;
   final String documentId;
   const AdoptionEdit(
       {required Key key, required this.e, required this.documentId})

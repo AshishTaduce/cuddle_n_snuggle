@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:provider/provider.dart';
+
 class PetAdoption extends StatefulWidget {
   @override
   _PetAdoptionState createState() => _PetAdoptionState();
@@ -11,7 +12,6 @@ class _PetAdoptionState extends State<PetAdoption> {
   bool exceedSwipes = true;
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Center(
         child: Container(
@@ -20,7 +20,7 @@ class _PetAdoptionState extends State<PetAdoption> {
               children: [
                 GradientAppBar("Pet Adoption"),
                 Consumer<MainProvider>(
-                  builder: (_, petsadoption, __) {
+                  builder: (_, currentUser, __) {
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.9,
                       child: ListView.separated(
@@ -28,20 +28,18 @@ class _PetAdoptionState extends State<PetAdoption> {
                           return SizedBox(
                             height: 10,
                           );
-
                         },
-                        itemCount: petsadoption.matchedPetAdoption.length,
-
+                        itemCount: currentUser.matchedPetAdoption.length,
                         itemBuilder: (context, index) {
-
                           return Padding(
-                            padding: const EdgeInsets.only(left: 16.0 , right : 16.0 , bottom: 4.0),
+                            padding: const EdgeInsets.only(
+                                left: 16.0, right: 16.0, bottom: 4.0),
                             child: Card(
-
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -49,7 +47,9 @@ class _PetAdoptionState extends State<PetAdoption> {
                                         CircleAvatar(
                                           radius: 50,
                                           backgroundImage: NetworkImage(
-                                            petsadoption.matchedPetAdoption[index].imageUrl[0]
+                                            currentUser
+                                                .matchedPetAdoption[index]
+                                                .imageUrl[0]
                                                 .toString(),
                                           ),
                                         ),
@@ -57,92 +57,81 @@ class _PetAdoptionState extends State<PetAdoption> {
                                           width: 16,
                                         ),
                                         Column(
-
-
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              petsadoption.matchedPetAdoption[index].petName
+                                              currentUser
+                                                  .matchedPetAdoption[index]
+                                                  .petName
                                                   .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
                                                   .merge(TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400)),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
                                             ),
                                             SizedBox(
                                               height: 3,
                                             ),
                                             Text(
-                                              petsadoption.matchedPetAdoption[index].age
-                                                  .toString() +
+                                              currentUser
+                                                      .matchedPetAdoption[index]
+                                                      .age
+                                                      .toString() +
                                                   " Years",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
                                                   .merge(TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400)),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
                                             ),
                                             SizedBox(
                                               height: 2,
                                             ),
                                             Text(
-                                              "${petsadoption.matchedPetAdoption[index].about}",
+                                              "${currentUser.matchedPetAdoption[index].about}",
                                               maxLines: 2,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
-                                                  .merge(TextStyle(fontSize: 15)),
+                                                  .merge(
+                                                      TextStyle(fontSize: 15)),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-
                                     Consumer<MainProvider>(
                                       builder: (_, account, __) {
-                                        print("WEEWE");
-                                        print(
-                                          chatId(
-                                            account.currentUser!.id,
-                                            account
-                                                .matchedPetAdoption[
-                                            index]
-                                                .userId,
-                                          ),
-                                        );
                                         return InkWell(
                                             onTap: () {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => ChatPage(
-                                                      sender: account.currentUser!,
-                                                      imageUrl: account
-                                                          .matchedPetAdoption[index]
-                                                          .imageUrl[0]
-                                                          .toString(),
-                                                      second_id: account
-                                                          .matchedPetAdoption[index]
-                                                          .userId
-                                                          .toString(),
-                                                      second_name: account
-                                                          .matchedPetAdoption[index]
-                                                          .petName
-                                                          .toString(),
+                                                    builder: (context) =>
+                                                        ChatPage(
+                                                      currentUser:
+                                                          account.currentUser!,
+                                                      matchedPet: account
+                                                              .matchedPetAdoption[
+                                                          index],
                                                       chatId: chatId(
                                                         account.currentUser!.id,
                                                         account
                                                             .matchedPetAdoption[
-                                                                index].userId
-                                                            ,
+                                                                index]
+                                                            .userId,
                                                       ),
                                                     ),
                                                   ));
                                             },
-                                            child: Icon(Icons.messenger_outline));
+                                            child:
+                                                Icon(Icons.messenger_outline));
                                       },
                                     )
                                   ],
@@ -161,7 +150,6 @@ class _PetAdoptionState extends State<PetAdoption> {
         ),
       ),
     );
-
   }
 }
 

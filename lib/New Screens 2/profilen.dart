@@ -242,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               // color: Colors.black,
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> EditScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> EditScreen(key: Key(pet.id), currentUser: info.currentUser!,)));
                               },
                             ),
                           ),

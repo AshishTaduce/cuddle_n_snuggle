@@ -14,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';import 'package:google_fonts/google_fonts.dart';
 
 class EditProfile extends StatefulWidget {
-  final PetsModel e;
+  final PetModel e;
   final String documentId;
   const EditProfile({Key? key, required this.e, required this.documentId}) : super(key: key);
   @override
