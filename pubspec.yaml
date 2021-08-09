@@ -32,7 +32,8 @@ dependencies:
   flutter_webview_plugin: ^0.4.0
   progress_state_button: ^1.0.3
   rflutter_alert: ^2.0.2
-  unique_ids: ^2.0.0
+  anim_search_bar: ^2.0.2
+
 
   google_sign_in: ^5.0.4
   permission_handler: ^8.1.2
@@ -54,6 +55,8 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   group_radio_button: ^1.1.0
   bubbled_navigation_bar: ^0.0.4
+  flutter_svg: ^0.22.0
+  convex_bottom_bar: ^3.0.0
   flutter_launcher_icons: ^0.9.0
 #  filter_list: ^0.0.7
   date_time_picker: ^2.1.0

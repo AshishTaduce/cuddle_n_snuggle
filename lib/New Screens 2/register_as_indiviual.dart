@@ -43,20 +43,14 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
 
 
       body: SingleChildScrollView(
-        
         child: Column(
-
-          
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
             Stack(
               children: <Widget>[
                 background,
-
                 Positioned(
                     top: 100.0,
-
                     child: Center(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -71,13 +65,34 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                                   fontWeight: FontWeight.bold
                               ),
                             ),
-                            Text("COntinue registering to be a part",textAlign: TextAlign.center,
+                            Text("Continue registering to be a part",textAlign: TextAlign.center,
                               style: GoogleFonts.merriweather(
                                   fontSize: 15.0,
                                   color: Colors.black,
 
                               ),
+
                             ),
+                            // Container(
+                            //   padding: EdgeInsets.symmetric(horizontal: 18),
+                            //   child: TextFormField(
+                            //     controller: nameController,
+                            //     onChanged: (v) => nameController.text,
+                            //     decoration: new InputDecoration(
+                            //       border: new OutlineInputBorder(
+                            //           borderSide: new BorderSide(color: Colors.teal),
+                            //           borderRadius: BorderRadius.circular(28.0)
+                            //       ),
+                            //       hintText: 'Enter your name',
+                            //       labelText: 'Name',
+                            //       prefixIcon: const Icon(
+                            //         Icons.person,
+                            //         color: Colors.black,
+                            //       ),
+                            //
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -91,26 +106,7 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
             SizedBox(
               height: 20,
             ),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 18),
-            //   child: TextFormField(
-            //     controller: nameController,
-            //     onChanged: (v) => nameController.text,
-            //     decoration: new InputDecoration(
-            //       border: new OutlineInputBorder(
-            //           borderSide: new BorderSide(color: Colors.teal),
-            //           borderRadius: BorderRadius.circular(28.0)
-            //           ),
-            //       hintText: 'Enter your name',
-            //       labelText: 'Name',
-            //       prefixIcon: const Icon(
-            //         Icons.person,
-            //         color: Colors.black,
-            //       ),
-            //
-            //     ),
-            //   ),
-            // ),
+
             // SizedBox(
             //   height: 12,
             // ),
@@ -277,6 +273,7 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                            NewScreenSecondHomePage(),
                      ),);
                     } else {
+
                       // _scaffoldKey.currentState.showSnackBar(SnackBar(
                       //   content: Text('Sign In Failed!'),
                       //   duration: Duration(seconds: 3),

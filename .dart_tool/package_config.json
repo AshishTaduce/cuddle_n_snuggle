@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "anim_search_bar",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/anim_search_bar-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "archive",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.2",
       "packageUri": "lib/",
@@ -94,6 +100,12 @@
     {
       "name": "collection",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "convex_bottom_bar",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/convex_bottom_bar-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -296,6 +308,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "flutter_svg",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -478,6 +496,18 @@
     {
       "name": "path",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_drawing",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-0.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -752,12 +782,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "unique_ids",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/unique_ids-2.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "universal_platform",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/universal_platform-1.0.0+1",
       "packageUri": "lib/",
@@ -842,7 +866,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-07-28T15:54:49.218824Z",
+  "generated": "2021-08-08T13:32:52.841965Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

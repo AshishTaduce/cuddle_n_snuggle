@@ -1,10 +1,13 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cns/New Screens 2/Calenderx.dart';
 import 'package:cns/New Screens 2/carouselnews.dart';
@@ -32,6 +35,7 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
+
   late PageController _pageController;
   late MenuPositionController _menuPositionController;
   bool userPageDragging = false;
@@ -49,92 +53,40 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     super.initState();
   }
 
-  void handlePageChange() {
-    _menuPositionController.absolutePosition = _pageController.page;
-    position = _pageController.page!.toInt();
-    print(_pageController.page);
-  }
+  // void handlePageChange() {
+  //   _menuPositionController.absolutePosition = _pageController.page;
+  //   position = _pageController.page!.toInt();
+  //   print(_pageController.page);
+  // }
 
-  void checkUserDragging(ScrollNotification scrollNotification) {
-    if (scrollNotification is UserScrollNotification &&
-        scrollNotification.direction != ScrollDirection.idle) {
-      userPageDragging = true;
-    } else if (scrollNotification is ScrollEndNotification) {
-      userPageDragging = false;
-    }
-    if (userPageDragging) {
-      _menuPositionController.findNearestTarget(_pageController.page);
-      position = _pageController.page!.toInt();
-    }
-  }
+  // void checkUserDragging(ScrollNotification scrollNotification) {
+  //   if (scrollNotification is UserScrollNotification &&
+  //       scrollNotification.direction != ScrollDirection.idle) {
+  //     userPageDragging = true;
+  //   } else if (scrollNotification is ScrollEndNotification) {
+  //     userPageDragging = false;
+  //   }
+  //   if (userPageDragging) {
+  //     _menuPositionController.findNearestTarget(_pageController.page);
+  //     position = _pageController.page!.toInt();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfffdf8ff),
-      bottomNavigationBar: BubbledNavigationBar(
-        controller: _menuPositionController,
-        defaultBubbleColor: Color(0xff1fa2ea),
-        onTap: (index) {
-          _pageController.animateToPage(
-            index,
-            curve: Curves.easeInOutQuad,
-            duration: Duration(milliseconds: 300),
-          );
-        },
-        items: <BubbledNavigationBarItem>[
-          BubbledNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 30,
-              color: Color(0xff01b4c9),
-            ),
-            activeIcon:
-                Icon(CupertinoIcons.home, size: 30, color: Colors.white),
-            title: Text(
-              'Home',
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
-          BubbledNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_today,
-              size: 30,
-              color: Color(0xff01b4c9),
-            ),
-            activeIcon:
-                Icon(Icons.calendar_today, size: 30, color: Colors.white),
-            title: Text(
-              'Calender',
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
-          BubbledNavigationBarItem(
-            icon: Icon(
-              Icons.message_outlined,
-              size: 30,
-              color: Color(0xff01b4c9),
-            ),
-            activeIcon:
-                Icon(Icons.message_outlined, size: 30, color: Colors.white),
-            title: Text(
-              'Message',
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
-          BubbledNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.profile_circled,
-              size: 30,
-              color: Color(0xff01b4c9),
-            ),
-            activeIcon: Icon(CupertinoIcons.profile_circled,
-                size: 30, color: Colors.white),
-            title: Text(
-              'Profile',
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
+      bottomNavigationBar: ConvexAppBar(
+        backgroundColor: Color(0xfffe812d),
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(
+              icon: SvgPicture.asset(
+                "asset/calendar.svg",
+              ),
+              title: 'Discovery'),
+          TabItem(icon: Icons.message, title: 'Message'),
+          TabItem(icon: Icons.people, title: 'Profile'),
         ],
       ),
       body: FirebaseAuth.instance.currentUser == null
@@ -213,7 +165,7 @@ class GradientAppBar extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
+              colors: [Color(0xfffe812d), Color(0xfffe812d)],
             ),
           ),
         );
@@ -228,178 +180,119 @@ class HomePageBottomBar extends StatefulWidget {
 }
 
 class _HomePageBottomBarState extends State<HomePageBottomBar> {
+  int selectedpage = 0;
+  final pageoption = [
+    NewScreenSecondHomePage(),
+    CalenderPage(),
+    MessagePage(),
+    ProfileScreen()
+  ];
+  TextEditingController textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    
     return SingleChildScrollView(
+      
       child: Column(
+        
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GradientAppBar("Welcome "),
-          SizedBox(
-            height: 30,
-          ),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        child: Text(
-                      "Where would you like to go ?",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.nunito(
-                        fontSize: 24,
-                        color: Colors.black,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                  ],
+            padding: const EdgeInsets.only(left: 16.0),
+            child: AnimSearchBar(
+                helpText: "Search Your Favourite Article",
+                suffixIcon: Icon(
+                  Icons.close,
+                  color: Color(0xfffe812d),
                 ),
-                SizedBox(
-                  height: 15,
+                closeSearchOnSuffixTap: true,
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Color(0xfffe812d),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PetMatchSelect(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          gradient: LinearGradient(
-                            colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16.0, right: 16.0, top: 16.0),
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  color: Colors.white,
-                                ),
-                                child: Icon(Icons.pets_rounded),
-                              ),
-                            ),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Pet Match",
-                                  style: GoogleFonts.abrilFatface(
-                                    fontSize: 18.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                width: 400,
+                textController: textController,
+                onSuffixTap: () {
+                  setState(() {
+                    textController.clear();
+                  });
+                }),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Container(
+                    width: 70,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color(
+                        0xfffe812d,
                       ),
-                    )),
-                    SizedBox(
-                      width: 40,
+                      borderRadius: BorderRadius.circular(24.0),
                     ),
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PetAdoption(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          gradient: LinearGradient(
-                            colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16.0, right: 16.0, top: 16.0),
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  color: Colors.white,
-                                ),
-                                child: Icon(Icons.home_filled),
-                              ),
-                            ),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Pet Adoption",
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 18.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                    margin: EdgeInsets.only(left: 40),
+                    child: Icon(Icons.pets)),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                    width: 70,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color(
+                        0xfffe812d,
                       ),
-                    )),
-                  ],
-                ),
-              ],
-            ),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Icon(Icons.pets)),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                    width: 70,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color(
+                        0xfffe812d,
+                      ),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Icon(Icons.pets)),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                    width: 70,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color(
+                        0xfffe812d,
+                      ),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: Icon(Icons.pets)),
+              ),
+            ],
           ),
 
           SizedBox(
-            height: 20, // Pets loading code below commented
+            height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  "Latest News",
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.nunito(
-                    fontSize: 24,
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
+
           Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.0),
@@ -414,6 +307,312 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                 ),
                 items: imageSliders,
               )),
+          SizedBox(
+            height: 20.0,
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(left: 30.0),
+            child: Text(
+              "Our Services",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PetMatchSelect(),
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 10),
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    gradient: LinearGradient(
+                      colors: [Color(0xfffe812d), Color(0xfffe812d)],
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            color: Colors.white,
+                          ),
+                          child: SvgPicture.asset(
+                            "asset/mating.svg",
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Pet Match",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )),
+              SizedBox(
+                width: 40,
+              ),
+              Expanded(
+                  child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PetAdoption(),
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    gradient: LinearGradient(
+                      colors: [Color(0xfffe812d), Color(0xfffe812d)],
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, right: 16.0, top: 16.0),
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            color: Colors.white,
+                          ),
+                          child: SvgPicture.asset(
+                            "asset/adoption.svg",
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Pet Adoption",
+                            style: GoogleFonts.nunito(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )),
+            ],
+          ),
+
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: [
+          //           Expanded(
+          //               child: Text(
+          //             "Where would you like to go ?",
+          //             textAlign: TextAlign.center,
+          //             style: GoogleFonts.nunito(
+          //               fontSize: 24,
+          //               color: Colors.black,
+          //               fontStyle: FontStyle.normal,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           )),
+          //         ],
+          //       ),
+          //       SizedBox(
+          //         height: 15,
+          //       ),
+          //       Row(
+          //         children: [
+          //           Expanded(
+          //               child: InkWell(
+          //             onTap: () {
+          //               Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                   builder: (context) => PetMatchSelect(),
+          //                 ),
+          //               );
+          //             },
+          //             child: Container(
+          //               height: 150,
+          //               width: 150,
+          //               decoration: BoxDecoration(
+          //                 borderRadius: BorderRadius.circular(16.0),
+          //                 gradient: LinearGradient(
+          //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
+          //                 ),
+          //               ),
+          //               child: Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: <Widget>[
+          //                   Padding(
+          //                     padding: const EdgeInsets.only(
+          //                         left: 16.0, right: 16.0, top: 16.0),
+          //                     child: Container(
+          //                       height: 45,
+          //                       width: 45,
+          //                       decoration: BoxDecoration(
+          //                         borderRadius: BorderRadius.circular(16.0),
+          //                         color: Colors.white,
+          //                       ),
+          //                       child: Icon(Icons.pets_rounded),
+          //                     ),
+          //                   ),
+          //                   Expanded(
+          //                     child: Align(
+          //                       alignment: Alignment.center,
+          //                       child: Text(
+          //                         "Pet Match",
+          //                         style: GoogleFonts.abrilFatface(
+          //                           fontSize: 18.0,
+          //                           color: Colors.white,
+          //                           fontWeight: FontWeight.bold,
+          //                         ),
+          //                       ),
+          //                     ),
+          //                   )
+          //                 ],
+          //               ),
+          //             ),
+          //           )),
+          //           SizedBox(
+          //             width: 40,
+          //           ),
+          //           Expanded(
+          //               child: InkWell(
+          //             onTap: () {
+          //               Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                   builder: (context) => PetAdoption(),
+          //                 ),
+          //               );
+          //             },
+          //             child: Container(
+          //               height: 150,
+          //               width: 150,
+          //               decoration: BoxDecoration(
+          //                 borderRadius: BorderRadius.circular(16.0),
+          //                 gradient: LinearGradient(
+          //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
+          //                 ),
+          //               ),
+          //               child: Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: <Widget>[
+          //                   Padding(
+          //                     padding: const EdgeInsets.only(
+          //                         left: 16.0, right: 16.0, top: 16.0),
+          //                     child: Container(
+          //                       height: 45,
+          //                       width: 45,
+          //                       decoration: BoxDecoration(
+          //                         borderRadius: BorderRadius.circular(16.0),
+          //                         color: Colors.white,
+          //                       ),
+          //                       child: Icon(Icons.home_filled),
+          //                     ),
+          //                   ),
+          //                   Expanded(
+          //                     child: Align(
+          //                       alignment: Alignment.center,
+          //                       child: Text(
+          //                         "Pet Adoption",
+          //                         style: GoogleFonts.nunito(
+          //                           fontSize: 18.0,
+          //                           color: Colors.white,
+          //                           fontWeight: FontWeight.bold,
+          //                         ),
+          //                       ),
+          //                     ),
+          //                   )
+          //                 ],
+          //               ),
+          //             ),
+          //           )),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 20, // Pets loading code below commented
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Row(
+          //     children: [
+          //       Text(
+          //         "Latest News",
+          //         textAlign: TextAlign.start,
+          //         style: GoogleFonts.nunito(
+          //           fontSize: 24,
+          //           color: Colors.black,
+          //           fontStyle: FontStyle.normal,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // Container(
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(25.0),
+          //     ),
+          //     child: CarouselSlider(
+          //       options: CarouselOptions(
+          //         aspectRatio: 2.0,
+          //         enlargeCenterPage: true,
+          //         enableInfiniteScroll: true,
+          //         initialPage: 2,
+          //         autoPlay: true,
+          //       ),
+          //       items: imageSliders,
+          //     )),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: Row(
@@ -786,14 +985,14 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                           ),
                           padding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 20.0),
-                          child: Text(
-                            'No. ${imgList.indexOf(item)} image',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          // child: Text(
+                          //   'No. ${imgList.indexOf(item)} image',
+                          //   style: TextStyle(
+                          //     color: Colors.white,
+                          //     fontSize: 20.0,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
                         ),
                       ),
                     ],
