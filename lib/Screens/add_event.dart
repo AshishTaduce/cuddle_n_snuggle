@@ -1,3 +1,6 @@
+import 'package:cns/models/pets.dart';
+import 'package:cns/provider/main_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/custom_widgets/custom_button.dart';
 import 'package:cns/mixins/validation_mixin.dart';
@@ -6,8 +9,8 @@ import 'package:cns/services/db_service.dart';
 import 'package:cns/util/database_helper.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cns/main.dart';
-import 'package:cns/New Screens 2/Calenderx.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddEvent extends StatefulWidget {
   final EventModel? event;
@@ -22,7 +25,6 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   late DatabaseHelper databaseHelper;
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _title;
-  late TextEditingController _description;
   late DateTime _eventDate;
   late TimeOfDay _time;
   late bool processing;
@@ -37,7 +39,6 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
     dbService = DbService();
     databaseHelper = DatabaseHelper();
     _title = TextEditingController();
-    _description = TextEditingController();
     _eventDate = DateTime.now();
     _time = TimeOfDay.now();
     if (widget.event != null) {
@@ -47,8 +48,6 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   }
 
   void populateForm() {
-    _title.text = widget.event!.title;
-    _description.text = widget.event!.description;
     _eventDate = widget.event!.eventDate;
     _time = widget.event!.time!;
     header = "Update Appointment";
@@ -61,26 +60,21 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
 
   void saveTask() async {
     try {
-      if (addNewTask) {
-        await databaseHelper.addTask(EventModel(
-          title: _title.text,
-          description: _description.text,
-          eventDate: _eventDate,
-          time: _time,
-        ));
-      } else {
-        await databaseHelper.updateTask(EventModel(
-            id: widget.event!.id,
-            title: _title.text,
-            description: _description.text,
-            eventDate: _eventDate,
-            time: _time));
-      }
+    // if (addNewTask) {
+    //   await databaseHelper.addTask(EventModel(
+    //     eventDate: _eventDate,
+    //     time: _time, pet: _selectedPet!, title: _title.text,
+    //   ));
+    // } else {
+    //   await databaseHelper.updateTask(EventModel(
+    //       id: widget.event!.id, title: _title.text, pet: _selectedPet!, eventDate: _eventDate, time: _time));
+    // }
+      print(_selectedPet);
 
       setState(() {
         processing = false;
       });
-      await _goBack();
+      // await _goBack();
     } catch (e) {
       print("Error $e");
     }
@@ -109,8 +103,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   }
 
   void scheduleNotification() async {
-    var scheduleTime =
-        _eventDate.add(Duration(hours: _time.hour - 1, minutes: _time.minute));
+    var scheduleTime = _eventDate.add(Duration(hours: _time.hour - 1, minutes: _time.minute));
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
@@ -122,24 +115,21 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
     );
 
     var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        // sound: 'a_long_cold_sting.wav',
         presentAlert: true,
         presentBadge: true,
         presentSound: true);
-    var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
 
     await flutternotificationplugin.schedule(
-      1 +
-          int.parse(
-              scheduleTime.microsecondsSinceEpoch.toString().substring(0, 7)),
+      1 + int.parse(scheduleTime.microsecondsSinceEpoch.toString().substring(0, 7)),
       'Reminder',
       'You will be reminded 1 hour before your scheduled appointment',
       DateTime.now().add(
         Duration(seconds: 15),
       ),
       platformChannelSpecifics,
+      androidAllowWhileIdle: true,
     );
     await flutternotificationplugin.schedule(
       int.parse(scheduleTime.microsecondsSinceEpoch.toString().substring(0, 7)),
@@ -149,158 +139,200 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
       platformChannelSpecifics,
     );
   }
+  PetModel? _selectedPet;
+
+  void _showDatePicker(ctx) {
+    showCupertinoModalPopup(
+        context: ctx,
+        builder: (_) => Container(
+          height: 300,
+          color: Color.fromARGB(255, 255, 255, 255),
+          child: Column(
+            children: [
+              Container(
+                height: 230,
+                child: CupertinoDatePicker(
+                  minimumDate: DateTime.now(),
+                  mode: CupertinoDatePickerMode.date,
+                    initialDateTime: DateTime.now(),
+                    onDateTimeChanged: (val) {
+                      setState(() {
+                        _eventDate = val;
+                      });
+                    },
+                ),
+              ),
+              CupertinoButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
+            ],
+          ),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onBackPressedWithButton,
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              alignment: Alignment.bottomLeft,
-              height: 80,
-              child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    _onBackPressedWithButton();
-                  }),
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "Add Reminder",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
-            Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Text(header,
-                    style:
-                        TextStyle(fontSize: 32, fontWeight: FontWeight.bold))),
-            Expanded(
-              child: Form(
-                key: _formKey,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
-                          child: TextFormField(
-                            controller: _title,
-                            validator: validateTextInput,
-                            decoration: InputDecoration(
-                                labelText: "Title",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
-                          child: TextFormField(
-                            textInputAction: TextInputAction.done,
-                            controller: _description,
-                            minLines: 3,
-                            maxLines: 5,
-                            validator: validateTextInput,
-                            decoration: InputDecoration(
-                                labelText: "description",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        ListTile(
-                          title: Text("Date of Appointment"),
-                          subtitle: Text(
-                              "${_eventDate.year} - ${_eventDate.month} - ${_eventDate.day}"),
-                          onTap: () async {
-                            DateTime? picked = await showDatePicker(
-                                context: context,
-                                initialDate: _eventDate,
-                                firstDate: DateTime(_eventDate.year - 5),
-                                lastDate: DateTime(_eventDate.year + 5));
-                            if (picked != null) {
-                              setState(() {
-                                _eventDate = picked;
-                              });
-                            }
-                          },
-                        ),
-                        SizedBox(height: 10.0),
-                        ListTile(
-                          title: Text("Time of Appointment"),
-                          subtitle: Text(_time.format(context)),
-                          onTap: () async {
-                            TimeOfDay? picked = await showTimePicker(
-                                context: context, initialTime: _time);
-
-                            if (picked != null) {
-                              setState(() {
-                                _time = picked;
-                              });
-                            }
-                          },
-                        ),
-                        SizedBox(height: 10.0),
-                        processing
-                            ? Center(child: CircularProgressIndicator())
-                            : Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    CustomButton(
-                                      buttonText: buttonText,
-                                      width: MediaQuery.of(context).size.width,
-                                      onPressed: () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          setState(() {
-                                            processing = true;
-                                          });
-                                          saveTask();
-                                          scheduleNotification();
-                                        }
-                                      },
-                                      key: Key("B"), buttonIcon: Text("Update"),
-                                    ),
-                                    SizedBox(height: 10.0),
-                                    Container(
-                                      child: !addNewTask
-                                          ? CustomButton(
-                                              buttonText: "Delete",
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              buttonColor: Colors.redAccent,
-                                              onPressed: () async {
-                                                setState(() {
-                                                  processing = true;
-                                                });
-                                                deleteTask();
-                                              }, buttonIcon: Text("Delete"), key: Key("L"),)
-                                          : Container(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                      ],
+          ),
+          leading: IconButton(
+              icon: Icon(Icons.chevron_left_rounded),
+              color: Colors.black,
+              iconSize: 32,
+              onPressed: () {
+                _onBackPressedWithButton();
+              }),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+        ),
+        body: Consumer<MainProvider>(
+          builder: (context, provider, _) => Form(
+            key: _formKey,
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              physics: BouncingScrollPhysics(),
+              children: <Widget>[
+                Card(
+                  elevation: 5.0,
+                  child: TextFormField(
+                    validator: validateTextInput,
+                    decoration: InputDecoration(
+                      labelText: "Remainder Name",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                Card(
+                  elevation: 5.0,
+                  child: DropdownButtonFormField(
+                    validator: (value) => value == null ? "Please select a pet." : null,
+                    decoration: InputDecoration(
+                      labelText: "Select Pet",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    items: provider.myPets
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e.petName),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (PetModel? newPet) {
+                      setState(() {
+                        _selectedPet = newPet;
+                      });
+                    },
+                    value: _selectedPet,
+                  ),
+                ),
+                // SizedBox(height: 10.0),
+                Card(
+                  elevation: 5.0,
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: Text("Select Time", style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
+                    trailing: Text("${_time.hourOfPeriod}:${_time.minute} ${_time.period == DayPeriod.am ? "AM" : "PM"}", style: TextStyle(fontWeight: FontWeight.bold),),
+                    subtitle: Center(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        height: 150,
+                        child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.time,
+                          initialDateTime: DateTime.now(),
+                          onDateTimeChanged: (val) {
+                            setState(() {
+                              _time = TimeOfDay.fromDateTime(val);
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 5.0,
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: Text("Select Date", style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
+                    trailing: Text(
+                      "${_eventDate.day} "
+                        "${DateFormat('MMM'). format(_eventDate)} "
+                          "${_eventDate.year}",
+                      style: TextStyle(fontWeight: FontWeight.bold),),
+                    onTap: ()=> _showDatePicker(context),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                processing
+                    ? Center(child: CircularProgressIndicator())
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            CustomButton(
+                              buttonText: buttonText,
+                              width: MediaQuery.of(context).size.width,
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    processing = true;
+                                  });
+                                  saveTask();
+                                  // scheduleNotification();
+                                }
+                              },
+                              key: Key("B"),
+                              buttonIcon: Text("Update"),
+                            ),
+                            SizedBox(height: 10.0),
+                            Container(
+                              child: !addNewTask
+                                  ? CustomButton(
+                                      buttonText: "Delete",
+                                      width: MediaQuery.of(context).size.width,
+                                      buttonColor: Colors.redAccent,
+                                      onPressed: () async {
+                                        setState(() {
+                                          processing = true;
+                                        });
+                                        deleteTask();
+                                      },
+                                      buttonIcon: Text("Delete"),
+                                      key: Key("L"),
+                                    )
+                                  : Container(),
+                            ),
+                          ],
+                        ),
+                      ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
+

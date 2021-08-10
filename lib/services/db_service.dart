@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:cns/Data/data.dart';
+// import 'package:cns/Data/data.dart';
 import 'package:cns/models/event.dart';
 
 class DbService {
@@ -16,7 +16,7 @@ class DbService {
     eventList.add(EventModel(
         id: idRandom,
         title: event.title + idRandom.toString(),
-        description: event.description + idRandom.toString(),
+        pet: event.pet,
         eventDate: event.eventDate));
   }
 }

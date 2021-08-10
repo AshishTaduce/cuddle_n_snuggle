@@ -81,7 +81,7 @@ class DatabaseHelper {
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: eventModel.description,
+      description: eventModel.pet.petName,
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );
@@ -102,7 +102,7 @@ class DatabaseHelper {
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: eventModel.description,
+      description: eventModel.pet.petName,
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );
