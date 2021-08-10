@@ -396,65 +396,79 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff0e289f),
-        title: Text(widget.matchedPet.petName.toString()),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          body: Container(
-            padding: EdgeInsets.all(5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                StreamBuilder<QuerySnapshot>(
-                  stream: chatReference!
-                      .orderBy('time', descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData)
-                      return Container(
-                        height: 15,
-                        width: 15,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(primaryColor),
-                          strokeWidth: 2,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 200.0,
+              floating: true,
+              snap: true,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(widget.matchedPet.petName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      )),
+                  background: Image.network(
+                    widget.matchedPet.imageUrl[0],
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ];
+        },
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            body: Container(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  StreamBuilder<QuerySnapshot>(
+                    stream: chatReference!
+                        .orderBy('time', descending: true)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData)
+                        return Container(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(primaryColor),
+                            strokeWidth: 2,
+                          ),
+                        );
+                      return Expanded(
+                        child: ListView(
+                          reverse: true,
+                          children: generateMessages(snapshot),
                         ),
                       );
-                    return Expanded(
-                      child: ListView(
-                        reverse: true,
-                        children: generateMessages(snapshot),
-                      ),
-                    );
-                  },
-                ),
-                Divider(height: 1.0),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(color: Theme
-                      .of(context)
-                      .cardColor),
-                  child: isBlocked
-                      ? Text("Sorry You can't send message!")
-                      : _buildTextComposer(),
-                ),
-              ],
-            ),/**/
+                    },
+                  ),
+                  Divider(height: 1.0),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(color: Theme
+                        .of(context)
+                        .cardColor),
+                    child: isBlocked
+                        ? Text("Sorry You can't send message!")
+                        : _buildTextComposer(),
+                  ),
+                ],
+              ),/**/
+            ),
           ),
         ),
       ),
     );
   }
+
+
 
   Widget getDefaultSendButton() {
     return IconButton(
@@ -564,3 +578,4 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 }
+
