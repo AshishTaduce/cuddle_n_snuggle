@@ -277,7 +277,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
     }
   }
 
-  Future source(BuildContext context, bool isProfilePicture) async {
+  Future showImagePicker(BuildContext context, bool isProfilePicture) async {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -313,7 +313,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            getImage(
+                            _getImage(
                                 ImageSource.camera, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
@@ -350,7 +350,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                           barrierDismissible: false,
                           context: context,
                           builder: (context) {
-                            getImage(
+                            _getImage(
                                 ImageSource.gallery, context, isProfilePicture);
                             return Center(
                                 child: CircularProgressIndicator(
@@ -366,7 +366,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
         });
   }
 
-  Future compressimage(PickedFile image) async {
+  Future _compressImage(PickedFile image) async {
     print("Compress image");
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
@@ -376,7 +376,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
     return compressedImagefile;
   }
 
-  Future getImage(ImageSource imageSource, context, isProfilePicture) async {
+  Future _getImage(ImageSource imageSource, context, isProfilePicture) async {
     PickedFile? image = await ImagePicker().getImage(source: imageSource);
 
     if (image != null) {
@@ -395,7 +395,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
           ));
       if (croppedFile != null) {
         setState(() {
-          compressimage(image);
+          _compressImage(image);
           _image = File(image.path);
         });
       }
@@ -431,7 +431,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    source(context, true);
+                    showImagePicker(context, true);
                   },
                   child: Center(
                       child: _image == null

@@ -1,171 +1,139 @@
-import 'package:cns/New%20Screens%202/add_pet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:cns/New Screens 2/pet_match.dart';
-import 'package:cns/New%20Screens%202/pet_match.dart';
 import 'package:cns/provider/main_provider.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+
+import 'add_pet_screen.dart';
+import 'pet_match.dart';
 
 class PetMatchSelect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Flexible(
-                  child: Text(
-                    "Select the pet that you want to pet match for",
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.nunito(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+      backgroundColor: HexColor("#f7f7f7"),
+      appBar: AppBar(
+        backgroundColor: HexColor("#f7f7f7"),
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left_rounded),
+          iconSize: 36,
+          color: Colors.black,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        elevation: 0.0,
+        title: Text(
+          "My pet",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
+        ),
+      ),
+      body: Consumer<MainProvider>(
+        builder: (_, currentUser, __) => Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 3 / 4,
             ),
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          Consumer<MainProvider>(
-            builder: (_, pets, __) {
-              print(pets.myPets);
-
-              return (pets.myPets.isEmpty) //Pet model can be empty too
-                  ? SizedBox(
-                      height: 60,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddPetScreen(isAdoption: false,),),);
-                        },
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AddPetScreen(isAdoption: false,),),);
-                            },
-                            child: Icon(
-                              Icons.add_outlined,
-                              color: Colors.black,
-                              size: 30,
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(90),
-                                    side: BorderSide(color: Colors.black)),
-                              ),
-                            ),
+            children: [
+              ...currentUser.myPets
+                  .map(
+                    (petInfo) => InkWell(
+                      onTap: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PetMatchScreen(
+                            category: petInfo.category,
+                            subcategory: petInfo.subcategory,
+                            gender: petInfo.sex,
+                            selectedPetID: petInfo.id,
                           ),
                         ),
                       ),
-                    )
-                  : Container(
-                      height: 120,
-                      child: ListView.separated(
-                        separatorBuilder: (_, __) {
-                          return SizedBox(
-                            width: 15,
-                          );
-                        },
-                        padding: EdgeInsets.all(10),
-                        itemCount: pets.myPets.length == 0
-                            ? 1
-                            : pets.myPets.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == pets.myPets.length) {
-                            return SizedBox(
-                              height: 50,
-                            );
-                          }
-                          return InkWell(
-                            onTap: () {
-                              Alert(
-                                context: context,
-                                type: AlertType.none,
-                                title: "Confirm",
-                                desc: "Are you sure that you want to select " +
-                                    (pets.myPets[index].petName.toString())
-                                        .toString(),
-                                buttons: [
-                                  DialogButton(
-                                    child: Text(
-                                      "Yes",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PetMatchScreen(
-                                              category: pets
-                                                  .myPets[index].category,
-                                              subcategory: pets
-                                                  .myPets[index].subcategory,
-                                              gender:
-                                                  pets.myPets[index].sex,
-                                          selectedPetID:  pets.myPets[index].id,),
-                                        ),
-                                      );
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => CardPictures(),
-                                      //   ),
-                                      // );
-                                    },
-                                    width: 120,
-                                  )
-                                ],
-                              ).show();
-
-                            },
-                            child: Container(
-                              child: CircleAvatar(
-                                radius: 50,
-                                backgroundImage: NetworkImage(
-                                  pets.myPets[index].imageUrl[0].toString(),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(32.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  petInfo.imageUrl[0],
+                                  fit: BoxFit.cover,
+                                  height: 100,
+                                  width: 100,
+                                  alignment: Alignment.center,
+                                  semanticLabel: petInfo.petName,
                                 ),
-
-                                backgroundColor: Colors.grey.withOpacity(0.4),
                               ),
-                            ),
-                          );
-                        },
-                        scrollDirection: Axis.horizontal,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 24.0),
+                                child: Text(
+                                  petInfo.petName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    );
-            },
+                    ),
+                  )
+                  .toList(),
+              InkWell(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Icon(
+                            Icons.add_circle_outline,
+                            size: 32,
+                            color: HexColor("#ffec40"),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "Add New",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPetScreen(
+                      isAdoption: false,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-
-      },),
     );
   }
 }

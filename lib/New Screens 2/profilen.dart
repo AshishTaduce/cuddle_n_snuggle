@@ -106,8 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       //                 ),
       //                 title: Text(
       //                   currentUser!.displayName.toString(),
-      //                   style: TextStyle(
-      //                       fontWeight: FontWeight.bold, fontSize: 18),
+      //                  style: TextStyle(//                       fontWeight: FontWeight.bold, fontSize: 18),
       //                 ),
       //                 subtitle: Text(
       //                   currentUser!.email.toString(),
@@ -118,8 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       //                 contentPadding: EdgeInsets.all(16),
       //                 title: Text(
       //                   "All Pet Match Pets",
-      //                   style: TextStyle(
-      //                       fontSize: 18, fontWeight: FontWeight.bold),
+      //                  style: TextStyle(//                       fontSize: 18, fontWeight: FontWeight.bold),
       //                 ),
       //                 trailing: IconButton(
       //                   icon: Icon(

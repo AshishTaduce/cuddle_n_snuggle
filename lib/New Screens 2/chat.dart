@@ -395,7 +395,6 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.black,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -418,49 +417,47 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ];
         },
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            body: Container(
-              padding: EdgeInsets.all(5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  StreamBuilder<QuerySnapshot>(
-                    stream: chatReference!
-                        .orderBy('time', descending: true)
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData)
-                        return Container(
-                          height: 15,
-                          width: 15,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(primaryColor),
-                            strokeWidth: 2,
-                          ),
-                        );
-                      return Expanded(
-                        child: ListView(
-                          reverse: true,
-                          children: generateMessages(snapshot),
+        body: Container(
+          padding: EdgeInsets.all(5),
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                StreamBuilder<QuerySnapshot>(
+                  stream: chatReference!
+                      .orderBy('time', descending: true)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData)
+                      return Container(
+                        height: 15,
+                        width: 15,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(primaryColor),
+                          strokeWidth: 2,
                         ),
                       );
-                    },
-                  ),
-                  Divider(height: 1.0),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(color: Theme
-                        .of(context)
-                        .cardColor),
-                    child: isBlocked
-                        ? Text("Sorry You can't send message!")
-                        : _buildTextComposer(),
-                  ),
-                ],
-              ),/**/
+                    return Expanded(
+                      child: ListView(
+                        reverse: true,
+                        children: generateMessages(snapshot),
+                      ),
+                    );
+                  },
+                ),
+                Divider(height: 1.0),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(color: Theme
+                      .of(context)
+                      .cardColor),
+                  child: isBlocked
+                      ? Text("Sorry You can't send message!")
+                      : _buildTextComposer(),
+                ),
+              ],
             ),
           ),
         ),
