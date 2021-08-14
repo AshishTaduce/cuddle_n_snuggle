@@ -197,8 +197,8 @@ class GradientAppBar extends StatelessWidget {
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(0xff01b4c9),
-            Color(0xff01b4c9),
+            Color(0xfffe812d),
+        Color(0xfffe812d),
           ],
         ),
       ),

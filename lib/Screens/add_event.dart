@@ -294,6 +294,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             CustomButton(
+                              buttonColor: Color(0xfffe812d),
                               buttonText: buttonText,
                               width: MediaQuery.of(context).size.width,
                               onPressed: () async {

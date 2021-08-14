@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cns/New%20Screens%202/edit_screen.dart';
+import 'package:cns/New%20Screens%202/mypets.dart';
 import 'package:cns/New%20Screens%202/register_as_indiviual.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/models/new_user_model.dart';
@@ -62,33 +63,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.power_settings_new,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterIndiviual()));
-            },
-          )
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.power_settings_new,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+        //       Navigator.push(context,
+        //           MaterialPageRoute(builder: (context) => RegisterIndiviual()));
+        //     },
+        //   )
+        // ],
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
-              height: 50,
+              height: 40,
             ),
             Container(
+              height: 80,
+              width: 80,
+
               alignment: Alignment.center,
               child: CachedNetworkImage(
+
                 imageUrl: "https://picsum.photos/200",
               ),
             ),
-            Container(alignment: Alignment.center, child: Text(""))
+            SizedBox(
+              height: 10,
+            ),
+            Container(alignment: Alignment.center, child: Text("Aditya Kashyap")),
+            SizedBox(
+              height: 5,
+            ),
+            Container(alignment: Alignment.center, child: Text("adiiyaar2401@gmail.com")),
+            SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              title: Text("Edit Profile"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
+            ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyPets()));
+              },
+              title: Text("My Pets"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
+            ListTile(
+              title: Text("Location"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
+            ListTile(
+              title: Text("Setting"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
+            ListTile(
+              title: Text("Logout"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
           ],
         ),
       ),

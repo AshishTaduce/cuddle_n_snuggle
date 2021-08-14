@@ -53,6 +53,7 @@ class _ChatPageState extends State<ChatPage> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     new Container(
+
                       margin: EdgeInsets.only(
                           top: 2.0, bottom: 2.0, right: 15),
                       child: Stack(
@@ -78,6 +79,7 @@ class _ChatPageState extends State<ChatPage> {
                             imageUrl: (documentSnapshot
                                 .data() as Map)['image_url'] ?? '',
                             fit: BoxFit.fitWidth,
+
                           ),
                           Container(
                             alignment: Alignment.bottomRight,
@@ -403,8 +405,10 @@ class _ChatPageState extends State<ChatPage> {
               floating: true,
               snap: true,
               pinned: true,
+
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
+                  collapseMode: CollapseMode.parallax,
                   title: Text(widget.matchedPet.petName,
                       style: TextStyle(
                         color: Colors.white,
@@ -412,52 +416,60 @@ class _ChatPageState extends State<ChatPage> {
                       )),
                   background: Image.network(
                     widget.matchedPet.imageUrl[0],
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   )),
             ),
           ];
         },
-        body: Container(
-          padding: EdgeInsets.all(5),
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                StreamBuilder<QuerySnapshot>(
-                  stream: chatReference!
-                      .orderBy('time', descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData)
-                      return Container(
-                        height: 15,
-                        width: 15,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(primaryColor),
-                          strokeWidth: 2,
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(45.0),
+              topRight: Radius.circular(45.0),
+            ),
+            child: Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  StreamBuilder<QuerySnapshot>(
+                    stream: chatReference!
+                        .orderBy('time', descending: true)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData)
+                        return Container(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(primaryColor),
+                            strokeWidth: 2,
+                          ),
+                        );
+                      return Expanded(
+                        child: ListView(
+                          reverse: true,
+                          children: generateMessages(snapshot),
                         ),
                       );
-                    return Expanded(
-                      child: ListView(
-                        reverse: true,
-                        children: generateMessages(snapshot),
-                      ),
-                    );
-                  },
-                ),
-                Divider(height: 1.0),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(color: Theme
-                      .of(context)
-                      .cardColor),
-                  child: isBlocked
-                      ? Text("Sorry You can't send message!")
-                      : _buildTextComposer(),
-                ),
-              ],
+                    },
+                  ),
+                  Divider(height: 1.0),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(color: Theme
+                        .of(context)
+                        .cardColor),
+                    child: isBlocked
+                        ? Text("Sorry You can't send message!")
+                        : _buildTextComposer(),
+                  ),
+                ],
+              ),/**/
             ),
           ),
         ),

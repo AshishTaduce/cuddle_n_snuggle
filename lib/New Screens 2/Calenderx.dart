@@ -134,7 +134,7 @@ class _CalenderPageState extends State<CalenderPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 40.0),
                         padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(color: HexColor("#f5756c"), borderRadius: BorderRadius.circular(16)),
+                        decoration: BoxDecoration(color: HexColor("#fe812d"), borderRadius: BorderRadius.circular(16)),
                         child: TableCalendar(
                           firstDay: DateTime.utc(2010, 10, 16),
                           lastDay: DateTime.utc(2030, 3, 14),
@@ -282,7 +282,7 @@ class _CalenderPageState extends State<CalenderPage> {
             }),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: HexColor("#f5756c"),
+        backgroundColor: HexColor("#fe812d"),
           shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(16)),
           elevation: 4.0,
           child: Icon(Icons.add),
