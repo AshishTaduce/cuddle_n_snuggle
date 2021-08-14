@@ -30,13 +30,7 @@ class PetMatchSelect extends StatelessWidget {
       body: Consumer<MainProvider>(
         builder: (_, currentUser, __) => Padding(
           padding: const EdgeInsets.all(16.0),
-          child: GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 3 / 4,
-            ),
+          child: ListView(
             children: [
               ...currentUser.myPets
                   .map(
@@ -53,33 +47,62 @@ class PetMatchSelect extends StatelessWidget {
                         ),
                       ),
                       child: Card(
+                        elevation: 4.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  petInfo.imageUrl[0],
-                                  fit: BoxFit.cover,
-                                  height: 100,
-                                  width: 100,
-                                  alignment: Alignment.center,
-                                  semanticLabel: petInfo.petName,
-                                ),
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                              image: NetworkImage(
+                                petInfo.imageUrl[0],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 24.0),
-                                child: Text(
-                                  petInfo.petName,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                right: 50,
+                                top: 25,
+                                child: Container(
+                                  width: 140,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        petInfo.petName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                        child: Text(
+                                          petInfo.sex + " " + petInfo.category,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                          petInfo.about,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+
+                                    ],
                                   ),
                                 ),
                               ),
