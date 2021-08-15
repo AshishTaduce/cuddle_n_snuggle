@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cns/models/pets.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,21 +62,26 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
 
   void saveTask() async {
     try {
-    // if (addNewTask) {
-    //   await databaseHelper.addTask(EventModel(
-    //     eventDate: _eventDate,
-    //     time: _time, pet: _selectedPet!, title: _title.text,
-    //   ));
-    // } else {
-    //   await databaseHelper.updateTask(EventModel(
-    //       id: widget.event!.id, title: _title.text, pet: _selectedPet!, eventDate: _eventDate, time: _time));
-    // }
-      print(_selectedPet);
-
-      setState(() {
-        processing = false;
-      });
-      // await _goBack();
+    if (addNewTask) {
+      await databaseHelper.addTask(EventModel(
+        eventDate: _eventDate,
+        time: _time,
+        pet: selectedPet!,
+        title: _title.text,
+      ));
+    } else {
+      await databaseHelper.updateTask(EventModel(
+          id: widget.event!.id,
+          title: _title.text,
+          pet: selectedPet!,
+          eventDate: _eventDate,
+          time: _time,
+      ));
+    }
+    setState(() {
+      processing = false;
+    });
+      await _goBack();
     } catch (e) {
       print("Error $e");
     }
@@ -139,7 +146,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
       platformChannelSpecifics,
     );
   }
-  PetModel? _selectedPet;
+  PetModel? selectedPet;
 
   void _showDatePicker(ctx) {
     showCupertinoModalPopup(
@@ -203,6 +210,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                 Card(
                   elevation: 5.0,
                   child: TextFormField(
+                    controller: _title,
                     validator: validateTextInput,
                     decoration: InputDecoration(
                       labelText: "Remainder Name",
@@ -238,13 +246,12 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                         .toList(),
                     onChanged: (PetModel? newPet) {
                       setState(() {
-                        _selectedPet = newPet;
+                        selectedPet = newPet;
                       });
                     },
-                    value: _selectedPet,
+                    value: selectedPet,
                   ),
                 ),
-                // SizedBox(height: 10.0),
                 Card(
                   elevation: 5.0,
                   child: ListTile(
@@ -278,7 +285,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                       child: Text("Select Date", style: TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     trailing: Text(
-                      "${_eventDate.day} "
+                      "${_eventDate.day}"
                         "${DateFormat('MMM'). format(_eventDate)} "
                           "${_eventDate.year}",
                       style: TextStyle(fontWeight: FontWeight.bold),),
@@ -299,9 +306,10 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                               width: MediaQuery.of(context).size.width,
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    processing = true;
-                                  });
+                                  // setState(() {
+                                  //   processing = true;
+                                  // });
+                                  print(jsonEncode(selectedPet?.toJson()));
                                   saveTask();
                                   // scheduleNotification();
                                 }
@@ -309,31 +317,33 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                               key: Key("B"),
                               buttonIcon: Text("Update"),
                             ),
-                            SizedBox(height: 10.0),
-                            Container(
-                              child: !addNewTask
-                                  ? CustomButton(
-                                      buttonText: "Delete",
-                                      width: MediaQuery.of(context).size.width,
-                                      buttonColor: Colors.redAccent,
-                                      onPressed: () async {
-                                        setState(() {
-                                          processing = true;
-                                        });
-                                        deleteTask();
-                                      },
-                                      buttonIcon: Text("Delete"),
-                                      key: Key("L"),
-                                    )
-                                  : Container(),
-                            ),
+                            Visibility(
+                              visible: !addNewTask,
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 8),
+                                    child: CustomButton(
+                                        buttonText: "Delete",
+                                        width: MediaQuery.of(context).size.width,
+                                        buttonColor: Colors.redAccent,
+                                        onPressed: () async {
+                                          setState(() {
+                                            processing = true;
+                                          });
+                                          deleteTask();
+                                        },
+                                        buttonIcon: Text("Delete"),
+                                        key: Key("L"),
+                                      ),
+                                  ),
+                                ),
                           ],
                         ),
                       ),
               ],
             ),
           ),
-        ));
+        ),
+    );
   }
 }
 

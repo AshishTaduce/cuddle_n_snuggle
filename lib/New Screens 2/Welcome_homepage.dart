@@ -125,51 +125,51 @@ class GradientAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-    return new Consumer<MainProvider>(
-      builder: (_, acc, __) {
-        return Container(
-          padding: EdgeInsets.only(top: statusBarHeight),
-          height: statusBarHeight + barHeight,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Welcome " + acc.currentUser!.name.toString(),
-                  style: Theme.of(context).textTheme.bodyText1!.merge(
-                        TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                        ),
-                      ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.notifications,
+    return Consumer<MainProvider>(
+      builder: (_, acc, __) => acc.currentUser == null ? Center(child: Container(
+        height: 45,
+        child: CircularProgressIndicator(),),) : Container(
+        padding: EdgeInsets.only(top: statusBarHeight),
+        height: statusBarHeight + barHeight,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Welcome " + acc.currentUser!.name.toString(),
+                style: Theme.of(context).textTheme.bodyText1!.merge(
+                  TextStyle(
                     color: Colors.white,
+                    fontSize: 23,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationPage(),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationPage(),
+                    ),
+                  );
+                },
+              )
+            ],
           ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Color(0xfffe812d), Color(0xfffe812d)],
-            ),
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Color(0xfffe812d), Color(0xfffe812d)],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
@@ -191,11 +191,11 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    
+
     return SingleChildScrollView(
-      
+
       child: Column(
-        
+
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GradientAppBar("Welcome "),

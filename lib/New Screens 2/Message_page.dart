@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cns/models/pets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/chat.dart';
@@ -197,7 +198,7 @@ class GradientAppBar extends StatelessWidget {
 class RecentChats extends StatelessWidget {
   final db = FirebaseFirestore.instance;
   final NewUser currentUser;
-  final List petslist;
+  final List<PetModel> petslist;
 
 
   RecentChats(this.currentUser, this.petslist);
@@ -270,15 +271,13 @@ class RecentChats extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        // /**/leading: CircleAvatar(
-                        //   backgroundColor: secondryColor,
-                        //   radius: 30.0,
-                        //   backgroundImage: NetworkImage(
-                        //       "${account[index].imageUrl[0].toString()}"),
-                        // ),
+                        /**/leading: CircleAvatar(
+                          radius: 30.0,
+                          backgroundImage: NetworkImage(
+                              "${petslist[index].imageUrl[0]}"),
+                        ),
                         title: Text(
-                          petslist[0].petName
-                              .toString(),
+                          petslist[0].petName,
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16.0,

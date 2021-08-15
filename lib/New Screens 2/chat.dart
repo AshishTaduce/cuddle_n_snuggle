@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cns/New%20Screens%202/pet_details.dart';
 import 'package:cns/models/pets.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -406,18 +407,21 @@ class _ChatPageState extends State<ChatPage> {
               snap: true,
               pinned: true,
 
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  collapseMode: CollapseMode.parallax,
-                  title: Text(widget.matchedPet.petName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      )),
-                  background: Image.network(
-                    widget.matchedPet.imageUrl[0],
-                    fit: BoxFit.fill,
-                  )),
+              flexibleSpace: InkWell(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => PetDetails(petInfo: widget.matchedPet,))),
+                child: FlexibleSpaceBar(
+                    centerTitle: true,
+                    collapseMode: CollapseMode.parallax,
+                    title: Text(widget.matchedPet.petName,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: Image.network(
+                      widget.matchedPet.imageUrl[0],
+                      fit: BoxFit.fill,
+                    )),
+              ),
             ),
           ];
         },

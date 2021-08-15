@@ -14,9 +14,6 @@ class CalenderPage extends StatefulWidget {
 }
 
 class _CalenderPageState extends State<CalenderPage> {
-  // CalendarController _calendarController;
-  PageController? _calendarController;
-  TextEditingController? _eventController;
   late Map<DateTime, List<EventModel>> _events;
   late final ValueNotifier<List<EventModel>> _selectedEvents;
   SharedPreferences? prefs;
@@ -28,80 +25,15 @@ class _CalenderPageState extends State<CalenderPage> {
   @override
   void initState() {
     super.initState();
-    // _calendarController = PageController();
-    _eventController = TextEditingController();
     _events = {};
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
     dbService = DbService();
     databaseHelper = DatabaseHelper();
   }
 
-  Map<DateTime, List<EventModel>> _fromModelToEvent(List<EventModel> events) {
-    Map<DateTime, List<EventModel>> data = {};
-    events.forEach((event) {
-      DateTime date = DateTime(event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
-      if (data[date] == null) data[date] = [];
-      data[date]!.add(event);
-    });
-    return data;
-  }
-
-  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
-    Map<String, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[key.toString()] = map[key];
-    });
-
-    return newMap;
-  }
-
-  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
-    Map<DateTime, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[DateTime.parse(key)] = map[key];
-    });
-    return newMap;
-  }
-
-  awaitReturnValueFromAddEvent() async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddEvent(),
-        ));
-    setState(() {});
-  }
-
-  awaitReturnValueFromAddEventForUpdate(EventModel event) async {
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddEvent(
-            event: event,
-          ),
-        ));
-
-    setState(() {
-      valueFromAddEvent = result;
-    });
-  }
-
-  List<EventModel> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return _events[day] ?? [];
-  }
-
-  // _reloadPage() async {
-  //   print("reload");
-  //   Navigator.of(context, rootNavigator: false).pushAndRemoveUntil(
-  //       PageRouteBuilder(
-  //         pageBuilder: (_, __, ___) => CalenderPage(),
-  //         transitionDuration: Duration(seconds: 0),
-  //       ),(Route<dynamic> route) => false);
-  // }
-
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,15 +44,14 @@ class _CalenderPageState extends State<CalenderPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<EventModel>? allEvents = snapshot.data;
-
                 _events = _fromModelToEvent(allEvents!);
               }
-              return SingleChildScrollView(
+              try {
+                return SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -188,19 +119,17 @@ class _CalenderPageState extends State<CalenderPage> {
                           onDaySelected: (selectedDate, focusedDate) {
                             print(
                                 "Events are: ${_events[dateFormat.format(selectedDate)]} for ${dateFormat.format(selectedDate)}");
-                            print("All Events are: $_events");
-
                             ///TODO: Rewrite this concept.
                             bool temp = _events.keys.toList().any(
                                   (element) => dateFormat.format(element) == dateFormat.format(selectedDate),
-                                );
+                            );
                             setState(() {
                               _focusedDay = focusedDate;
                               _selectedDay = selectedDate;
                               _selectedEvents.value = (temp
                                   ? _events[_events.keys.toList().firstWhere(
-                                        (element) => dateFormat.format(element) == dateFormat.format(selectedDate),
-                                      )]
+                                    (element) => dateFormat.format(element) == dateFormat.format(selectedDate),
+                              )]
                                   : [])!;
                             });
                           },
@@ -239,12 +168,10 @@ class _CalenderPageState extends State<CalenderPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Container(
-                                  child: Text(
+                              Text(
                                 event.time!.format(context),
-                                // event.time.toString(),
                                 style: TextStyle(fontSize: 16),
-                              )),
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   awaitReturnValueFromAddEventForUpdate(event);
@@ -268,17 +195,25 @@ class _CalenderPageState extends State<CalenderPage> {
                                         ),
                                         SizedBox(height: 10),
                                         Text(
-                                          event.pet.petName,
+                                          event.pet.toString(),
                                           style: TextStyle(color: Colors.white, fontSize: 12),
                                         ),
                                       ],
                                     )),
                               )
                             ],
-                          )))
+                          )),)
                     ],
                   ),
-              );
+                );
+              } catch (err) {
+                return Center(
+                  child: ListTile(
+                    title: Text("Oof an error occurred, here it is"),
+                    subtitle: Text(err.toString()),
+                  )
+                );
+              }
             }),
       ),
       floatingActionButton: FloatingActionButton(
@@ -290,5 +225,60 @@ class _CalenderPageState extends State<CalenderPage> {
             awaitReturnValueFromAddEvent();
           }),
     );
+  }
+
+  Map<DateTime, List<EventModel>> _fromModelToEvent(List<EventModel> events) {
+    Map<DateTime, List<EventModel>> data = {};
+    events.forEach((event) {
+      DateTime date = DateTime(event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
+      if (data[date] == null) data[date] = [];
+      data[date]!.add(event);
+    });
+    return data;
+  }
+
+  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
+    Map<String, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[key.toString()] = map[key];
+    });
+
+    return newMap;
+  }
+
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
+  }
+
+  awaitReturnValueFromAddEvent() async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddEvent(),
+        ));
+    setState(() {});
+  }
+
+  awaitReturnValueFromAddEventForUpdate(EventModel event) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddEvent(
+            event: event,
+          ),
+        ));
+
+    setState(() {
+      valueFromAddEvent = result;
+    });
+  }
+
+  List<EventModel> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return _events[day] ?? [];
   }
 }
