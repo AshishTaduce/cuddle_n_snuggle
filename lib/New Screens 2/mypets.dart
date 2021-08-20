@@ -23,7 +23,7 @@ class MyPets extends StatelessWidget {
         ),
         elevation: 0.0,
         title: Text(
-          "My pet",
+          "My Pets",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
         ),
       ),

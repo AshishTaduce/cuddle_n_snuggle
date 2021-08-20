@@ -10,7 +10,11 @@ class EventModel {
   final TimeOfDay? time;
 
   EventModel(
-      {this.id, required this.title, required this.pet, required this.eventDate, this.time});
+      {this.id,
+      required this.title,
+      required this.pet,
+      required this.eventDate,
+      this.time});
 
   factory EventModel.fromMap(Map data) {
     return EventModel(

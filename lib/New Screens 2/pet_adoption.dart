@@ -22,121 +22,126 @@ class _PetAdoptionState extends State<PetAdoption> {
                 Consumer<MainProvider>(
                   builder: (_, currentUser, __) {
                     return Container(
-                      height: MediaQuery.of(context).size.height * 0.9,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            height: 10,
-                          );
-                        },
+                      height: MediaQuery.of(context).size.height/2 * 200,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 0.8,
+                            crossAxisCount: 2),
+                        // separatorBuilder: (context, index) {
+                        //   return SizedBox(
+                        //     height: 10,
+                        //   );
+                        // },
                         itemCount: currentUser.matchedPetAdoption.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16.0, right: 16.0, bottom: 4.0),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Column(
+                                  // mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 50,
-                                          backgroundImage: NetworkImage(
-                                            currentUser
-                                                .matchedPetAdoption[index]
-                                                .imageUrl[0]
-                                                .toString(),
+
+                                    // CircleAvatar(
+                                    //   radius: 50,
+                                    //   backgroundImage: NetworkImage(
+                                    //     currentUser
+                                    //         .matchedPetAdoption[index]
+                                    //         .imageUrl[0]
+                                    //         .toString(),
+                                    //   ),
+                                    // ),
+
+                                    Container(
+                                      height: 230,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          alignment: Alignment.centerLeft,
+                                          fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                                          image: NetworkImage(
+                                            // petInfo.imageUrl[0],
+                                              currentUser
+                                                    .matchedPetAdoption[index]
+                                                    .imageUrl[0]
+                                                    .toString(),
+                                             // "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=639&q=80"
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 16,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              currentUser
-                                                  .matchedPetAdoption[index]
-                                                  .petName
-                                                  .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .merge(TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w400)),
-                                            ),
-                                            SizedBox(
-                                              height: 3,
-                                            ),
-                                            Text(
-                                              currentUser
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      alignment: Alignment.centerLeft,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+
+                                                child: Text(
+                                                  currentUser
                                                       .matchedPetAdoption[index]
-                                                      .age
-                                                      .toString() +
-                                                  " Years",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .merge(TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w400)),
-                                            ),
-                                            SizedBox(
-                                              height: 2,
-                                            ),
-                                            Text(
-                                              "${currentUser.matchedPetAdoption[index].about}",
-                                              maxLines: 2,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .merge(
-                                                      TextStyle(fontSize: 15)),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                                      .petName
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .merge(TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ),
+                                                alignment: Alignment.bottomLeft,
+                                                margin: EdgeInsets.only(bottom: 15.0,left: 5.0),
+                                              ),
+
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                margin: EdgeInsets.only(bottom: 13.0,right: 5.0,),
+                                                child: Consumer<MainProvider>(
+                                                  builder: (_, account, __) {
+                                                    return InkWell(
+                                                        onTap: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    ChatPage(
+                                                                      currentUser:
+                                                                      account.currentUser!,
+                                                                      matchedPet: account
+                                                                          .matchedPetAdoption[
+                                                                      index],
+                                                                      chatId: chatId(
+                                                                        account.currentUser!.id,
+                                                                        account
+                                                                            .matchedPetAdoption[
+                                                                        index]
+                                                                            .userId,
+                                                                      ),
+                                                                    ),
+                                                              ));
+                                                        },
+                                                        child:
+                                                        Icon(Icons.messenger_outline,color: Colors.white,));
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          // Container(
+                                          //   height: 20,
+                                          //   color: Colors.red,
+                                          // )
+                                        ],
+                                      ),
                                     ),
-                                    Consumer<MainProvider>(
-                                      builder: (_, account, __) {
-                                        return InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ChatPage(
-                                                      currentUser:
-                                                          account.currentUser!,
-                                                      matchedPet: account
-                                                              .matchedPetAdoption[
-                                                          index],
-                                                      chatId: chatId(
-                                                        account.currentUser!.id,
-                                                        account
-                                                            .matchedPetAdoption[
-                                                                index]
-                                                            .userId,
-                                                      ),
-                                                    ),
-                                                  ));
-                                            },
-                                            child:
-                                                Icon(Icons.messenger_outline));
-                                      },
-                                    )
+
                                   ],
                                 ),
-                              ),
+
+                              ],
                             ),
                           );
                         },
@@ -184,7 +189,7 @@ class GradientAppBar extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.bodyText1!.merge(
                       TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                       ),
                     ),
               ),
@@ -194,11 +199,15 @@ class GradientAppBar extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
+          // begin: Alignment.topRight,
+          // end: Alignment.bottomLeft,
           colors: [
-            Color(0xfffe812d),
-        Color(0xfffe812d),
+
+            Color(0xffff9827),
+            Color(0xfffcc281),
+
+        //     Colors.white,
+        //     Colors.white
           ],
         ),
       ),

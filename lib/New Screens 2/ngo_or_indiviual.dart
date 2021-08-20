@@ -35,7 +35,8 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                       Text(
                         "Welcome\tTo",
                         textAlign: TextAlign.start,
-                        style: GoogleFonts.nunito(
+                        style: TextStyle(
+                          fontFamily: 'Myfont',
                           fontSize: 38,
                           fontWeight: FontWeight.w800,
                           color: Colors.black,
@@ -45,7 +46,8 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                       Text(
                         "Cuddles and Snuggles",
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.nunito(
+                        style: TextStyle(
+                          fontFamily: 'Myfont',
                           fontSize: 34,
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
@@ -63,6 +65,7 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                     Text(
                       "How would you like to continue?",
                       style: TextStyle(
+                        fontFamily: 'Arial',
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 25,
@@ -75,11 +78,13 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                       Expanded(
                         child: TextButton(
                           child: Text("Continue As NGO".toUpperCase(),
-                              style: GoogleFonts.nunito(
-                                  fontSize: 15, fontWeight: FontWeight.w600)),
+                              style: TextStyle(
+                                  fontFamily: 'Arial',
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600)),
                           style: ButtonStyle(
                               padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(15)),
+                                  EdgeInsets.all(20)),
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
                               shape: MaterialStateProperty.all<
@@ -99,23 +104,28 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                       ),
                       SizedBox(width: 10),
                       Expanded(
-                        child: ElevatedButton(
+                        child: TextButton(
                           child: Text(
                             "Continue as Individual".toUpperCase(),
-                            style: GoogleFonts.nunito(
-                                fontSize: 15, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontFamily: 'Arial',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                           style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(18.5)),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xff01b4c9)),
+                                  Color(0xffff9827)),
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(color: Color(0xff01b4c9))))),
+                                      side: BorderSide(
+                                          color: Color(0xffff9827))))),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -226,20 +236,15 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                     ),
                     Column(
                       children: [
-                        Text(
-                          "Before continuing make sure you have read our",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .merge(TextStyle()),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text("Before continuing make sure you have read our",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                            )),
                         Text(
                           " Terms & Condition and Privacy Policy",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .merge(TextStyle(fontWeight: FontWeight.w700)),
+                          style: TextStyle(
+                              fontFamily: 'Arial', fontWeight: FontWeight.w700),
                           textAlign: TextAlign.center,
                         ),
                       ],

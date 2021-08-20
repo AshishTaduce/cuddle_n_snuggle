@@ -2,6 +2,7 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cns/New%20Screens%202/petadoptionselect.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +29,7 @@ class NewScreenSecondHomePage extends StatefulWidget {
 class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     with AutomaticKeepAliveClientMixin {
   final List<String> imgList = [
-    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+    'https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
@@ -53,36 +54,23 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     super.initState();
   }
 
-  // void handlePageChange() {
-  //   _menuPositionController.absolutePosition = _pageController.page;
-  //   position = _pageController.page!.toInt();
-  //   print(_pageController.page);
-  // }
-
-  // void checkUserDragging(ScrollNotification scrollNotification) {
-  //   if (scrollNotification is UserScrollNotification &&
-  //       scrollNotification.direction != ScrollDirection.idle) {
-  //     userPageDragging = true;
-  //   } else if (scrollNotification is ScrollEndNotification) {
-  //     userPageDragging = false;
-  //   }
-  //   if (userPageDragging) {
-  //     _menuPositionController.findNearestTarget(_pageController.page);
-  //     position = _pageController.page!.toInt();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffdf8ff),
+      // backgroundColor: Color(0xfffdf8ff),
+      backgroundColor: Colors.white,
       bottomNavigationBar: ConvexAppBar(
-        backgroundColor: Color(0xfffe812d),
+        backgroundColor: Color(0xffff9827),
         items: [
           TabItem(icon: Icons.home, title: 'Home'),
           TabItem(
+              activeIcon: SvgPicture.asset(
+                "asset/calendar.svg",
+                color: Color(0xfffe812d),
+              ),
               icon: SvgPicture.asset(
                 "asset/calendar.svg",
+                color: Colors.white,
               ),
               title: 'Discovery'),
           TabItem(icon: Icons.message, title: 'Message'),
@@ -139,7 +127,7 @@ class GradientAppBar extends StatelessWidget {
                   "Welcome " + acc.currentUser!.name.toString(),
                   style: Theme.of(context).textTheme.bodyText1!.merge(
                         TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 23,
                         ),
                       ),
@@ -163,9 +151,12 @@ class GradientAppBar extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Color(0xfffe812d), Color(0xfffe812d)],
+              colors: [
+                Colors.white,
+                Colors.white
+                // Color(0xffff9827),
+                // Color(0xfffcc281),
+              ],
             ),
           ),
         );
@@ -191,770 +182,838 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    
-    return SingleChildScrollView(
-      
-      child: Column(
-        
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          GradientAppBar("Welcome "),
-
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: AnimSearchBar(
-                helpText: "Search Your Favourite Article",
-                suffixIcon: Icon(
-                  Icons.close,
-                  color: Color(0xfffe812d),
-                ),
-                closeSearchOnSuffixTap: true,
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Color(0xfffe812d),
-                ),
-                width: 400,
-                textController: textController,
-                onSuffixTap: () {
-                  setState(() {
-                    textController.clear();
-                  });
-                }),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: Container(
-                    width: 70,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color(
-                        0xfffe812d,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    margin: EdgeInsets.only(left: 40),
-                    child: Icon(Icons.pets)),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                    width: 70,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color(
-                        0xfffe812d,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    child: Icon(Icons.pets)),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                    width: 70,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color(
-                        0xfffe812d,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    child: Icon(Icons.pets)),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                    width: 70,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color(
-                        0xfffe812d,
-                      ),
-                      borderRadius: BorderRadius.circular(24.0),
-                    ),
-                    child: Icon(Icons.pets)),
-              ),
-            ],
-          ),
-
-          SizedBox(
-            height: 20,
-          ),
-
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: true,
-                  initialPage: 2,
-                  autoPlay: true,
-                ),
-                items: imageSliders,
-              )),
-          SizedBox(
-            height: 20.0,
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 30.0),
-            child: Text(
-              "Our Services",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 30,
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PetMatchSelect(),
-                    ),
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    gradient: LinearGradient(
-                      colors: [Color(0xfffe812d), Color(0xfffe812d)],
-                    ),
+            // GradientAppBar("Welcome "),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "We Missed You",
+                    style: TextStyle(fontSize: 30, fontFamily: 'Myfont'),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                        child: Container(
-                          height: 45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset(
-                            "asset/mating.svg",
-                          ),
-                        ),
+                ),
+                Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child: Icon(Icons.notifications))
+              ],
+            ),
+            Consumer<MainProvider>(builder: (_, acc, __) {
+              return Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(left: 20),
+                  child: Text(
+                    acc.currentUser!.name.toString(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Arial',
+                      letterSpacing: 1.3,
+                      fontSize: 23,
+                    ),
+                  ));
+            }),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 16.0),
+            //   child: AnimSearchBar(
+            //       helpText: "Search Your Favourite Article",
+            //       suffixIcon: Icon(
+            //         Icons.close,
+            //         color: Color(0xfffe812d),
+            //       ),
+            //       closeSearchOnSuffixTap: true,
+            //       prefixIcon: Icon(
+            //         Icons.search,
+            //         color: Color(0xfffe812d),
+            //       ),
+            //       width: 400,
+            //       textController: textController,
+            //       onSuffixTap: () {
+            //         setState(() {
+            //           textController.clear();
+            //         });
+            //       }),
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     InkWell(
+            //       onTap: () {},
+            //       child: Container(
+            //           width: 70,
+            //           height: 40,
+            //           decoration: BoxDecoration(
+            //             color: Color(0xffff9827),
+            //             borderRadius: BorderRadius.circular(24.0),
+            //           ),
+            //           margin: EdgeInsets.only(left: 40),
+            //           child: Stack(
+            //             children: [
+            //               Positioned(
+            //                 child: Text("All"),
+            //                 top: 12,
+            //                 left: 23,
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //     SizedBox(
+            //       width: 20,
+            //     ),
+            //     InkWell(
+            //       onTap: () {},
+            //       child: Container(
+            //           width: 70,
+            //           height: 40,
+            //           decoration: BoxDecoration(
+            //             color: Color(
+            //               0xffe2e2e2,
+            //             ),
+            //             borderRadius: BorderRadius.circular(24.0),
+            //           ),
+            //           child: Stack(
+            //             children: [
+            //               Positioned(
+            //                 child: Text("Dogs"),
+            //                 top: 12,
+            //                 left: 20,
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //     SizedBox(
+            //       width: 20,
+            //     ),
+            //     InkWell(
+            //       onTap: () {},
+            //       child: Container(
+            //           width: 70,
+            //           height: 40,
+            //           decoration: BoxDecoration(
+            //             color: Color(
+            //               0xffe2e2e2,
+            //             ),
+            //             borderRadius: BorderRadius.circular(24.0),
+            //           ),
+            //           child: Stack(
+            //             children: [
+            //               Positioned(
+            //                 child: Text("Cats"),
+            //                 top: 12,
+            //                 left: 20,
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //     SizedBox(
+            //       width: 20,
+            //     ),
+            //     InkWell(
+            //       onTap: () {},
+            //       child: Container(
+            //           width: 74,
+            //           height: 40,
+            //           decoration: BoxDecoration(
+            //             color: Color(
+            //               0xffe2e2e2,
+            //             ),
+            //             borderRadius: BorderRadius.circular(24.0),
+            //           ),
+            //           child: Stack(
+            //             children: [
+            //               Positioned(
+            //                 child: Text("Rabbits"),
+            //                 top: 12,
+            //                 left: 14,
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //   ],
+            // ),
+
+            // SizedBox(
+            //   height: 20,
+            // ),
+
+            // Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(25.0),
+            //     ),
+            //     child: CarouselSlider(
+            //       options: CarouselOptions(
+            //         aspectRatio: 2.0,
+            //         enlargeCenterPage: true,
+            //         enableInfiniteScroll: true,
+            //         initialPage: 2,
+            //         autoPlay: true,
+            //       ),
+            //       items: imageSliders,
+            //     )),
+            // SizedBox(
+            //   height: 20.0,
+            // ),
+            // Container(
+            //   alignment: Alignment.centerLeft,
+            //   margin: EdgeInsets.only(left: 30.0),
+            //   child: Text(
+            //     "Our Services",
+            //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            //   ),
+            // ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PetMatchSelect(),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Pet Match",
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xffff9827),
+                          Color(0xfffcc281),
+                        ],
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0, top: 16.0),
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.0),
+                              // color: Colors.white,
+                            ),
+                            child: SvgPicture.asset(
+                              "asset/mating.svg",
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Pet Match",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                )),
+                SizedBox(
+                  width: 40,
                 ),
-              )),
-              SizedBox(
-                width: 40,
-              ),
-              Expanded(
-                  child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PetAdoption(),
-                    ),
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(right: 10),
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    gradient: LinearGradient(
-                      colors: [Color(0xfffe812d), Color(0xfffe812d)],
-                    ),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16.0, right: 16.0, top: 16.0),
-                        child: Container(
-                          height: 45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            color: Colors.white,
-                          ),
-                          child: SvgPicture.asset(
-                            "asset/adoption.svg",
-                          ),
-                        ),
+                Expanded(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => petAdoptionPageSelect(),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Pet Adoption",
-                            style: GoogleFonts.nunito(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xffff9827),
+                          Color(0xfffcc281),
+                        ],
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16.0, right: 16.0, top: 16.0),
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.0),
+                              // color: Colors.white,
+                            ),
+                            child: SvgPicture.asset(
+                              "asset/adoption.svg",
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Pet Adoption",
+                              style: GoogleFonts.nunito(
+                                fontSize: 18.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )),
-            ],
-          ),
+                )),
+              ],
+            ),
 
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.start,
-          //         children: [
-          //           Expanded(
-          //               child: Text(
-          //             "Where would you like to go ?",
-          //             textAlign: TextAlign.center,
-          //             style: GoogleFonts.nunito(
-          //               fontSize: 24,
-          //               color: Colors.black,
-          //               fontStyle: FontStyle.normal,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           )),
-          //         ],
-          //       ),
-          //       SizedBox(
-          //         height: 15,
-          //       ),
-          //       Row(
-          //         children: [
-          //           Expanded(
-          //               child: InkWell(
-          //             onTap: () {
-          //               Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => PetMatchSelect(),
-          //                 ),
-          //               );
-          //             },
-          //             child: Container(
-          //               height: 150,
-          //               width: 150,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(16.0),
-          //                 gradient: LinearGradient(
-          //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
-          //                 ),
-          //               ),
-          //               child: Column(
-          //                 crossAxisAlignment: CrossAxisAlignment.start,
-          //                 children: <Widget>[
-          //                   Padding(
-          //                     padding: const EdgeInsets.only(
-          //                         left: 16.0, right: 16.0, top: 16.0),
-          //                     child: Container(
-          //                       height: 45,
-          //                       width: 45,
-          //                       decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(16.0),
-          //                         color: Colors.white,
-          //                       ),
-          //                       child: Icon(Icons.pets_rounded),
-          //                     ),
-          //                   ),
-          //                   Expanded(
-          //                     child: Align(
-          //                       alignment: Alignment.center,
-          //                       child: Text(
-          //                         "Pet Match",
-          //                         style: GoogleFonts.abrilFatface(
-          //                           fontSize: 18.0,
-          //                           color: Colors.white,
-          //                           fontWeight: FontWeight.bold,
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   )
-          //                 ],
-          //               ),
-          //             ),
-          //           )),
-          //           SizedBox(
-          //             width: 40,
-          //           ),
-          //           Expanded(
-          //               child: InkWell(
-          //             onTap: () {
-          //               Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => PetAdoption(),
-          //                 ),
-          //               );
-          //             },
-          //             child: Container(
-          //               height: 150,
-          //               width: 150,
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(16.0),
-          //                 gradient: LinearGradient(
-          //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
-          //                 ),
-          //               ),
-          //               child: Column(
-          //                 crossAxisAlignment: CrossAxisAlignment.start,
-          //                 children: <Widget>[
-          //                   Padding(
-          //                     padding: const EdgeInsets.only(
-          //                         left: 16.0, right: 16.0, top: 16.0),
-          //                     child: Container(
-          //                       height: 45,
-          //                       width: 45,
-          //                       decoration: BoxDecoration(
-          //                         borderRadius: BorderRadius.circular(16.0),
-          //                         color: Colors.white,
-          //                       ),
-          //                       child: Icon(Icons.home_filled),
-          //                     ),
-          //                   ),
-          //                   Expanded(
-          //                     child: Align(
-          //                       alignment: Alignment.center,
-          //                       child: Text(
-          //                         "Pet Adoption",
-          //                         style: GoogleFonts.nunito(
-          //                           fontSize: 18.0,
-          //                           color: Colors.white,
-          //                           fontWeight: FontWeight.bold,
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   )
-          //                 ],
-          //               ),
-          //             ),
-          //           )),
-          //         ],
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 20, // Pets loading code below commented
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     children: [
-          //       Text(
-          //         "Latest News",
-          //         textAlign: TextAlign.start,
-          //         style: GoogleFonts.nunito(
-          //           fontSize: 24,
-          //           color: Colors.black,
-          //           fontStyle: FontStyle.normal,
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // Container(
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(25.0),
-          //     ),
-          //     child: CarouselSlider(
-          //       options: CarouselOptions(
-          //         aspectRatio: 2.0,
-          //         enlargeCenterPage: true,
-          //         enableInfiniteScroll: true,
-          //         initialPage: 2,
-          //         autoPlay: true,
-          //       ),
-          //       items: imageSliders,
-          //     )),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     children: [
-          //       Text(
-          //         "Technology",
-          //         textAlign: TextAlign.start,
-          //         style: GoogleFonts.nunito(
-          //           fontSize: 24,
-          //           color: Colors.black,
-          //           fontStyle: FontStyle.normal,
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // Container(
-          //     child: CarouselSlider(
-          //   options: CarouselOptions(
-          //     aspectRatio: 2.0,
-          //     enlargeCenterPage: true,
-          //     enableInfiniteScroll: true,
-          //     initialPage: 2,
-          //     autoPlay: true,
-          //   ),
-          //   items: imageSliders,
-          // ))
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           Expanded(
+            //               child: Text(
+            //             "Where would you like to go ?",
+            //             textAlign: TextAlign.center,
+            //             style: GoogleFonts.nunito(
+            //               fontSize: 24,
+            //               color: Colors.black,
+            //               fontStyle: FontStyle.normal,
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           )),
+            //         ],
+            //       ),
+            //       SizedBox(
+            //         height: 15,
+            //       ),
+            //       Row(
+            //         children: [
+            //           Expanded(
+            //               child: InkWell(
+            //             onTap: () {
+            //               Navigator.push(
+            //                 context,
+            //                 MaterialPageRoute(
+            //                   builder: (context) => PetMatchSelect(),
+            //                 ),
+            //               );
+            //             },
+            //             child: Container(
+            //               height: 150,
+            //               width: 150,
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(16.0),
+            //                 gradient: LinearGradient(
+            //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
+            //                 ),
+            //               ),
+            //               child: Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: <Widget>[
+            //                   Padding(
+            //                     padding: const EdgeInsets.only(
+            //                         left: 16.0, right: 16.0, top: 16.0),
+            //                     child: Container(
+            //                       height: 45,
+            //                       width: 45,
+            //                       decoration: BoxDecoration(
+            //                         borderRadius: BorderRadius.circular(16.0),
+            //                         color: Colors.white,
+            //                       ),
+            //                       child: Icon(Icons.pets_rounded),
+            //                     ),
+            //                   ),
+            //                   Expanded(
+            //                     child: Align(
+            //                       alignment: Alignment.center,
+            //                       child: Text(
+            //                         "Pet Match",
+            //                         style: GoogleFonts.abrilFatface(
+            //                           fontSize: 18.0,
+            //                           color: Colors.white,
+            //                           fontWeight: FontWeight.bold,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   )
+            //                 ],
+            //               ),
+            //             ),
+            //           )),
+            //           SizedBox(
+            //             width: 40,
+            //           ),
+            //           Expanded(
+            //               child: InkWell(
+            //             onTap: () {
+            //               Navigator.push(
+            //                 context,
+            //                 MaterialPageRoute(
+            //                   builder: (context) => PetAdoption(),
+            //                 ),
+            //               );
+            //             },
+            //             child: Container(
+            //               height: 150,
+            //               width: 150,
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(16.0),
+            //                 gradient: LinearGradient(
+            //                   colors: [Color(0xff1fa2ea), Color(0xff1fa2ea)],
+            //                 ),
+            //               ),
+            //               child: Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: <Widget>[
+            //                   Padding(
+            //                     padding: const EdgeInsets.only(
+            //                         left: 16.0, right: 16.0, top: 16.0),
+            //                     child: Container(
+            //                       height: 45,
+            //                       width: 45,
+            //                       decoration: BoxDecoration(
+            //                         borderRadius: BorderRadius.circular(16.0),
+            //                         color: Colors.white,
+            //                       ),
+            //                       child: Icon(Icons.home_filled),
+            //                     ),
+            //                   ),
+            //                   Expanded(
+            //                     child: Align(
+            //                       alignment: Alignment.center,
+            //                       child: Text(
+            //                         "Pet Adoption",
+            //                         style: GoogleFonts.nunito(
+            //                           fontSize: 18.0,
+            //                           color: Colors.white,
+            //                           fontWeight: FontWeight.bold,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   )
+            //                 ],
+            //               ),
+            //             ),
+            //           )),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20, // Pets loading code below commented
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         "Latest News",
+            //         textAlign: TextAlign.start,
+            //         style: GoogleFonts.nunito(
+            //           fontSize: 24,
+            //           color: Colors.black,
+            //           fontStyle: FontStyle.normal,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // Container(
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(25.0),
+            //     ),
+            //     child: CarouselSlider(
+            //       options: CarouselOptions(
+            //         aspectRatio: 2.0,
+            //         enlargeCenterPage: true,
+            //         enableInfiniteScroll: true,
+            //         initialPage: 2,
+            //         autoPlay: true,
+            //       ),
+            //       items: imageSliders,
+            //     )),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         "Technology",
+            //         textAlign: TextAlign.start,
+            //         style: GoogleFonts.nunito(
+            //           fontSize: 24,
+            //           color: Colors.black,
+            //           fontStyle: FontStyle.normal,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // Container(
+            //     child: CarouselSlider(
+            //   options: CarouselOptions(
+            //     aspectRatio: 2.0,
+            //     enlargeCenterPage: true,
+            //     enableInfiniteScroll: true,
+            //     initialPage: 2,
+            //     autoPlay: true,
+            //   ),
+            //   items: imageSliders,
+            // ))
 
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     children: [
-          //       Text(
-          //         "Manage your Pets Here",
-          //         textAlign: TextAlign.start,
-          //         style: GoogleFonts.nunito(
-          //           fontSize: 24,
-          //           color: Colors.black,
-          //           fontStyle: FontStyle.normal,
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 12,
-          // ),
-          // Consumer<MainProvider>(
-          //   builder: (_, pets, __) {
-          //     return pets.petsmodel == null
-          //         ? SizedBox(
-          //             height: 40,
-          //             child: InkWell(
-          //               onTap: () {
-          //                 print("AddPet");
-          //                 Navigator.push(context,
-          //                     MaterialPageRoute(builder: (context) => AddPet()));
-          //               },
-          //               child: SizedBox(
-          //                 height: 50,
-          //                 child: ElevatedButton(
-          //                   onPressed: () {
-          //                     Navigator.push(
-          //                         context,
-          //                         MaterialPageRoute(
-          //                             builder: (context) => AddPet()));
-          //                   },
-          //                   child: Icon(
-          //                     Icons.add_outlined,
-          //                     color: Colors.black,
-          //                     size: 30,
-          //                   ),
-          //                   style: ButtonStyle(
-          //                     backgroundColor:
-          //                         MaterialStateProperty.all<Color>(Colors.white),
-          //                     foregroundColor:
-          //                         MaterialStateProperty.all<Color>(Colors.white),
-          //                     shape: MaterialStateProperty.all<
-          //                         RoundedRectangleBorder>(
-          //                       RoundedRectangleBorder(
-          //                           borderRadius: BorderRadius.circular(90),
-          //                           side: BorderSide(color: Colors.black)),
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //           )
-          //         : Container(
-          //             height: 120,
-          //             child: ListView.separated(
-          //               separatorBuilder: (_, __) {
-          //                 return SizedBox(
-          //                   width: 15,
-          //                 );
-          //               },
-          //               padding: EdgeInsets.all(10),
-          //               itemCount: pets.petsmodel.length == 0
-          //                   ? 1
-          //                   : pets.petsmodel.length + 1,
-          //               itemBuilder: (context, index) {
-          //                 if (index == pets.petsmodel.length) {
-          //                   return SizedBox(
-          //                     height: 50,
-          //                     child: InkWell(
-          //                       onTap: () {
-          //                         print("AddPet");
-          //                         Navigator.push(
-          //                             context,
-          //                             MaterialPageRoute(
-          //                                 builder: (context) => AddPet()));
-          //                       },
-          //                       child: SizedBox(
-          //                         height: 50,
-          //                         child: ElevatedButton(
-          //                           onPressed: () {
-          //                             Navigator.push(
-          //                                 context,
-          //                                 MaterialPageRoute(
-          //                                     builder: (context) => AddPet()));
-          //                           },
-          //                           child: Icon(
-          //                             Icons.add_outlined,
-          //                             color: Colors.black,
-          //                             size: 40,
-          //                           ),
-          //                           style: ButtonStyle(
-          //                             backgroundColor:
-          //                                 MaterialStateProperty.all<Color>(
-          //                                     Colors.white),
-          //                             foregroundColor:
-          //                                 MaterialStateProperty.all<Color>(
-          //                                     Colors.white),
-          //                             shape: MaterialStateProperty.all<
-          //                                 RoundedRectangleBorder>(
-          //                               RoundedRectangleBorder(
-          //                                   borderRadius:
-          //                                       BorderRadius.circular(50),
-          //                                   side:
-          //                                       BorderSide(color: Colors.black)),
-          //                             ),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   );
-          //                 }
-          //                 return Container(
-          //                   child: InkWell(
-          //                     onTap: () async {
-          //                       await Provider.of<MainProvider>(context,
-          //                               listen: false)
-          //                           .petDetailId(
-          //                               pets.petsmodel[index].id.toString());
-          //                       Navigator.push(
-          //                         context,
-          //                         MaterialPageRoute(
-          //                           builder: (context) => EditProfile(
-          //                             e: pets.petsmodel[index],
-          //                             documentId:
-          //                                 pets.petsmodel[index].id.toString(),
-          //                           ),
-          //                         ),
-          //                       );
-          //                     },
-          //                     child: CircleAvatar(
-          //                       radius: 50,
-          //                       backgroundImage: NetworkImage(
-          //                         pets.petsmodel[index].imageUrl[0].toString(),
-          //                       ),
-          //                       backgroundColor: Color(0xffa8bcfb).withOpacity(0.4),
-          //                     ),
-          //                   ),
-          //                 );
-          //               },
-          //               scrollDirection: Axis.horizontal,
-          //             ),
-          //           );
-          //   },
-          // ),
-          // SizedBox(
-          //   height: 4,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     children: [
-          //       Text(
-          //         "Add Yor Pet For Adoption",
-          //         textAlign: TextAlign.start,
-          //         style: GoogleFonts.nunito(
-          //           fontSize: 24,
-          //           color: Colors.black,
-          //           fontWeight: FontWeight.bold,
-          //           fontStyle: FontStyle.normal,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 12,
-          // ),
-          // Consumer<MainProvider>(
-          //   builder: (_, petsadoption, __) {
-          //     return petsadoption.pet_adoption_model == null
-          //         ? SizedBox(
-          //           height: 50,
-          //             child: InkWell(
-          //             onTap: () {
-          //               print("Pet Adoption");
-          //               Navigator.push(context,
-          //               MaterialPageRoute(builder: (context) => AddPetAdoption()));
-          //         },
-          //               child: SizedBox(
-          //           height: 30,
-          //           child: ElevatedButton(
-          //             onPressed: () {
-          //               Navigator.push(
-          //                   context,
-          //                   MaterialPageRoute(
-          //                       builder: (context) => AddPet()));
-          //             },
-          //             child: Icon(
-          //               Icons.add_outlined,
-          //               color: Colors.black,
-          //               size: 40,
-          //             ),
-          //             style: ButtonStyle(
-          //               backgroundColor:
-          //               MaterialStateProperty.all<Color>(Colors.white),
-          //               foregroundColor:
-          //               MaterialStateProperty.all<Color>(Colors.white),
-          //               shape: MaterialStateProperty.all<
-          //                   RoundedRectangleBorder>(
-          //                 RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(50),
-          //                     side: BorderSide(color: Colors.black)),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     )
-          //         : Container(
-          //       height: 120,
-          //       child: ListView.separated(
-          //         separatorBuilder: (_, __) {
-          //           return SizedBox(
-          //             width: 15,
-          //           );
-          //         },
-          //         padding: EdgeInsets.all(10),
-          //         itemCount: petsadoption.pet_adoption_model.length == 0
-          //             ? 1
-          //             : petsadoption.pet_adoption_model.length + 1,
-          //         itemBuilder: (context, index) {
-          //           if (index == petsadoption.pet_adoption_model.length) {
-          //             return SizedBox(
-          //               height: 50,
-          //               child: InkWell(
-          //                 onTap: () {
-          //                   print("AddPet Pet Adoption");
-          //                   Navigator.push(
-          //                       context,
-          //                       MaterialPageRoute(
-          //                           builder: (context) => AddPetAdoption()));
-          //                 },
-          //                 child: SizedBox(
-          //                   height: 50,
-          //                   child: ElevatedButton(
-          //                     onPressed: () {
-          //                       Navigator.push(
-          //                           context,
-          //                           MaterialPageRoute(
-          //                               builder: (context) => AddPetAdoption()));
-          //                       },
-          //                     child: Icon(
-          //                       Icons.add_outlined,
-          //                       color: Colors.black,
-          //                       size: 40,
-          //                     ),
-          //                     style: ButtonStyle(
-          //                       backgroundColor:
-          //                       MaterialStateProperty.all<Color>(
-          //                           Colors.white),
-          //                       foregroundColor:
-          //                       MaterialStateProperty.all<Color>(
-          //                           Colors.white),
-          //                       shape: MaterialStateProperty.all<
-          //                           RoundedRectangleBorder>(
-          //                         RoundedRectangleBorder(
-          //                             borderRadius:
-          //                             BorderRadius.circular(50),
-          //                             side:
-          //                             BorderSide(color: Colors.black)),
-          //                       ),
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ),
-          //             );
-          //           }
-          //           return Container(
-          //             child: InkWell(
-          //               onTap: () async {
-          //                 await Provider.of<MainProvider>(context,
-          //                     listen: false)
-          //                     .Petadoptiondetail(
-          //                     petsadoption.pet_adoption_model[index].id.toString());
-          //                 Navigator.push(
-          //                   context,
-          //                   MaterialPageRoute(
-          //                     builder: (context) => AdoptionEdit(
-          //                       e: petsadoption.pet_adoption_model[index],
-          //                       documentId:
-          //                       petsadoption.pet_adoption_model[index].id.toString(),
-          //                     ),
-          //                   ),
-          //                 );
-          //               },
-          //               child: CircleAvatar(
-          //                 radius: 50,
-          //                 backgroundImage: NetworkImage(
-          //                   petsadoption.pet_adoption_model[index].imageUrl[0].toString(),
-          //                 ),
-          //                 backgroundColor: Color(0xffa8bcfb).withOpacity(0.4),
-          //               ),
-          //             ),
-          //           );
-          //         },
-          //         scrollDirection: Axis.horizontal,
-          //       ),
-          //     );
-          //   },
-          // ),
-        ],
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         "Manage your Pets Here",
+            //         textAlign: TextAlign.start,
+            //         style: GoogleFonts.nunito(
+            //           fontSize: 24,
+            //           color: Colors.black,
+            //           fontStyle: FontStyle.normal,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 12,
+            // ),
+            // Consumer<MainProvider>(
+            //   builder: (_, pets, __) {
+            //     return pets.petsmodel == null
+            //         ? SizedBox(
+            //             height: 40,
+            //             child: InkWell(
+            //               onTap: () {
+            //                 print("AddPet");
+            //                 Navigator.push(context,
+            //                     MaterialPageRoute(builder: (context) => AddPet()));
+            //               },
+            //               child: SizedBox(
+            //                 height: 50,
+            //                 child: ElevatedButton(
+            //                   onPressed: () {
+            //                     Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                             builder: (context) => AddPet()));
+            //                   },
+            //                   child: Icon(
+            //                     Icons.add_outlined,
+            //                     color: Colors.black,
+            //                     size: 30,
+            //                   ),
+            //                   style: ButtonStyle(
+            //                     backgroundColor:
+            //                         MaterialStateProperty.all<Color>(Colors.white),
+            //                     foregroundColor:
+            //                         MaterialStateProperty.all<Color>(Colors.white),
+            //                     shape: MaterialStateProperty.all<
+            //                         RoundedRectangleBorder>(
+            //                       RoundedRectangleBorder(
+            //                           borderRadius: BorderRadius.circular(90),
+            //                           side: BorderSide(color: Colors.black)),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //           )
+            //         : Container(
+            //             height: 120,
+            //             child: ListView.separated(
+            //               separatorBuilder: (_, __) {
+            //                 return SizedBox(
+            //                   width: 15,
+            //                 );
+            //               },
+            //               padding: EdgeInsets.all(10),
+            //               itemCount: pets.petsmodel.length == 0
+            //                   ? 1
+            //                   : pets.petsmodel.length + 1,
+            //               itemBuilder: (context, index) {
+            //                 if (index == pets.petsmodel.length) {
+            //                   return SizedBox(
+            //                     height: 50,
+            //                     child: InkWell(
+            //                       onTap: () {
+            //                         print("AddPet");
+            //                         Navigator.push(
+            //                             context,
+            //                             MaterialPageRoute(
+            //                                 builder: (context) => AddPet()));
+            //                       },
+            //                       child: SizedBox(
+            //                         height: 50,
+            //                         child: ElevatedButton(
+            //                           onPressed: () {
+            //                             Navigator.push(
+            //                                 context,
+            //                                 MaterialPageRoute(
+            //                                     builder: (context) => AddPet()));
+            //                           },
+            //                           child: Icon(
+            //                             Icons.add_outlined,
+            //                             color: Colors.black,
+            //                             size: 40,
+            //                           ),
+            //                           style: ButtonStyle(
+            //                             backgroundColor:
+            //                                 MaterialStateProperty.all<Color>(
+            //                                     Colors.white),
+            //                             foregroundColor:
+            //                                 MaterialStateProperty.all<Color>(
+            //                                     Colors.white),
+            //                             shape: MaterialStateProperty.all<
+            //                                 RoundedRectangleBorder>(
+            //                               RoundedRectangleBorder(
+            //                                   borderRadius:
+            //                                       BorderRadius.circular(50),
+            //                                   side:
+            //                                       BorderSide(color: Colors.black)),
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   );
+            //                 }
+            //                 return Container(
+            //                   child: InkWell(
+            //                     onTap: () async {
+            //                       await Provider.of<MainProvider>(context,
+            //                               listen: false)
+            //                           .petDetailId(
+            //                               pets.petsmodel[index].id.toString());
+            //                       Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                           builder: (context) => EditProfile(
+            //                             e: pets.petsmodel[index],
+            //                             documentId:
+            //                                 pets.petsmodel[index].id.toString(),
+            //                           ),
+            //                         ),
+            //                       );
+            //                     },
+            //                     child: CircleAvatar(
+            //                       radius: 50,
+            //                       backgroundImage: NetworkImage(
+            //                         pets.petsmodel[index].imageUrl[0].toString(),
+            //                       ),
+            //                       backgroundColor: Color(0xffa8bcfb).withOpacity(0.4),
+            //                     ),
+            //                   ),
+            //                 );
+            //               },
+            //               scrollDirection: Axis.horizontal,
+            //             ),
+            //           );
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 4,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         "Add Yor Pet For Adoption",
+            //         textAlign: TextAlign.start,
+            //         style: GoogleFonts.nunito(
+            //           fontSize: 24,
+            //           color: Colors.black,
+            //           fontWeight: FontWeight.bold,
+            //           fontStyle: FontStyle.normal,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 12,
+            // ),
+            // Consumer<MainProvider>(
+            //   builder: (_, petsadoption, __) {
+            //     return petsadoption.pet_adoption_model == null
+            //         ? SizedBox(
+            //           height: 50,
+            //             child: InkWell(
+            //             onTap: () {
+            //               print("Pet Adoption");
+            //               Navigator.push(context,
+            //               MaterialPageRoute(builder: (context) => AddPetAdoption()));
+            //         },
+            //               child: SizedBox(
+            //           height: 30,
+            //           child: ElevatedButton(
+            //             onPressed: () {
+            //               Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                       builder: (context) => AddPet()));
+            //             },
+            //             child: Icon(
+            //               Icons.add_outlined,
+            //               color: Colors.black,
+            //               size: 40,
+            //             ),
+            //             style: ButtonStyle(
+            //               backgroundColor:
+            //               MaterialStateProperty.all<Color>(Colors.white),
+            //               foregroundColor:
+            //               MaterialStateProperty.all<Color>(Colors.white),
+            //               shape: MaterialStateProperty.all<
+            //                   RoundedRectangleBorder>(
+            //                 RoundedRectangleBorder(
+            //                     borderRadius: BorderRadius.circular(50),
+            //                     side: BorderSide(color: Colors.black)),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     )
+            //         : Container(
+            //       height: 120,
+            //       child: ListView.separated(
+            //         separatorBuilder: (_, __) {
+            //           return SizedBox(
+            //             width: 15,
+            //           );
+            //         },
+            //         padding: EdgeInsets.all(10),
+            //         itemCount: petsadoption.pet_adoption_model.length == 0
+            //             ? 1
+            //             : petsadoption.pet_adoption_model.length + 1,
+            //         itemBuilder: (context, index) {
+            //           if (index == petsadoption.pet_adoption_model.length) {
+            //             return SizedBox(
+            //               height: 50,
+            //               child: InkWell(
+            //                 onTap: () {
+            //                   print("AddPet Pet Adoption");
+            //                   Navigator.push(
+            //                       context,
+            //                       MaterialPageRoute(
+            //                           builder: (context) => AddPetAdoption()));
+            //                 },
+            //                 child: SizedBox(
+            //                   height: 50,
+            //                   child: ElevatedButton(
+            //                     onPressed: () {
+            //                       Navigator.push(
+            //                           context,
+            //                           MaterialPageRoute(
+            //                               builder: (context) => AddPetAdoption()));
+            //                       },
+            //                     child: Icon(
+            //                       Icons.add_outlined,
+            //                       color: Colors.black,
+            //                       size: 40,
+            //                     ),
+            //                     style: ButtonStyle(
+            //                       backgroundColor:
+            //                       MaterialStateProperty.all<Color>(
+            //                           Colors.white),
+            //                       foregroundColor:
+            //                       MaterialStateProperty.all<Color>(
+            //                           Colors.white),
+            //                       shape: MaterialStateProperty.all<
+            //                           RoundedRectangleBorder>(
+            //                         RoundedRectangleBorder(
+            //                             borderRadius:
+            //                             BorderRadius.circular(50),
+            //                             side:
+            //                             BorderSide(color: Colors.black)),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }
+            //           return Container(
+            //             child: InkWell(
+            //               onTap: () async {
+            //                 await Provider.of<MainProvider>(context,
+            //                     listen: false)
+            //                     .Petadoptiondetail(
+            //                     petsadoption.pet_adoption_model[index].id.toString());
+            //                 Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => AdoptionEdit(
+            //                       e: petsadoption.pet_adoption_model[index],
+            //                       documentId:
+            //                       petsadoption.pet_adoption_model[index].id.toString(),
+            //                     ),
+            //                   ),
+            //                 );
+            //               },
+            //               child: CircleAvatar(
+            //                 radius: 50,
+            //                 backgroundImage: NetworkImage(
+            //                   petsadoption.pet_adoption_model[index].imageUrl[0].toString(),
+            //                 ),
+            //                 backgroundColor: Color(0xffa8bcfb).withOpacity(0.4),
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //         scrollDirection: Axis.horizontal,
+            //       ),
+            //     );
+            //   },
+            // ),
+          ],
+        ),
       ),
     );
   }

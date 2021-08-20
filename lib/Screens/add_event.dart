@@ -60,21 +60,28 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
 
   void saveTask() async {
     try {
-    // if (addNewTask) {
-    //   await databaseHelper.addTask(EventModel(
-    //     eventDate: _eventDate,
-    //     time: _time, pet: _selectedPet!, title: _title.text,
-    //   ));
-    // } else {
-    //   await databaseHelper.updateTask(EventModel(
-    //       id: widget.event!.id, title: _title.text, pet: _selectedPet!, eventDate: _eventDate, time: _time));
-    // }
-      print(_selectedPet);
+      if (addNewTask) {
+        print(_selectedPet!.petName);
+        print("^^^^^^^^^");
+        await databaseHelper.addTask(EventModel(
+          eventDate: _eventDate,
+          time: _time,
+          pet: _selectedPet!,
+          title: _title.text,
+        ));
+      } else {
+        await databaseHelper.updateTask(EventModel(
+            id: widget.event!.id,
+            title: _title.text,
+            pet: _selectedPet!,
+            eventDate: _eventDate,
+            time: _time));
+      }
 
       setState(() {
         processing = false;
       });
-      // await _goBack();
+      await _goBack();
     } catch (e) {
       print("Error $e");
     }
@@ -103,7 +110,8 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   }
 
   void scheduleNotification() async {
-    var scheduleTime = _eventDate.add(Duration(hours: _time.hour - 1, minutes: _time.minute));
+    var scheduleTime =
+        _eventDate.add(Duration(hours: _time.hour - 1, minutes: _time.minute));
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
@@ -115,14 +123,15 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
     );
 
     var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true);
-    var platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+        presentAlert: true, presentBadge: true, presentSound: true);
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
 
     await flutternotificationplugin.schedule(
-      1 + int.parse(scheduleTime.microsecondsSinceEpoch.toString().substring(0, 7)),
+      1 +
+          int.parse(
+              scheduleTime.microsecondsSinceEpoch.toString().substring(0, 7)),
       'Reminder',
       'You will be reminded 1 hour before your scheduled appointment',
       DateTime.now().add(
@@ -139,36 +148,37 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
       platformChannelSpecifics,
     );
   }
+
   PetModel? _selectedPet;
 
   void _showDatePicker(ctx) {
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Container(
-          height: 300,
-          color: Color.fromARGB(255, 255, 255, 255),
-          child: Column(
-            children: [
-              Container(
-                height: 230,
-                child: CupertinoDatePicker(
-                  minimumDate: DateTime.now(),
-                  mode: CupertinoDatePickerMode.date,
-                    initialDateTime: DateTime.now(),
-                    onDateTimeChanged: (val) {
-                      setState(() {
-                        _eventDate = val;
-                      });
-                    },
-                ),
+              height: 300,
+              color: Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  Container(
+                    height: 230,
+                    child: CupertinoDatePicker(
+                      minimumDate: DateTime.now(),
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: DateTime.now(),
+                      onDateTimeChanged: (val) {
+                        setState(() {
+                          _eventDate = val;
+                        });
+                      },
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: Text('OK'),
+                    onPressed: () => Navigator.of(ctx).pop(),
+                  ),
+                ],
               ),
-              CupertinoButton(
-                child: Text('OK'),
-                onPressed: () => Navigator.of(ctx).pop(),
-              ),
-            ],
-          ),
-        ));
+            ));
   }
 
   @override
@@ -218,7 +228,8 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                 Card(
                   elevation: 5.0,
                   child: DropdownButtonFormField(
-                    validator: (value) => value == null ? "Please select a pet." : null,
+                    validator: (value) =>
+                        value == null ? "Please select a pet." : null,
                     decoration: InputDecoration(
                       labelText: "Select Pet",
                       filled: true,
@@ -250,12 +261,19 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                   child: ListTile(
                     title: Padding(
                       padding: const EdgeInsets.only(top: 12.0),
-                      child: Text("Select Time", style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(
+                        "Select Time",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    trailing: Text("${_time.hourOfPeriod}:${_time.minute} ${_time.period == DayPeriod.am ? "AM" : "PM"}", style: TextStyle(fontWeight: FontWeight.bold),),
+                    trailing: Text(
+                      "${_time.hourOfPeriod}:${_time.minute} ${_time.period == DayPeriod.am ? "AM" : "PM"}",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     subtitle: Center(
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                         height: 150,
                         child: CupertinoDatePicker(
                           mode: CupertinoDatePickerMode.time,
@@ -275,14 +293,18 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                   child: ListTile(
                     title: Padding(
                       padding: const EdgeInsets.only(top: 12.0),
-                      child: Text("Select Date", style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(
+                        "Select Date",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     trailing: Text(
                       "${_eventDate.day} "
-                        "${DateFormat('MMM'). format(_eventDate)} "
-                          "${_eventDate.year}",
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    onTap: ()=> _showDatePicker(context),
+                      "${DateFormat('MMM').format(_eventDate)} "
+                      "${_eventDate.year}",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () => _showDatePicker(context),
                   ),
                 ),
                 SizedBox(height: 10.0),
@@ -336,4 +358,3 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
         ));
   }
 }
-

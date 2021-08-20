@@ -23,7 +23,7 @@ class PetMatchSelect extends StatelessWidget {
         ),
         elevation: 0.0,
         title: Text(
-          "My pet",
+          "Select The Pet",
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
         ),
       ),
@@ -55,9 +55,11 @@ class PetMatchSelect extends StatelessWidget {
                           height: 150,
                           decoration: BoxDecoration(
                             image: DecorationImage(
+                              alignment: Alignment.centerLeft,
                               fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
                               image: NetworkImage(
-                                petInfo.imageUrl[0],
+                                // petInfo.imageUrl[0],
+                                "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYyOTA0Mjk0Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600"
                               ),
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -65,7 +67,7 @@ class PetMatchSelect extends StatelessWidget {
                           child: Stack(
                             children: [
                               Positioned(
-                                right: 50,
+                                right: 5,
                                 top: 25,
                                 child: Container(
                                   width: 140,
@@ -77,7 +79,7 @@ class PetMatchSelect extends StatelessWidget {
                                         petInfo.petName,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontSize: 24,
                                         ),
                                       ),
@@ -87,7 +89,7 @@ class PetMatchSelect extends StatelessWidget {
                                           petInfo.sex + " " + petInfo.category,
                                           style: TextStyle(
                                             fontWeight: FontWeight.normal,
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: 18,
                                           ),
                                         ),
@@ -96,7 +98,7 @@ class PetMatchSelect extends StatelessWidget {
                                           petInfo.about,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w300,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,

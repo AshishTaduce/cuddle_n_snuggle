@@ -39,7 +39,8 @@ class _CalenderPageState extends State<CalenderPage> {
   Map<DateTime, List<EventModel>> _fromModelToEvent(List<EventModel> events) {
     Map<DateTime, List<EventModel>> data = {};
     events.forEach((event) {
-      DateTime date = DateTime(event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
+      DateTime date = DateTime(
+          event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
       if (data[date] == null) data[date] = [];
       data[date]!.add(event);
     });
@@ -116,179 +117,223 @@ class _CalenderPageState extends State<CalenderPage> {
                 _events = _fromModelToEvent(allEvents!);
               }
               return SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(height: 25),
-                            Text("All Reminders", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
-                          ],
-                        ),
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 15),
+                          Text("All Reminders",
+                              style: TextStyle(
+                                  fontFamily: 'MyFont',
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold))
+                        ],
                       ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 40.0),
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(color: HexColor("#fe812d"), borderRadius: BorderRadius.circular(16)),
-                        child: TableCalendar(
-                          firstDay: DateTime.utc(2010, 10, 16),
-                          lastDay: DateTime.utc(2030, 3, 14),
-                          focusedDay: _focusedDay,
-                          eventLoader: (event) {
-                            // setState(() {
-                            //   _selectedEvents =  _events![event] ?? [];
-                            // });
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 40.0),
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          color: HexColor("#ff9827"),
+                          borderRadius: BorderRadius.circular(16)),
+                      child: TableCalendar(
+                        firstDay: DateTime.utc(2010, 10, 16),
+                        lastDay: DateTime.utc(2030, 3, 14),
+                        focusedDay: _focusedDay,
+                        eventLoader: (event) {
+                          // setState(() {
+                          //   _selectedEvents =  _events![event] ?? [];
+                          // });
 
-                            return _events[event] ?? [];
-                          },
-                          calendarFormat: CalendarFormat.month,
-                          calendarStyle: CalendarStyle(
-                            todayDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            defaultTextStyle: TextStyle(color: Colors.white),
-                            todayTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: HexColor("#f5756c"),),
-                            selectedDecoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            weekendTextStyle: TextStyle(color: Colors.white),
-                            outsideDaysVisible: true,
+                          return _events[event] ?? [];
+                        },
+                        calendarFormat: CalendarFormat.month,
+                        calendarStyle: CalendarStyle(
+                          todayDecoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          headerStyle: HeaderStyle(
-                            titleCentered: true,
-                            titleTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-                            titleTextFormatter: (date, locale) => DateFormat.yMMMM(locale).format(date),
-                            formatButtonVisible: false,
-                            leftChevronIcon: const Icon(
-                              Icons.chevron_left_rounded,
-                              color: Colors.white,
-                              size: 32,
-                            ),
-                            rightChevronIcon: const Icon(
-                              Icons.chevron_right_rounded,
-                              color: Colors.white,
-                              size: 32,
-                            ),
+                          defaultTextStyle: TextStyle(color: Colors.white),
+                          todayTextStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                            color: HexColor("#f5756c"),
                           ),
-                          startingDayOfWeek: StartingDayOfWeek.monday,
-                          daysOfWeekStyle: DaysOfWeekStyle(
-                              weekdayStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              weekendStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                          onPageChanged: (focusedDate) {
+                          selectedDecoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          weekendTextStyle: TextStyle(color: Colors.white),
+                          outsideDaysVisible: true,
+                        ),
+                        headerStyle: HeaderStyle(
+                          titleCentered: true,
+                          titleTextStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                          titleTextFormatter: (date, locale) =>
+                              DateFormat.yMMMM(locale).format(date),
+                          formatButtonVisible: false,
+                          leftChevronIcon: const Icon(
+                            Icons.chevron_left_rounded,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                          rightChevronIcon: const Icon(
+                            Icons.chevron_right_rounded,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                        ),
+                        startingDayOfWeek: StartingDayOfWeek.monday,
+                        daysOfWeekStyle: DaysOfWeekStyle(
+                            weekdayStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            weekendStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        onPageChanged: (focusedDate) {
+                          _focusedDay = focusedDate;
+                        },
+                        selectedDayPredicate: (day) =>
+                            isSameDay(_selectedDay, day),
+                        onDaySelected: (selectedDate, focusedDate) {
+                          print(
+                              "Events are: ${_events[dateFormat.format(selectedDate)]} for ${dateFormat.format(selectedDate)}");
+                          print("All Events are: $_events");
+
+                          ///TODO: Rewrite this concept.
+                          bool temp = _events.keys.toList().any(
+                                (element) =>
+                                    dateFormat.format(element) ==
+                                    dateFormat.format(selectedDate),
+                              );
+                          setState(() {
                             _focusedDay = focusedDate;
-                          },
-                          selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                          onDaySelected: (selectedDate, focusedDate) {
-                            print(
-                                "Events are: ${_events[dateFormat.format(selectedDate)]} for ${dateFormat.format(selectedDate)}");
-                            print("All Events are: $_events");
-
-                            ///TODO: Rewrite this concept.
-                            bool temp = _events.keys.toList().any(
-                                  (element) => dateFormat.format(element) == dateFormat.format(selectedDate),
-                                );
-                            setState(() {
-                              _focusedDay = focusedDate;
-                              _selectedDay = selectedDate;
-                              _selectedEvents.value = (temp
-                                  ? _events[_events.keys.toList().firstWhere(
-                                        (element) => dateFormat.format(element) == dateFormat.format(selectedDate),
-                                      )]
-                                  : [])!;
-                            });
-                          },
-                          calendarBuilders: CalendarBuilders(
-                            selectedBuilder: (context, date, events) => Container(
-                                margin: EdgeInsets.all(4),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
+                            _selectedDay = selectedDate;
+                            _selectedEvents.value = (temp
+                                ? _events[_events.keys.toList().firstWhere(
+                                      (element) =>
+                                          dateFormat.format(element) ==
+                                          dateFormat.format(selectedDate),
+                                    )]
+                                : [])!;
+                          });
+                        },
+                        calendarBuilders: CalendarBuilders(
+                          selectedBuilder: (context, date, events) => Container(
+                              margin: EdgeInsets.all(4),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                date.day.toString(),
+                                style: TextStyle(
+                                  color: HexColor("#f5756c"),
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                child: Text(
-                                  date.day.toString(),
-                                  style: TextStyle(color: HexColor("#f5756c"), fontWeight: FontWeight.bold,),
-                                )),
-                            holidayBuilder: (context, date, enevts) => Container(
-                                margin: EdgeInsets.all(4),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle),
-                                child: Text(
-                                  date.day.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ),
-                          // : _calendarController,
-                        ),
-                      ),
-                      Container(
-                          padding: EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(
-                            'Upcoming Reminders',
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                      ..._selectedEvents.value.map((event) => Container(
-                          padding: EdgeInsets.symmetric(horizontal: 32),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                  child: Text(
-                                event.time!.format(context),
-                                // event.time.toString(),
-                                style: TextStyle(fontSize: 16),
                               )),
-                              GestureDetector(
-                                onTap: () {
-                                  awaitReturnValueFromAddEventForUpdate(event);
-                                },
-                                child: Container(
-                                    key: Key("$valueFromAddEvent"),
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    padding: EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red[300],
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)]),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          event.title,
-                                          style: TextStyle(color: Colors.white, fontSize: 12),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          event.pet.petName,
-                                          style: TextStyle(color: Colors.white, fontSize: 12),
-                                        ),
-                                      ],
-                                    )),
-                              )
-                            ],
-                          )))
-                    ],
-                  ),
+                          holidayBuilder: (context, date, enevts) => Container(
+                              margin: EdgeInsets.all(4),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: Colors.teal.shade300,
+                                  shape: BoxShape.circle),
+                              child: Text(
+                                date.day.toString(),
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        // : _calendarController,
+                      ),
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(
+                          'Upcoming Vaccinations',
+                          style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                    ..._selectedEvents.value.map((event) => Container(
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                                child: Text(
+                              event.time!.format(context),
+                              // event.time.toString(),
+                              style: TextStyle(fontSize: 16),
+                            )),
+                            GestureDetector(
+                              onTap: () {
+                                awaitReturnValueFromAddEventForUpdate(event);
+                              },
+                              child: Container(
+                                  key: Key("$valueFromAddEvent"),
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  padding: EdgeInsets.all(10),
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red[300],
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black26,
+                                            offset: Offset(0, 2),
+                                            blurRadius: 2.0)
+                                      ]),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        event.title,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        event.pet.petName,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ],
+                                  )),
+                            )
+                          ],
+                        ))),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
               );
             }),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: HexColor("#fe812d"),
-          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(16)),
+      floatingActionButton: FloatingActionButton.extended(
+          label: Text("Add Vaccination Reminder"),
+          icon: Icon(Icons.add),
+          backgroundColor: HexColor("#ff9827"),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 4.0,
-          child: Icon(Icons.add),
           onPressed: () {
             awaitReturnValueFromAddEvent();
           }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

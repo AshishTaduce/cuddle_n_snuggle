@@ -10,6 +10,8 @@ import 'package:cns/provider/main_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:provider/src/consumer.dart";
 
+import 'ngo_or_indiviual.dart';
+
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -89,18 +91,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               alignment: Alignment.center,
               child: CachedNetworkImage(
-
+                    // add user ke first letter nd seconds letter as pic 
+                    // example - Aditya Kashyap then AK should be displayed
                 imageUrl: "https://picsum.photos/200",
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            Container(alignment: Alignment.center, child: Text("Aditya Kashyap")),
+            Container(alignment: Alignment.center, child: Text("Aditya Kashyap")), // cirrent user name
             SizedBox(
               height: 5,
             ),
-            Container(alignment: Alignment.center, child: Text("adiiyaar2401@gmail.com")),
+            Container(alignment: Alignment.center, child: Text("adiiyaar2401@gmail.com")), // email id cirrent user ki
             SizedBox(
               height: 10,
             ),
@@ -118,6 +121,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               trailing: Icon(Icons.navigate_next),
             ),
             ListTile(
+              // my pets and my favs page design same h 
+              // just add favourite option on pet adoption pets page
+              // if anyone clicks on pets heart icon on them then it should come here
+              
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyPets()));
+              },
+              title: Text("My Favourites"),
+
+              trailing: Icon(Icons.navigate_next),
+            ),
+            ListTile(
               title: Text("Location"),
 
               trailing: Icon(Icons.navigate_next),
@@ -128,6 +143,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               trailing: Icon(Icons.navigate_next),
             ),
             ListTile(
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NgoOrIndiviualPage()));
+              },
               title: Text("Logout"),
 
               trailing: Icon(Icons.navigate_next),
