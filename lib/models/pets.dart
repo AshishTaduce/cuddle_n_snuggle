@@ -30,6 +30,17 @@ class PetModel {
     required this.imageUrl,
     required this.isAdoption,
   });
+
+  Map <String, dynamic> toJson () {
+    return {
+      "userId": userId,
+      "petName": petName,
+      "imageUrl": imageUrl.toString(),
+      "id": id,
+
+    };
+  }
+
   factory PetModel.fromDocument(DocumentSnapshot doc, dynamic docId, _isAdoption) {
     return PetModel(
       userId: doc['userId'],
