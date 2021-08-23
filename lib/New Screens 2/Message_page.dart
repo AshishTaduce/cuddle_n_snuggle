@@ -33,7 +33,8 @@ class _MessagePageState extends State<MessagePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: list.length, vsync: this);
+    _controller =
+        TabController(length: list.length, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -57,6 +58,7 @@ class _MessagePageState extends State<MessagePage>
         body: TabBarView(
           children: [
             Container(
+              key: Key("1"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -89,6 +91,7 @@ class _MessagePageState extends State<MessagePage>
               ),
             ),
             Container(
+              key: Key("2"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -123,7 +126,6 @@ class _MessagePageState extends State<MessagePage>
           ],
         ),
       ),
-      
     );
   }
 }

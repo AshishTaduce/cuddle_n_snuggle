@@ -13,6 +13,7 @@ class _PetAdoptionState extends State<PetAdoption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Container(
           child: SingleChildScrollView(
@@ -22,11 +23,10 @@ class _PetAdoptionState extends State<PetAdoption> {
                 Consumer<MainProvider>(
                   builder: (_, currentUser, __) {
                     return Container(
-                      height: MediaQuery.of(context).size.height/2 * 200,
+                      height: MediaQuery.of(context).size.height / 2 * 200,
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.8,
-                            crossAxisCount: 2),
+                            childAspectRatio: 0.8, crossAxisCount: 2),
                         // separatorBuilder: (context, index) {
                         //   return SizedBox(
                         //     height: 10,
@@ -41,106 +41,134 @@ class _PetAdoptionState extends State<PetAdoption> {
                                 Column(
                                   // mainAxisSize: MainAxisSize.min,
                                   children: [
-
-                                    // CircleAvatar(
-                                    //   radius: 50,
-                                    //   backgroundImage: NetworkImage(
-                                    //     currentUser
-                                    //         .matchedPetAdoption[index]
-                                    //         .imageUrl[0]
-                                    //         .toString(),
-                                    //   ),
-                                    // ),
-
-                                    Container(
-                                      height: 230,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.centerLeft,
-                                          fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
-                                          image: NetworkImage(
-                                            // petInfo.imageUrl[0],
-                                              currentUser
-                                                    .matchedPetAdoption[index]
-                                                    .imageUrl[0]
-                                                    .toString(),
-                                             // "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=639&q=80"
-                                          ),
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      alignment: Alignment.centerLeft,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-
-                                                child: Text(
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ChatPage(
+                                                currentUser:
+                                                    currentUser.currentUser!,
+                                                matchedPet: currentUser
+                                                    .matchedPetAdoption[index],
+                                                chatId: chatId(
+                                                  currentUser.currentUser!.id,
                                                   currentUser
                                                       .matchedPetAdoption[index]
-                                                      .petName
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1!
-                                                      .merge(TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                ),
-                                                alignment: Alignment.bottomLeft,
-                                                margin: EdgeInsets.only(bottom: 15.0,left: 5.0),
-                                              ),
-
-                                              Container(
-                                                alignment: Alignment.bottomLeft,
-                                                margin: EdgeInsets.only(bottom: 13.0,right: 5.0,),
-                                                child: Consumer<MainProvider>(
-                                                  builder: (_, account, __) {
-                                                    return InkWell(
-                                                        onTap: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    ChatPage(
-                                                                      currentUser:
-                                                                      account.currentUser!,
-                                                                      matchedPet: account
-                                                                          .matchedPetAdoption[
-                                                                      index],
-                                                                      chatId: chatId(
-                                                                        account.currentUser!.id,
-                                                                        account
-                                                                            .matchedPetAdoption[
-                                                                        index]
-                                                                            .userId,
-                                                                      ),
-                                                                    ),
-                                                              ));
-                                                        },
-                                                        child:
-                                                        Icon(Icons.messenger_outline,color: Colors.white,));
-                                                  },
+                                                      .userId,
                                                 ),
                                               ),
-                                            ],
+                                            ));
+                                      },
+                                      child: Container(
+                                        height: 230,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            alignment: Alignment.centerLeft,
+                                            fit: BoxFit
+                                                .cover, //I assumed you want to occupy the entire space of the card
+                                            image: NetworkImage(
+                                              // petInfo.imageUrl[0],
+                                              currentUser
+                                                  .matchedPetAdoption[index]
+                                                  .imageUrl[0]
+                                                  .toString(),
+                                            ),
                                           ),
-                                          // Container(
-                                          //   height: 20,
-                                          //   color: Colors.red,
-                                          // )
-                                        ],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        alignment: Alignment.centerLeft,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Opacity(
+                                              opacity: 0.77,
+                                              child: Container(
+                                                height: 47,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xfffcc281),
+                                                    borderRadius: BorderRadius
+                                                        .only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    10.0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    10.0))),
+                                                child: Consumer<MainProvider>(
+                                                  builder:
+                                                      (context, info, __) =>
+                                                          Column(
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 5),
+                                                            child: Text(
+                                                              info
+                                                                  .matchedPetAdoption[
+                                                                      index]
+                                                                  .petName
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Arial',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  letterSpacing:
+                                                                      1.2,
+                                                                  fontSize: 17),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 3),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .favorite_border,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          info
+                                                              .matchedPetAdoption[
+                                                                  index]
+                                                              .subcategory
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Arial',
+                                                              fontSize: 17),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-
                                   ],
                                 ),
-
                               ],
                             ),
                           );
@@ -176,7 +204,10 @@ class GradientAppBar extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(
+                Icons.navigate_before,
+                size: 30,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -187,11 +218,8 @@ class GradientAppBar extends StatelessWidget {
             Center(
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.bodyText1!.merge(
-                      TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
+                style: TextStyle(
+                    fontFamily: 'MyFont', fontSize: 20, letterSpacing: 1.5),
               ),
             ),
           ],
@@ -202,12 +230,11 @@ class GradientAppBar extends StatelessWidget {
           // begin: Alignment.topRight,
           // end: Alignment.bottomLeft,
           colors: [
+            // Color(0xffff9827),
+            // Color(0xfffcc281),
 
-            Color(0xffff9827),
-            Color(0xfffcc281),
-
-        //     Colors.white,
-        //     Colors.white
+            Colors.white,
+            Colors.white
           ],
         ),
       ),

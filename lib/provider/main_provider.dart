@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cns/models/custom_web_view.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/models/pets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainProvider extends ChangeNotifier {
   NewUser? currentUser;
@@ -27,8 +28,7 @@ class MainProvider extends ChangeNotifier {
   static const your_redirect_url = 'https://cnsi-b4f1c.firebaseapp.com/__/auth/handler';
 
   Future setDataUser(User user, String isIndividual, String name) async {
-    print("------- Set data User Name ----------");
-    print(name);
+    
     await FirebaseFirestore.instance.collection("Users").doc(user.uid).set(
         {
           'userId': user.uid,
@@ -46,6 +46,31 @@ class MainProvider extends ChangeNotifier {
         ));
   }
 
+// Future setdataofngo(User user,String isIndividual,String name) async {
+    
+    
+//   SharedPreferences pf = await SharedPreferences.getInstance();
+//    String? email = pf.getString("email");
+//    String? phone = pf.getString("phonenumber");
+//   String?  password = pf.getString("password");
+
+//     await FirebaseFirestore.instance.collection("NgoUsers").doc(user.uid).set({
+//       'userid': user.uid,
+//       'emailaddress': email,
+//       'ngoname': ngoname.text,
+//       'ngoaddress': ngoaddress.text,
+//       'ngotype': ngotype.text,
+//       'estyear': estyear.text,
+//       'ngotiming': ngotiming.text,
+//       'mobilenumber': phone
+//     });
+//     SetOptions(
+//       merge: true,
+//     );
+//   }
+  
+
+
   Future<dynamic> handleGoogleSign(BuildContext context, String isIndividual) async {
     User _user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -62,8 +87,7 @@ class MainProvider extends ChangeNotifier {
     assert(await _user.getIdToken() != null);
     User? currentUser = _auth.currentUser;
     assert(_user.uid == currentUser!.uid);
-    print("User Name NEW INDividual: ${_user.displayName}");
-    print("User Email NEW Individual: ${_user.email}");
+    
     if (currentUser != null) {
       FirebaseFirestore.instance
           .collection('Users')
@@ -338,3 +362,5 @@ class MainProvider extends ChangeNotifier {
     });
   }
 }
+
+

@@ -24,7 +24,8 @@ class MyPets extends StatelessWidget {
         elevation: 0.0,
         title: Text(
           "My Pets",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
+          style: TextStyle(
+              fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
         ),
       ),
       body: Consumer<MainProvider>(
@@ -40,93 +41,116 @@ class MyPets extends StatelessWidget {
             children: [
               ...currentUser.myPets
                   .map(
-                    (petInfo) => InkWell(
-                  onTap: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PetMatchScreen(
-                        category: petInfo.category,
-                        subcategory: petInfo.subcategory,
-                        gender: petInfo.sex,
-                        selectedPetID: petInfo.id,
+                    (petInfo) => Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ),
-                  ),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(32.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              petInfo.imageUrl[0],
-                              fit: BoxFit.cover,
-                              height: 100,
-                              width: 100,
-                              alignment: Alignment.center,
-                              semanticLabel: petInfo.petName,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: Text(
-                              petInfo.petName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                petInfo.imageUrl[0],
+                                fit: BoxFit.cover,
+                                height: 100,
+                                width: 100,
+                                alignment: Alignment.center,
+                                semanticLabel: petInfo.petName,
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0),
+                              child: Text(
+                                petInfo.petName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              petInfo.subcategory,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              )
+                  )
                   .toList(),
-              InkWell(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Icon(
-                            Icons.add_circle_outline,
-                            size: 32,
-                            color: HexColor("#ffec40"),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "Add New",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
+              ...currentUser.myPetAdoptions
+                  .map(
+                    (petInfo) => Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                petInfo.imageUrl[0],
+                                fit: BoxFit.cover,
+                                height: 100,
+                                width: 100,
+                                alignment: Alignment.center,
+                                semanticLabel: petInfo.petName,
+                              ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 24.0),
+                              child: Text(
+                                petInfo.petName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Icon(
+                          Icons.add_circle_outline,
+                          size: 32,
+                          color: HexColor("#ffec40"),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          "Add New",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddPetScreen(
-                      isAdoption: false,
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

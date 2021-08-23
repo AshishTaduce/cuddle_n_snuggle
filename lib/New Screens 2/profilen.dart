@@ -79,78 +79,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
         // ],
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Container(
-              height: 80,
-              width: 80,
-
-              alignment: Alignment.center,
-              child: CachedNetworkImage(
-                    // add user ke first letter nd seconds letter as pic 
-                    // example - Aditya Kashyap then AK should be displayed
-                imageUrl: "https://picsum.photos/200",
+      body: Consumer<MainProvider>(
+        builder: (context, info, __) => SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 30,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(alignment: Alignment.center, child: Text("Aditya Kashyap")), // cirrent user name
-            SizedBox(
-              height: 5,
-            ),
-            Container(alignment: Alignment.center, child: Text("adiiyaar2401@gmail.com")), // email id cirrent user ki
-            SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              title: Text("Edit Profile"),
 
-              trailing: Icon(Icons.navigate_next),
-            ),
-            ListTile(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyPets()));
-              },
-              title: Text("My Pets"),
+              Container(
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 24,
+                  child: Text(info.currentUser!.name
+                      .toString()
+                      .split(" ")
+                      .map((e) => e[0])
+                      .join("")),
+                ),
+              ), // cirrent user name
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                child: Text(info.currentUser!.name.toString()),
+              ),
+              SizedBox(
+                height: 5,
+              ),
 
-              trailing: Icon(Icons.navigate_next),
-            ),
-            ListTile(
-              // my pets and my favs page design same h 
-              // just add favourite option on pet adoption pets page
-              // if anyone clicks on pets heart icon on them then it should come here
-              
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyPets()));
-              },
-              title: Text("My Favourites"),
+              Container(
+                child: Text(info.currentUser!.phoneNumber.toString()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                title: Text("Edit Profile"),
+                trailing: Icon(Icons.navigate_next),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyPets()));
+                },
+                title: Text("My Pets"),
+                trailing: Icon(Icons.navigate_next),
+              ),
+              ListTile(
+                // my pets and my favs page design same h
+                // just add favourite option on pet adoption pets page
+                // if anyone clicks on pets heart icon on them then it should come here
 
-              trailing: Icon(Icons.navigate_next),
-            ),
-            ListTile(
-              title: Text("Location"),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyPets()));
+                },
+                title: Text("My Favourites"),
 
-              trailing: Icon(Icons.navigate_next),
-            ),
-            ListTile(
-              title: Text("Setting"),
-
-              trailing: Icon(Icons.navigate_next),
-            ),
-            ListTile(
-              onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NgoOrIndiviualPage()));
-              },
-              title: Text("Logout"),
-
-              trailing: Icon(Icons.navigate_next),
-            ),
-          ],
+                trailing: Icon(Icons.navigate_next),
+              ),
+              ListTile(
+                title: Text("Location"),
+                trailing: Icon(Icons.navigate_next),
+              ),
+              ListTile(
+                title: Text("Setting"),
+                trailing: Icon(Icons.navigate_next),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NgoOrIndiviualPage()));
+                },
+                title: Text("Logout"),
+                trailing: Icon(Icons.navigate_next),
+              ),
+            ],
+          ),
         ),
       ),
 

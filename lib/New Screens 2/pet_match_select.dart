@@ -24,7 +24,8 @@ class PetMatchSelect extends StatelessWidget {
         elevation: 0.0,
         title: Text(
           "Select The Pet",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
+          style: TextStyle(
+              fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
         ),
       ),
       body: Consumer<MainProvider>(
@@ -47,7 +48,7 @@ class PetMatchSelect extends StatelessWidget {
                         ),
                       ),
                       child: Card(
-                        elevation: 4.0,
+                        elevation: 2.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -56,11 +57,11 @@ class PetMatchSelect extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
-                              fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                              fit: BoxFit
+                                  .cover, //I assumed you want to occupy the entire space of the card
                               image: NetworkImage(
-                                // petInfo.imageUrl[0],
-                                "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYyOTA0Mjk0Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600"
-                              ),
+                                  // petInfo.imageUrl[0],
+                                  "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYyOTA0Mjk0Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600"),
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -73,7 +74,8 @@ class PetMatchSelect extends StatelessWidget {
                                   width: 140,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         petInfo.petName,
@@ -84,7 +86,8 @@ class PetMatchSelect extends StatelessWidget {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 4.0),
                                         child: Text(
                                           petInfo.sex + " " + petInfo.category,
                                           style: TextStyle(
@@ -95,7 +98,7 @@ class PetMatchSelect extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                          petInfo.about,
+                                        petInfo.about,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w300,
                                           color: Colors.black,

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/New%20Screens%202/petdetailpage.dart';
 import 'package:cns/models/pets.dart';
@@ -29,6 +30,7 @@ class _ChatPageState extends State<ChatPage> {
   bool isBlocked = false;
   final db = FirebaseFirestore.instance;
   CollectionReference? chatReference;
+  late final NewUser currentUser;
   final TextEditingController _textController = new TextEditingController();
   bool _isWriting = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -381,28 +383,50 @@ class _ChatPageState extends State<ChatPage> {
               floating: true,
               snap: true,
               pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  collapseMode: CollapseMode.parallax,
-                  title: Text(widget.matchedPet.petName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      )),
-                  background: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PetDetailPage()));
-                    },
-                    child: Image.network(
-                      widget.matchedPet.imageUrl[
-                          0], // add all images of the pets in carousel
-                      // appbar shouldnt collapse
-                      fit: BoxFit.cover,
-                    ),
-                  )),
+              flexibleSpace: ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: FlexibleSpaceBar(
+                    centerTitle: true,
+                    collapseMode: CollapseMode.none,
+                    title: Text(widget.matchedPet.petName,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        )),
+                    background: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PetDetailPage(
+                                      // currentUser: currentUser,
+                                      matchedPet: widget.matchedPet,
+                                    )));
+                      },
+                      child: CarouselSlider(
+                        items: widget.matchedPet.imageUrl
+                            .map((e) => Container(
+                                  color: Colors.red,
+                                  child: Image.network(
+                                    e,
+                                    fit: BoxFit.cover,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
+                                ))
+                            .toList(),
+                        options: CarouselOptions(
+                            viewportFraction: 1,
+                            aspectRatio: 16 / 9,
+                            enlargeCenterPage: true),
+                      ),
+                      // child: Image.network(
+                      //   widget.matchedPet.imageUrl[
+                      //       0], // add all images of the pets in carousel
+                      //   // appbar shouldnt collapse
+                      //   fit: BoxFit.cover,
+                      // ),
+                    )),
+              ),
             ),
           ];
         },
