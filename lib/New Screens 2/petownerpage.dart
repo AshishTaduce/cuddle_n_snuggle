@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/models/pets.dart';
@@ -264,11 +265,17 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                           child: Positioned(
                             top: 30,
                             left: 10,
-                            child: Icon(
-                              Icons.navigate_before,
-                              size: 35,
-                              color: Colors.black,
-                            ),
+                            child: Platform.isIOS
+                                ? Icon(
+                                    Icons.navigate_before,
+                                    size: 35,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.arrow_back,
+                                    size: 32,
+                                    color: Colors.white,
+                                  ),
                           ),
                         ),
                       ],

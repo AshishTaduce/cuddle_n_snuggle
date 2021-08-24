@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/provider/main_provider.dart';
@@ -9,7 +11,8 @@ class PetAdoption extends StatefulWidget {
 }
 
 class _PetAdoptionState extends State<PetAdoption> {
-  bool exceedSwipes = true;
+  // bool exceedSwipes = true;
+  bool favourite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,15 +131,31 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                                   fontSize: 17),
                                                             ),
                                                           ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: 3),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .favorite_border,
-                                                              color:
-                                                                  Colors.black,
+                                                          InkWell(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                favourite =
+                                                                    !favourite;
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 3,
+                                                                      right: 3),
+                                                              child: !favourite
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .favorite_border,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .favorite_rounded,
+                                                                      color: Colors
+                                                                          .red,
+                                                                    ),
                                                             ),
                                                           )
                                                         ],
@@ -204,10 +223,15 @@ class GradientAppBar extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              icon: Icon(
-                Icons.navigate_before,
-                size: 30,
-              ),
+              icon: Platform.isIOS
+                  ? Icon(
+                      Icons.navigate_before,
+                      size: 30,
+                    )
+                  : Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                    ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

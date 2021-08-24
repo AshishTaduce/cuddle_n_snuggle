@@ -59,310 +59,176 @@ class _AddPetAdoption extends State<AddPetScreen> {
 
   ButtonState _buttonState = ButtonState.idle;
 
-  Widget switchWithString(String petType) {
-    print(petType);
-    switch (petType) {
-      case 'cats':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      case 'dog':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      case 'fish':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      case 'hamster':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      case 'mice':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      case 'Rabbit':
-        print(petType);
-        return DropdownButton(
-          iconEnabledColor: primaryColor,
-          iconDisabledColor: secondryColor,
-          isExpanded: true,
-          items: [
-            DropdownMenuItem(
-              child: Text("German Shepherd"),
-              value: "German Shepherd",
-            ),
-            DropdownMenuItem(
-              child: Text("Bulldog"),
-              value: "Bulldog",
-            ),
-            DropdownMenuItem(
-              child: Text("Poodle"),
-              value: "Poodle",
-            ),
-            DropdownMenuItem(
-              child: Text("Labrador Retriever"),
-              value: "Labrador Retriever",
-            ),
-            DropdownMenuItem(
-              child: Text("Golden Retriever"),
-              value: "Golden Retriever",
-            ),
-          ],
-          onChanged: (val) {
-            setState(() {
-              _showMe = val;
-            });
-          },
-          value: _showMe,
-        );
-      default:
-        return Text("No Pet");
-    }
-  }
-
   Future showImagePicker(BuildContext context, bool isProfilePicture) async {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-              title: Text(
-                  isProfilePicture ? "Update profile picture" : "Add pictures"),
-              content: Text(
-                "Select source",
-              ),
-              insetAnimationCurve: Curves.decelerate,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.photo_camera,
-                          size: 28,
-                        ),
-                        Text(
-                          " Camera",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            _getImage(
-                                ImageSource.camera, context, isProfilePicture);
-                            return Center(
-                                child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ));
-                          });
-                    },
+          return Platform.isIOS
+              ? CupertinoAlertDialog(
+                  title: Text(isProfilePicture
+                      ? "Upload A New photo"
+                      : "Update photos"),
+                  content: Text(
+                    "Select source",
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.photo_library,
-                          size: 28,
+                  insetAnimationCurve: Curves.decelerate,
+                  actions: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.photo_camera,
+                                size: 28,
+                              ),
+                              Text(
+                                " Camera",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  _getImage(ImageSource.camera, context,
+                                      isProfilePicture);
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ));
+                                });
+                          },
                         ),
-                        Text(
-                          " Gallery",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.photo_library,
+                                size: 28,
+                              ),
+                              Text(
+                                " Gallery",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  _getImage(ImageSource.gallery, context,
+                                      isProfilePicture);
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ));
+                                });
+                          },
                         ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            _getImage(
-                                ImageSource.gallery, context, isProfilePicture);
-                            return Center(
-                                child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ));
-                          });
-                    },
+                      ),
+                    ])
+              : AlertDialog(
+                  title: Text(
+                    isProfilePicture ? "Upload A New photo" : "Update photos",
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ]);
+
+                  // insetAnimationCurve: Curves.decelerate,
+                  actions: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.photo_camera,
+                                size: 28,
+                              ),
+                              Text(
+                                " Camera",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  _getImage(ImageSource.camera, context,
+                                      isProfilePicture);
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ));
+                                });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.photo_library,
+                                size: 28,
+                              ),
+                              Text(
+                                " Gallery",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.none),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  _getImage(ImageSource.gallery, context,
+                                      isProfilePicture);
+                                  return Center(
+                                      child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ));
+                                });
+                          },
+                        ),
+                      ),
+                    ]);
         });
   }
 
@@ -408,17 +274,15 @@ class _AddPetAdoption extends State<AddPetScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Color(0xff01b4c9),
+        elevation: 0,
+        backgroundColor: Color(0xffffffff),
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
         title: Text(
           widget.isAdoption ? "Add Adoption" : "Add Pet",
-          style: Theme.of(context).textTheme.bodyText1!.merge(
-                TextStyle(
-                  fontSize: 25,
-                ),
-              ),
+          style: TextStyle(
+              fontSize: 25, color: Colors.black, fontFamily: 'MyFont'),
         ),
       ),
       backgroundColor: Colors.white,
@@ -436,9 +300,13 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   child: Center(
                       child: _image == null
                           ? CircleAvatar(
+                              backgroundColor: Color(0xfffcc281),
                               radius: 50,
                               child: Center(
-                                child: Icon(Icons.camera),
+                                child: Icon(
+                                  Icons.camera,
+                                  color: Colors.black,
+                                ),
                               ),
                             )
                           : CircleAvatar(
@@ -450,27 +318,53 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   height: 20,
                 ),
                 Container(
-                  child: TextFormField(
+                  height: 60,
+                  // child: TextFormField(
+                  //   controller: nameController,
+                  //   onChanged: (v) => nameController.text,
+                  //   decoration: new InputDecoration(
+                  //     border: new OutlineInputBorder(
+                  //         borderSide: new BorderSide(color: Colors.teal)),
+                  //     hintText: 'Enter Your Pets Name',
+                  //     labelText: 'Pets Name',
+                  //     prefixIcon: const Icon(
+                  //       Icons.pets,
+                  //       color: Color(0xff01b4c9),
+                  //     ),
+
+                  //     suffixStyle: const TextStyle(color: Colors.green),
+
+                  //   ),
+
+                  // ),
+                  child: TextField(
                     controller: nameController,
                     onChanged: (v) => nameController.text,
-                    decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.teal)),
-                      hintText: 'Enter Your Pets Name',
-                      labelText: 'Pets Name',
-                      prefixIcon: const Icon(
-                        Icons.pets,
-                        color: Color(0xff01b4c9),
+                    decoration: InputDecoration(
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                        borderSide: BorderSide(
+                          color: Colors.white54,
+                        ),
                       ),
-                      suffixStyle: const TextStyle(color: Colors.green),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                        borderSide: BorderSide(
+                          color: Colors.white54,
+                        ),
+                      ),
+                      hintText: 'Casper',
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Card(
-                  elevation: 2,
+                Container(
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(24.0),
+                  // ),
                   child: DateTimePicker(
                     initialValue: '',
                     firstDate: DateTime(2000),
@@ -492,26 +386,36 @@ class _AddPetAdoption extends State<AddPetScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "What is category of your pet ?",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                // Align(
+                //   alignment: Alignment.bottomLeft,
+                //   child: Text(
+                //     "What is category of your pet ?",
+                //     style: TextStyle(fontSize: 20),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 20,
+                // ),
                 Column(
                   children: [
                     Container(
-                      height: 48,
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5),
-                          borderRadius: BorderRadius.circular(4)),
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: DropdownButton(
+                      height: 60,
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                            borderSide: BorderSide(
+                              color: Colors.white54,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                            borderSide: BorderSide(
+                              color: Colors.white54,
+                            ),
+                          ),
+                        ),
                         items: aparts.keys
                             .toList()
                             .map((e) => DropdownMenuItem(
@@ -526,7 +430,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                           this.block = List.of(aparts[value] ?? []).first ?? "";
                           setState(() {});
                         },
-                        underline: SizedBox(),
+                        // underline: SizedBox(),
                       ),
                     ),
                   ],
@@ -534,25 +438,36 @@ class _AddPetAdoption extends State<AddPetScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "What is Breed of your pet ?",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
+                // Align(
+                //   alignment: Alignment.bottomLeft,
+                //   child: Text(
+                //     "What is Breed of your pet ?",
+                //     style: TextStyle(fontSize: 20),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 12,
+                // ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5),
-                        borderRadius: BorderRadius.circular(4)),
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: DropdownButton(
+                    height: 60,
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                          borderSide: BorderSide(
+                            color: Colors.white54,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                          borderSide: BorderSide(
+                            color: Colors.white54,
+                          ),
+                        ),
+                      ),
                       items: List.of(aparts[apartment] ?? [])
                           .map((e) => DropdownMenuItem(
                                 child: Text(e),
@@ -564,7 +479,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                         this.block = value as String?;
                         setState(() {});
                       },
-                      underline: SizedBox(),
+                      // underline: SizedBox(),
                     ),
                   ),
                 ),
@@ -572,19 +487,39 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   height: 20,
                 ),
                 Container(
-                  child: TextFormField(
+                  // child: TextFormField(
+                  //   controller: aboutController,
+                  //   onChanged: (v) => aboutController.text,
+                  //   decoration: new InputDecoration(
+                  //     border: new OutlineInputBorder(
+                  //         borderSide: new BorderSide(color: Colors.teal)),
+                  //     hintText: 'Describe Your Pet to let the world know',
+                  //     labelText: 'About Your Pet',
+                  //     prefixIcon: const Icon(
+                  //       Icons.message_outlined,
+                  //       color: Color(0xff01b4c9),
+                  //     ),
+                  //     suffixStyle: const TextStyle(color: Colors.green),
+                  //   ),
+                  // ),
+                  child: TextField(
                     controller: aboutController,
                     onChanged: (v) => aboutController.text,
-                    decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.teal)),
-                      hintText: 'Describe Your Pet to let the world know',
-                      labelText: 'About Your Pet',
-                      prefixIcon: const Icon(
-                        Icons.message_outlined,
-                        color: Color(0xff01b4c9),
+                    decoration: InputDecoration(
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                        borderSide: BorderSide(
+                          color: Colors.white54,
+                        ),
                       ),
-                      suffixStyle: const TextStyle(color: Colors.green),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                        borderSide: BorderSide(
+                          color: Colors.white54,
+                        ),
+                      ),
+                      hintText: 'About ypur Pet',
                     ),
                   ),
                 ),
@@ -592,56 +527,57 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   height: 15,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Vaccinated"),
                     SizedBox(
                       width: 35,
                     ),
-                    CupertinoSwitch(
-                      value: _switchValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _switchValue = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                    Platform.isIOS
+                        ? CupertinoSwitch(
+                            value: _switchValue,
+                            onChanged: (value) {
+                              setState(() {
+                                _switchValue = value;
+                              });
+                            },
+                          )
+                        : Switch(
+                            value: _switchValue,
+                            onChanged: (value) {
+                              setState(() {
+                                _switchValue = value;
+                              });
+                            },
+                          ),
                     Text("KCI Certified"),
                     SizedBox(
                       width: 20,
                     ),
-                    CupertinoSwitch(
-                      value: _switchValue2,
-                      onChanged: (value) {
-                        setState(() {
-                          _switchValue2 = value;
-                        });
-                      },
-                    ),
+                    Platform.isIOS
+                        ? CupertinoSwitch(
+                            value: _switchValue2,
+                            onChanged: (value) {
+                              setState(() {
+                                _switchValue2 = value;
+                              });
+                            },
+                          )
+                        : Switch(
+                            value: _switchValue2,
+                            onChanged: (value) {
+                              setState(() {
+                                _switchValue2 = value;
+                              });
+                            },
+                          )
                   ],
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "Sex",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RadioGroup<String>.builder(
                       direction: Axis.horizontal,
@@ -665,11 +601,11 @@ class _AddPetAdoption extends State<AddPetScreen> {
                     ButtonState.idle: IconedButton(
                       text: "Add Pet",
                       icon: Icon(Icons.add_circle_outline, color: Colors.white),
-                      color: Colors.deepPurple.shade500,
+                      color: Color(0xfffcc281),
                     ),
                     ButtonState.loading: IconedButton(
                       text: "Loading",
-                      color: Colors.deepPurple.shade700,
+                      color: Color(0xfffcc281),
                     ),
                     ButtonState.fail: IconedButton(
                       text: "Invalid Values",
@@ -686,7 +622,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                   },
                   onPressed: () async {
                     try {
-                      if (_buttonState == ButtonState.idle){
+                      if (_buttonState == ButtonState.idle) {
                         setState(() {
                           _buttonState = ButtonState.loading;
                         });

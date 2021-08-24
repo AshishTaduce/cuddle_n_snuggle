@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/New%20Screens%202/petownerpage.dart';
@@ -69,10 +71,16 @@ class _PetDetailPageState extends State<PetDetailPage> {
                     top: 15,
                     left: 5,
                     child: IconButton(
-                      icon: Icon(
-                        Icons.navigate_before,
-                        size: 34,
-                      ),
+                      icon: Platform.isIOS
+                          ? Icon(
+                              Icons.navigate_before,
+                              size: 34,
+                            )
+                          : Icon(
+                              Icons.arrow_back,
+                              size: 32,
+                              color: Colors.white,
+                            ),
                       color: Colors.white,
                       onPressed: () {
                         Navigator.pop(context);

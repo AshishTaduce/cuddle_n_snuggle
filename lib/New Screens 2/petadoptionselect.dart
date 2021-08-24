@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cns/New%20Screens%202/ngoselection.dart';
 import 'package:cns/New%20Screens%202/pet_adoption.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +25,9 @@ class _petAdoptionPageSelectState extends State<petAdoptionPageSelect> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.navigate_before, size: 30, color: Colors.black),
+          icon: Platform.isIOS
+              ? Icon(Icons.navigate_before, size: 30, color: Colors.black)
+              : Icon(Icons.arrow_back, size: 30, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -68,7 +73,7 @@ class _petAdoptionPageSelectState extends State<petAdoptionPageSelect> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PetAdoption()));
+                    MaterialPageRoute(builder: (context) => ngoSelectScreen()));
               },
               child: Container(
                 height: 150,

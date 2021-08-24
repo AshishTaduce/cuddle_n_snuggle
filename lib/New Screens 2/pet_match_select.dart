@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,8 +18,10 @@ class PetMatchSelect extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: HexColor("#f7f7f7"),
         leading: IconButton(
-          icon: Icon(Icons.chevron_left_rounded),
-          iconSize: 36,
+          icon: Platform.isIOS
+              ? Icon(Icons.navigate_before)
+              : Icon(Icons.arrow_back),
+          // iconSize: 28,
           color: Colors.black,
           onPressed: () => Navigator.of(context).pop(),
         ),

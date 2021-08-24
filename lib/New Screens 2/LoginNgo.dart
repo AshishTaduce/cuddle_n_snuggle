@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/New%20Screens%202/ngoadditionalinfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,11 +62,17 @@ class _LoginNgoState extends State<LoginNgo> {
                 Positioned(
                     top: 34,
                     child: IconButton(
-                      icon: Icon(
-                        Icons.navigate_before,
-                        size: 32,
-                        color: Colors.white,
-                      ),
+                      icon: Platform.isIOS
+                          ? Icon(
+                              Icons.navigate_before,
+                              size: 32,
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              Icons.arrow_back,
+                              size: 32,
+                              color: Colors.white,
+                            ),
                       onPressed: () {
                         Navigator.push(
                             context,
