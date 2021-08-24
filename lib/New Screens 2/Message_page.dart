@@ -14,8 +14,7 @@ class MessagePage extends StatefulWidget {
   _MessagePageState createState() => _MessagePageState();
 }
 
-class _MessagePageState extends State<MessagePage>
-    with TickerProviderStateMixin {
+class _MessagePageState extends State<MessagePage> with TickerProviderStateMixin {
   TabController? _controller;
   List<Widget> list = [
     Tab(
@@ -33,8 +32,7 @@ class _MessagePageState extends State<MessagePage>
   @override
   void initState() {
     super.initState();
-    _controller =
-        TabController(length: list.length, vsync: this, initialIndex: 0);
+    _controller = TabController(length: list.length, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -61,9 +59,7 @@ class _MessagePageState extends State<MessagePage>
               key: Key("1"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
                 color: Colors.white,
               ),
               child: ClipRRect(
@@ -80,8 +76,7 @@ class _MessagePageState extends State<MessagePage>
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
                             print(acc.matchesByGender);
-                            return RecentChats(
-                                acc.currentUser!, acc.matchesByGender);
+                            return RecentChats(acc.currentUser!, acc.matchesByGender);
                           },
                         ),
                       )
@@ -94,9 +89,7 @@ class _MessagePageState extends State<MessagePage>
               key: Key("2"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
                 color: Colors.white,
               ),
               child: ClipRRect(
@@ -113,8 +106,7 @@ class _MessagePageState extends State<MessagePage>
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
                             print(acc.matchedPetAdoption);
-                            return RecentChats(
-                                acc.currentUser!, acc.matchedPetAdoption);
+                            return RecentChats(acc.currentUser!, acc.matchedPetAdoption);
                           },
                         ),
                       )
@@ -199,7 +191,10 @@ class RecentChats extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => ChatPage(
-                  chatId: "X0tK5eTUoS3sbtwTRimH-BultibG8Tuovq8IqcyRa",
+                  chatId: chatId(
+                    currentUser.id,
+                    petslist[index].userId,
+                  ),
                   currentUser: currentUser,
                   matchedPet: petslist[index],
                 ),
@@ -208,11 +203,12 @@ class RecentChats extends StatelessWidget {
             child: StreamBuilder(
               stream: db
                   .collection("chats")
-                  .doc("X0tK5eTUoS3sbtwTRimH-BultibG8Tuovq8IqcyRa")
-                  // chatId(currentUser.id,
-                  //     petslist[index].userId,
-                  // ),
-                  // )
+                  .doc(
+                    chatId(
+                      currentUser.id,
+                      petslist[index].userId,
+                    ),
+                  )
                   .collection('messages')
                   .orderBy('time', descending: true)
                   .snapshots(),
@@ -224,33 +220,23 @@ class RecentChats extends StatelessWidget {
                 else if (snapshot.data.docs.length == 0) {
                   return Container();
                 }
-                print("hishis");
-                print(snapshot.data.docs.length);
-                print(index);
-                print(petslist.isEmpty);
                 // index.lastmsg = snapshot.data.docs[0]['time'];
                 return Container(
-                  margin: EdgeInsets.only(
-                      top: 5.0, bottom: 5.0, right: 10.0, left: 8.0),
+                  margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 10.0, left: 8.0),
                   decoration: BoxDecoration(
-                    color:
-                        snapshot.data.docs[0]['sender_id'] != currentUser.id &&
-                                !snapshot.data.docs[0]['isRead']
-                            ? Colors.white.withOpacity(.1)
-                            : Colors.white.withOpacity(.2),
+                    color: snapshot.data.docs[0]['sender_id'] != currentUser.id && !snapshot.data.docs[0]['isRead']
+                        ? Colors.white.withOpacity(.1)
+                        : Colors.white.withOpacity(.2),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 1.0, top: 10.0),
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 40.0,
-                        backgroundImage: NetworkImage(
-                            "${petslist[0].imageUrl[0].toString()}"),
+                        backgroundImage: NetworkImage("${petslist[0].imageUrl[0].toString()}"),
                       ),
                       title: Text(
-                        petslist[index]
-                            .petName
-                            .toString(), // please check whether it should be 0 or index
+                        petslist[index].petName.toString(), // please check whether it should be 0 or index
                         style: TextStyle(
                           fontFamily: 'Arial',
                           letterSpacing: 1.4,
@@ -260,9 +246,7 @@ class RecentChats extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        snapshot.data.docs[0]['image_url'].toString().length > 0
-                            ? "Photo"
-                            : snapshot.data.docs[0]['text'],
+                        snapshot.data.docs[0]['image_url'].toString().length > 0 ? "Photo" : snapshot.data.docs[0]['text'],
                         style: TextStyle(
                           color: Color(0xffff9827),
                           fontSize: 15.0,
@@ -276,11 +260,7 @@ class RecentChats extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             snapshot.data.docs[0]["time"] != null
-                                ? DateFormat.MMMd()
-                                    .add_jm()
-                                    .format(
-                                        snapshot.data.docs[0]["time"].toDate())
-                                    .toString()
+                                ? DateFormat.MMMd().add_jm().format(snapshot.data.docs[0]["time"].toDate()).toString()
                                 : "",
                             style: TextStyle(
                               color: Colors.black45,
@@ -288,9 +268,7 @@ class RecentChats extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          snapshot.data.docs[0]['sender_id'] !=
-                                      currentUser.id &&
-                                  !snapshot.data.docs[0]['isRead']
+                          snapshot.data.docs[0]['sender_id'] != currentUser.id && !snapshot.data.docs[0]['isRead']
                               ? Container(
                                   width: 40.0,
                                   height: 20.0,
