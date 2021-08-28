@@ -33,17 +33,15 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
 
   @override
   void initState() {
-
     super.initState();
 
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xfffdf8ff),
       backgroundColor: Colors.white,
-
       bottomNavigationBar: ConvexAppBar(
         backgroundColor: Color(0xffff9827),
         items: [
@@ -299,8 +297,8 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
               Consumer<MainProvider>(
                 builder: (context, acc, __) => Row(
                   children: [
-                    if (acc.currentUser!.isIndiviual == "Indiviual")
-                      Expanded(
+                    if (acc.currentUser != null && acc.currentUser!.isIndiviual == "Indiviual")
+                    Expanded(
                           child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -369,7 +367,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => petAdoptionPageSelect(),
+                            builder: (context) => PetAdoptionPageSelect(),
                           ),
                         );
                       },
