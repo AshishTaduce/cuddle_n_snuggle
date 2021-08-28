@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/models/pets.dart';
+import 'package:cns/provider/main_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NewUser {
   final dynamic id;
@@ -24,8 +26,7 @@ class NewUser {
     this.phoneNumber,
   });
   factory NewUser.fromDocument(DocumentSnapshot doc) {
-    String a = doc["userName"];
-    print(a);
+
     return NewUser(
       id: doc['userId'],
       phoneNumber: doc['phoneNumber'],
@@ -143,6 +144,7 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
   Future<dynamic> getAdoptionPets() async {
     await FirebaseFirestore.instance
         .collection('PetAdoption')
+
         .get()
         .then((data) {
       matchedPetAdoption = [];
@@ -292,6 +294,87 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    // Container(
+                    //   height: 400,
+                    //
+                    //   child: Consumer<MainProvider>(
+                    //     builder: (_, currentUser, __) => ListView(
+                    //       children: [
+                    //         ...currentUser.myPets
+                    //             .map(
+                    //               (ngoinfo) => Card(
+                    //             elevation: 2.0,
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: Container(
+                    //               height: 150,
+                    //               decoration: BoxDecoration(
+                    //                 image: DecorationImage(
+                    //                   alignment: Alignment.centerLeft,
+                    //                   fit: BoxFit
+                    //                       .cover, //I assumed you want to occupy the entire space of the card
+                    //                   image: NetworkImage(
+                    //                     // petInfo.imageUrl[0],
+                    //                       "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                    //                 ),
+                    //                 borderRadius: BorderRadius.circular(8),
+                    //               ),
+                    //               child: Stack(
+                    //                 children: [
+                    //                   Positioned(
+                    //                     right: 5,
+                    //                     top: 25,
+                    //                     child: Container(
+                    //                       width: 140,
+                    //                       child: Column(
+                    //                         mainAxisAlignment: MainAxisAlignment.start,
+                    //                         crossAxisAlignment: CrossAxisAlignment.start,
+                    //                         children: [
+                    //                           Text(
+                    //                             ngoinfo.petName,
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w600,
+                    //                               color: Colors.white,
+                    //                               fontSize: 24,
+                    //                             ),
+                    //                           ),
+                    //                           Padding(
+                    //                             padding: const EdgeInsets.symmetric(
+                    //                                 vertical: 4.0),
+                    //                             child: Text(
+                    //                               "Est Yr - 2021",
+                    //                               style: TextStyle(
+                    //                                 fontWeight: FontWeight.normal,
+                    //                                 color: Colors.white,
+                    //                                 fontSize: 18,
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           Text(
+                    //                             "Vasant Kunj",
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w300,
+                    //                               color: Colors.white,
+                    //                             ),
+                    //                             maxLines: 3,
+                    //                             overflow: TextOverflow.ellipsis,
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         )
+                    //             .toList(),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -304,6 +387,86 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    // Container(
+                    //   height: 400,
+                    //
+                    //   child: Consumer<MainProvider>(
+                    //     builder: (_, currentUser, __) => ListView(
+                    //       children: [
+                    //         ...currentUser.myPetAdoptions
+                    //             .map(
+                    //               (ngoinfo) => Card(
+                    //             elevation: 2.0,
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: Container(
+                    //               height: 150,
+                    //               decoration: BoxDecoration(
+                    //                 image: DecorationImage(
+                    //                   alignment: Alignment.centerLeft,
+                    //                   fit: BoxFit
+                    //                       .cover, //I assumed you want to occupy the entire space of the card
+                    //                   image: NetworkImage(
+                    //                     // petInfo.imageUrl[0],
+                    //                       "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                    //                 ),
+                    //                 borderRadius: BorderRadius.circular(8),
+                    //               ),
+                    //               child: Stack(
+                    //                 children: [
+                    //                   Positioned(
+                    //                     right: 5,
+                    //                     top: 25,
+                    //                     child: Container(
+                    //                       width: 140,
+                    //                       child: Column(
+                    //                         mainAxisAlignment: MainAxisAlignment.start,
+                    //                         crossAxisAlignment: CrossAxisAlignment.start,
+                    //                         children: [
+                    //                           Text(
+                    //                             ngoinfo.petName,
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w600,
+                    //                               color: Colors.white,
+                    //                               fontSize: 24,
+                    //                             ),
+                    //                           ),
+                    //                           Padding(
+                    //                             padding: const EdgeInsets.symmetric(
+                    //                                 vertical: 4.0),
+                    //                             child: Text(
+                    //                               "Est Yr - 2021",
+                    //                               style: TextStyle(
+                    //                                 fontWeight: FontWeight.normal,
+                    //                                 color: Colors.white,
+                    //                                 fontSize: 18,
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           Text(
+                    //                             "Vasant Kunj",
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w300,
+                    //                               color: Colors.white,
+                    //                             ),
+                    //                             maxLines: 3,
+                    //                             overflow: TextOverflow.ellipsis,
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         )
+                    //             .toList(),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
         ),

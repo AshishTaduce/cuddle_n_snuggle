@@ -1,3 +1,5 @@
+import 'package:cns/New%20Screens%202/profilen.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +9,9 @@ import 'package:cns/screens/add_event.dart';
 import 'package:cns/services/db_service.dart';
 import 'package:cns/util/database_helper.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'Message_page.dart';
+import 'Welcome_homepage.dart';
 
 class CalenderPage extends StatefulWidget {
   @override
@@ -107,6 +112,33 @@ class _CalenderPageState extends State<CalenderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: Key(valueFromAddEvent.toString()),
+      bottomNavigationBar: ConvexAppBar(
+        backgroundColor: Color(0xffff9827),
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
+          TabItem(icon: Icons.message, title: 'Message'),
+
+          TabItem(icon: Icons.person, title: 'Profile'),
+        ],
+        initialActiveIndex: 1, //optional, default as 0
+
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+          } else if (index == 1) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CalenderPage()));
+          } else if (index == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MessagePage()));
+          } else if (index == 3) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }
+        },
+      ),
       body: SafeArea(
         child: FutureBuilder<List<EventModel>>(
             future: databaseHelper!.getTaskList(),
@@ -306,7 +338,7 @@ class _CalenderPageState extends State<CalenderPage> {
                                       ),
                                       SizedBox(height: 10),
                                       Text(
-                                        event.pet.petName,
+                                        event.pet.toString(),
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 12),
                                       ),
@@ -323,17 +355,17 @@ class _CalenderPageState extends State<CalenderPage> {
               );
             }),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          label: Text("Add Vaccination Reminder"),
-          icon: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+
+          child : Icon(Icons.add),
           backgroundColor: HexColor("#ff9827"),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
           elevation: 4.0,
           onPressed: () {
             awaitReturnValueFromAddEvent();
           }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

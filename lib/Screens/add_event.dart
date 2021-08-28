@@ -66,14 +66,14 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
         await databaseHelper.addTask(EventModel(
           eventDate: _eventDate,
           time: _time,
-          pet: _selectedPet!,
+          pet: _selectedPet!.petName,
           title: _title.text,
         ));
       } else {
         await databaseHelper.updateTask(EventModel(
             id: widget.event!.id,
             title: _title.text,
-            pet: _selectedPet!,
+            pet: _selectedPet!.petName,
             eventDate: _eventDate,
             time: _time));
       }

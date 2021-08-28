@@ -22,8 +22,20 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Notifications"),
-      backgroundColor: Color(0xff01b4c9),
+      elevation: 0,
+      title: Text("Notifications",style: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        fontFamily: "MyFont",
+        color: Colors.black
+      ),),
+      backgroundColor: Colors.white,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back,color: Colors.black,),
+        onPressed: (){
+          Navigator.pop(context);
+        },
+      ),
     ),
     body: MessagingWidget(),
   );

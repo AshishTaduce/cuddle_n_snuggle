@@ -36,9 +36,11 @@ class _NotificationsState extends State<Notifications> {
             'Notifications',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18.0,
+              fontSize: 28,
+              fontFamily: "MyFont",
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.0,
+
+
             ),
           ),
           elevation: 0,

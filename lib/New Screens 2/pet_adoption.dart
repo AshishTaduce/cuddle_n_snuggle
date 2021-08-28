@@ -64,7 +64,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                             ));
                                       },
                                       child: Container(
-                                        height: 230,
+                                        height: 220,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             alignment: Alignment.centerLeft,
@@ -76,6 +76,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                   .matchedPetAdoption[index]
                                                   .imageUrl[0]
                                                   .toString(),
+
                                             ),
                                           ),
                                           borderRadius:
@@ -174,7 +175,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                                           style: TextStyle(
                                                               fontFamily:
                                                                   'Arial',
-                                                              fontSize: 17),
+                                                              fontSize: 16),
                                                         ),
                                                       ),
                                                     ],

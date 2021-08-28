@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cns/models/pets.dart';
 import 'package:flutter/services.dart';
 import 'package:cns/models/event.dart';
 import 'package:cns/models/eventDTO.dart';
@@ -76,12 +77,14 @@ class DatabaseHelper {
 
   Future<int> addTask(EventModel eventModel) async {
     ///TODO: Provide proper ID
+    ///
+    PetModel? _selectedPet;
     EventDTO eventDTO = EventDTO(
       id: eventModel.id ?? DateTime.now().second,
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: eventModel.pet.petName,
+      description: "_selectedPet!.petName.toString()",
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );
@@ -96,13 +99,14 @@ class DatabaseHelper {
   }
 
   Future<int> updateTask(EventModel eventModel) async {
+    PetModel? _selectedPet;
     ///TODO: Provide proper ID
     EventDTO eventDTO = EventDTO(
       id: eventModel.id ?? DateTime.now().second,
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: eventModel.pet.petName,
+      description: "_selectedPet!.petName.toString()",
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );

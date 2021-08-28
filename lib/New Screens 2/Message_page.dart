@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cns/New%20Screens%202/profilen.dart';
 import 'package:cns/util/color.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/chat.dart';
@@ -9,57 +11,102 @@ import 'package:cns/provider/main_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'Calenderx.dart';
+import 'Welcome_homepage.dart';
+
 class MessagePage extends StatefulWidget {
   @override
   _MessagePageState createState() => _MessagePageState();
 }
 
-class _MessagePageState extends State<MessagePage> with TickerProviderStateMixin {
+class _MessagePageState extends State<MessagePage>
+    with TickerProviderStateMixin {
   TabController? _controller;
   List<Widget> list = [
     Tab(
         icon: Icon(
       Icons.pets_sharp,
-      color: Colors.white,
+      color: Colors.black,
     )),
     Tab(
         icon: Icon(
       Icons.home_filled,
-      color: Colors.white,
+      color: Colors.black,
     )),
   ];
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: list.length, vsync: this, initialIndex: 0);
+    _controller =
+        TabController(length: list.length, vsync: this,);
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      // initialIndex: 1,
       length: 2,
+
       child: Scaffold(
+          backgroundColor: Colors.white,
+        bottomNavigationBar: ConvexAppBar(
+          backgroundColor: Color(0xffff9827),
+          items: [
+            TabItem(icon: Icons.home, title: 'Home'),
+            TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
+            TabItem(icon: Icons.message, title: 'Message'),
+
+            TabItem(icon: Icons.person, title: 'Profile'),
+          ],
+          disableDefaultTabController: true,
+          initialActiveIndex: 2, //optional, default as 0
+
+          onTap: (index) {
+            if (index == 0) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+            } else if (index == 1) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CalenderPage()));
+            } else if (index == 2) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MessagePage()));
+            } else if (index == 3) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+            }
+          },
+        ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          centerTitle: true,
+
           title: Text(
             "Message",
-            style: TextStyle(color: Colors.white),
+
+            style: TextStyle(color: Colors.black,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+            fontFamily: "MyFont"),
           ),
-          backgroundColor: Color(0xffff9827),
+          backgroundColor: Colors.white,
           bottom: TabBar(
             controller: _controller,
             tabs: list,
           ),
         ),
+
         body: TabBarView(
+          controller: _controller,
           children: [
             Container(
+              
               key: Key("1"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)),
                 color: Colors.white,
               ),
               child: ClipRRect(
@@ -76,7 +123,8 @@ class _MessagePageState extends State<MessagePage> with TickerProviderStateMixin
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
                             print(acc.matchesByGender);
-                            return RecentChats(acc.currentUser!, acc.matchesByGender);
+                            return RecentChats(
+                                acc.currentUser!, acc.matchesByGender);
                           },
                         ),
                       )
@@ -89,7 +137,9 @@ class _MessagePageState extends State<MessagePage> with TickerProviderStateMixin
               key: Key("2"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)),
                 color: Colors.white,
               ),
               child: ClipRRect(
@@ -106,7 +156,8 @@ class _MessagePageState extends State<MessagePage> with TickerProviderStateMixin
                         child: Consumer<MainProvider>(
                           builder: (_, acc, __) {
                             print(acc.matchedPetAdoption);
-                            return RecentChats(acc.currentUser!, acc.matchedPetAdoption);
+                            return RecentChats(
+                                acc.currentUser!, acc.matchedPetAdoption);
                           },
                         ),
                       )
@@ -222,21 +273,27 @@ class RecentChats extends StatelessWidget {
                 }
                 // index.lastmsg = snapshot.data.docs[0]['time'];
                 return Container(
-                  margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 10.0, left: 8.0),
+                  margin: EdgeInsets.only(
+                      top: 5.0, bottom: 5.0, right: 10.0, left: 8.0),
                   decoration: BoxDecoration(
-                    color: snapshot.data.docs[0]['sender_id'] != currentUser.id && !snapshot.data.docs[0]['isRead']
-                        ? Colors.white.withOpacity(.1)
-                        : Colors.white.withOpacity(.2),
+                    color:
+                        snapshot.data.docs[0]['sender_id'] != currentUser.id &&
+                                !snapshot.data.docs[0]['isRead']
+                            ? Colors.white.withOpacity(.1)
+                            : Colors.white.withOpacity(.2),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 1.0, top: 10.0),
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 40.0,
-                        backgroundImage: NetworkImage("${petslist[0].imageUrl[0].toString()}"),
+                        backgroundImage: NetworkImage(
+                            "${petslist[0].imageUrl[0].toString()}"),
                       ),
                       title: Text(
-                        petslist[index].petName.toString(), // please check whether it should be 0 or index
+                        petslist[index]
+                            .petName
+                            .toString(), // please check whether it should be 0 or index
                         style: TextStyle(
                           fontFamily: 'Arial',
                           letterSpacing: 1.4,
@@ -246,7 +303,9 @@ class RecentChats extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        snapshot.data.docs[0]['image_url'].toString().length > 0 ? "Photo" : snapshot.data.docs[0]['text'],
+                        snapshot.data.docs[0]['image_url'].toString().length > 0
+                            ? "Photo"
+                            : snapshot.data.docs[0]['text'],
                         style: TextStyle(
                           color: Color(0xffff9827),
                           fontSize: 15.0,
@@ -260,7 +319,11 @@ class RecentChats extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             snapshot.data.docs[0]["time"] != null
-                                ? DateFormat.MMMd().add_jm().format(snapshot.data.docs[0]["time"].toDate()).toString()
+                                ? DateFormat.MMMd()
+                                    .add_jm()
+                                    .format(
+                                        snapshot.data.docs[0]["time"].toDate())
+                                    .toString()
                                 : "",
                             style: TextStyle(
                               color: Colors.black45,
@@ -268,7 +331,9 @@ class RecentChats extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          snapshot.data.docs[0]['sender_id'] != currentUser.id && !snapshot.data.docs[0]['isRead']
+                          snapshot.data.docs[0]['sender_id'] !=
+                                      currentUser.id &&
+                                  !snapshot.data.docs[0]['isRead']
                               ? Container(
                                   width: 40.0,
                                   height: 20.0,

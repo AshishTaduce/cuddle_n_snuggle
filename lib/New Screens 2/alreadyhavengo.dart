@@ -1,46 +1,21 @@
+
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cns/New%20Screens%202/ngoadditionalinfo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cns/New%20Screens%202/Welcome_homepage.dart';
-import 'package:cns/Screens/auth/otp.dart';
-import 'package:cns/provider/main_provider.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'alreadyhavengo.dart';
-import 'ngo_or_indiviual.dart';
+class ngoexisting extends StatefulWidget {
+  const ngoexisting({Key? key}) : super(key: key);
 
-class LoginNgo extends StatefulWidget {
   @override
-  _LoginNgoState createState() => _LoginNgoState();
+  _ngoexistingState createState() => _ngoexistingState();
 }
 
-class _LoginNgoState extends State<LoginNgo> {
-  // TextEditingController namengo = TextEditingController();
-  // TextEditingController addressngo = TextEditingController();
-  TextEditingController phonenumber = TextEditingController();
+class _ngoexistingState extends State<ngoexisting> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // final Shader linearGradient = LinearGradient(
-  //   colors: <Color>[
-  //     Color(0xfffe6e73),
-  //     Color(0xffffb091),
-  //   ],
-  // ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
   @override
   Widget build(BuildContext context) {
     Widget background = new Image.asset(
@@ -50,7 +25,7 @@ class _LoginNgoState extends State<LoginNgo> {
       height: 200,
     );
     return Scaffold(
-      key: _scaffoldKey,
+
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
@@ -65,20 +40,17 @@ class _LoginNgoState extends State<LoginNgo> {
                     child: IconButton(
                       icon: Platform.isIOS
                           ? Icon(
-                              Icons.navigate_before,
-                              size: 32,
-                              color: Colors.white,
-                            )
+                        Icons.navigate_before,
+                        size: 32,
+                        color: Colors.white,
+                      )
                           : Icon(
-                              Icons.arrow_back,
-                              size: 32,
-                              color: Colors.white,
-                            ),
+                        Icons.arrow_back,
+                        size: 32,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NgoOrIndiviualPage()));
+                        Navigator.pop(context);
                       },
                     )),
                 Positioned(
@@ -91,7 +63,7 @@ class _LoginNgoState extends State<LoginNgo> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Continue as NGO",
+                              "Login as NGO",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Myfont',
@@ -100,7 +72,7 @@ class _LoginNgoState extends State<LoginNgo> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Continue registering to be a part",
+                              "Continue were you left us",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Arial',
@@ -158,47 +130,6 @@ class _LoginNgoState extends State<LoginNgo> {
             SizedBox(
               height: 10,
             ),
-            Container(
-                margin: EdgeInsets.only(left: 30),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Mobile Number",
-                  style: TextStyle(
-                      fontSize: 16,
-                      letterSpacing: 1.1,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Arial'),
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 55,
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
-              child: TextField(
-                controller: phonenumber,
-                decoration: InputDecoration(
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                    borderSide: BorderSide(
-                      color: Colors.white54,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                    borderSide: BorderSide(
-                      color: Colors.white54,
-                    ),
-                  ),
-                  hintText: '123-456-7890',
-                ),
-                keyboardType: TextInputType.phone,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
 
             Container(
                 margin: EdgeInsets.only(left: 30),
@@ -248,7 +179,7 @@ class _LoginNgoState extends State<LoginNgo> {
                 ButtonState.idle: IconedButton(
                   text: "Continue",
                   icon:
-                      Icon(Icons.app_registration_rounded, color: Colors.white),
+                  Icon(Icons.app_registration_rounded, color: Colors.white),
                   color: Color(0xffff9827),
                 ),
                 ButtonState.loading: IconedButton(
@@ -271,27 +202,17 @@ class _LoginNgoState extends State<LoginNgo> {
               onPressed: () async {
                 SharedPreferences pf = await SharedPreferences.getInstance();
                 pf.setString("email", email.text);
-                pf.setString("phonenumber", phonenumber.text);
+
                 pf.setString("password", password.text);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ngoAdditionalInfo()));
+
+
               },
             ),
             // SizedBox(
             //   height: 30,
             // ),
-            Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(right: 5.0),
-              child: TextButton(
-                child: Text("Existing NGO?"),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ngoexisting()));
-                },
-              ),
+            SizedBox(
+              height: 30,
             ),
             Container(
               height: 150,

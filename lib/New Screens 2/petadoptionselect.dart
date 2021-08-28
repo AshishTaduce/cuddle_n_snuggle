@@ -1,6 +1,11 @@
 import 'dart:io';
 import 'package:cns/New%20Screens%202/pet_adoption.dart';
+import 'package:cns/provider/main_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
+
+import 'ngoselection.dart';
 
 class petAdoptionPageSelect extends StatefulWidget {
   const petAdoptionPageSelect({Key? key}) : super(key: key);
@@ -70,6 +75,7 @@ class _petAdoptionPageSelectState extends State<petAdoptionPageSelect> {
             ),
             InkWell(
               onTap: () {
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ngoSelectScreen()));
               },

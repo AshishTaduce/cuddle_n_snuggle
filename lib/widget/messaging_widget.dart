@@ -54,6 +54,7 @@ class _MessagingWidgetState extends State<MessagingWidget> {
   Widget build(BuildContext context) => ListView(children: messages.map(buildMessage).toList(),);
 
   Widget buildMessage(Message message) => ListTile(
+
         title: Text(message.title),
         subtitle: Text(message.body),
       );

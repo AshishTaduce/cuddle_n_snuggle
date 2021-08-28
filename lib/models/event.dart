@@ -7,7 +7,7 @@ import 'pets.dart';
 class EventModel {
   int? id;
   final String title;
-  final PetModel pet;
+  final String pet;
   final DateTime eventDate;
   final TimeOfDay? time;
 

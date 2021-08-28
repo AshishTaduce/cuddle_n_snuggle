@@ -84,7 +84,7 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                                   fontWeight: FontWeight.w600)),
                           style: ButtonStyle(
                               padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(20)),
+                                  EdgeInsets.all(22)),
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
                               shape: MaterialStateProperty.all<
@@ -115,7 +115,7 @@ class _NgoOrIndiviualPageState extends State<NgoOrIndiviualPage> {
                           ),
                           style: ButtonStyle(
                               padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(18.5)),
+                                  EdgeInsets.all(13.9)),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Color(0xffff9827)),
                               foregroundColor: MaterialStateProperty.all<Color>(

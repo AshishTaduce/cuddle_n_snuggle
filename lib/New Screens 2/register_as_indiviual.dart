@@ -33,10 +33,10 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
   @override
   Widget build(BuildContext context) {
     Widget background = new Image.asset(
-      "asset/semicircle.png",
+      "asset/sc.png",
       fit: BoxFit.fill,
       width: MediaQuery.of(context).size.width,
-      height: 220,
+      height: 200,
     );
     return Scaffold(
       key: _scaffoldKey,
@@ -236,6 +236,7 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                       final snackbar =
                           SnackBar(content: Text("Sign In Successfull"));
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -339,9 +340,18 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
             SizedBox(
               height: 15,
             ),
+            Container(
+
+              height: 150,
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset("asset/below.png",fit: BoxFit.contain,),
+            ),
+
+
           ],
         ),
       ),
+
     );
   }
 }

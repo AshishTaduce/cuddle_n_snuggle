@@ -64,8 +64,9 @@ class PetMatchSelect extends StatelessWidget {
                               fit: BoxFit
                                   .cover, //I assumed you want to occupy the entire space of the card
                               image: NetworkImage(
-                                  // petInfo.imageUrl[0],
-                                  "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYyOTA0Mjk0Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600"),
+                                  petInfo.imageUrl[0],
+                                  // "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYyOTA0Mjk0Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600"
+                              ),
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),

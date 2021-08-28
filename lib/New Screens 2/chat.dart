@@ -379,6 +379,7 @@ class _ChatPageState extends State<ChatPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: Colors.white,
               expandedHeight: 220.0,
               floating: true,
               snap: true,

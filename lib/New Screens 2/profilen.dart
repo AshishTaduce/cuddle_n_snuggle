@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cns/New%20Screens%202/edit_screen.dart';
 import 'package:cns/New%20Screens%202/mypets.dart';
 import 'package:cns/New%20Screens%202/register_as_indiviual.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/New%20Screens%202/add_pet_screen.dart';
@@ -10,6 +11,9 @@ import 'package:cns/provider/main_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:provider/src/consumer.dart";
 
+import 'Calenderx.dart';
+import 'Message_page.dart';
+import 'Welcome_homepage.dart';
 import 'ngo_or_indiviual.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -52,19 +56,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool loader = false;
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    print("signing out");
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xfffe812d),
+        backgroundColor: Colors.white,
+
         title: Text(
           "My Profile",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
+            fontFamily: "MyFont",
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
+
+
         // actions: <Widget>[
         //   IconButton(
         //     icon: Icon(
@@ -78,7 +94,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         //   )
         // ],
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
+      bottomNavigationBar: ConvexAppBar(
+        backgroundColor: Color(0xffff9827),
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
+          TabItem(icon: Icons.message, title: 'Message'),
+
+          TabItem(icon: Icons.person, title: 'Profile'),
+        ],
+        initialActiveIndex: 3, //optional, default as 0
+
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+          } else if (index == 1) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CalenderPage()));
+          } else if (index == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MessagePage()));
+          } else if (index == 3) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }
+        },
+      ),
+
       body: Consumer<MainProvider>(
         builder: (context, info, __) => SingleChildScrollView(
           child: Column(
@@ -90,12 +135,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 alignment: Alignment.center,
                 child: CircleAvatar(
-                  radius: 24,
+                  backgroundColor: Color(0xffff9827),
+                  radius: 28,
                   child: Text(info.currentUser!.name
                       .toString()
                       .split(" ")
                       .map((e) => e[0])
-                      .join("")),
+                      .join(""),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22
+                    ),
+
+                  ),
                 ),
               ), // cirrent user name
               SizedBox(
@@ -109,12 +161,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
 
               Container(
-                child: Text(info.currentUser!.phoneNumber.toString()),
+                child: Text(info.currentUser!.emailaddress.toString()),
               ),
               SizedBox(
                 height: 10,
               ),
               ListTile(
+                onTap: (){
+
+                },
                 title: Text("Edit Profile"),
                 trailing: Icon(Icons.navigate_next),
               ),
@@ -140,15 +195,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 trailing: Icon(Icons.navigate_next),
               ),
               ListTile(
-                title: Text("Location"),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddPetScreen(
+                        isAdoption: false,
+                      ),
+                    ),
+                  );
+                },
+                title: Text("Add Pets for Pet Match"),
                 trailing: Icon(Icons.navigate_next),
               ),
               ListTile(
-                title: Text("Setting"),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddPetScreen(
+                        isAdoption: true,
+                      ),
+                    ),
+                  );
+                },
+                title: Text("Add Pets for Pet Adoption"),
                 trailing: Icon(Icons.navigate_next),
               ),
               ListTile(
-                onTap: () {
+                onTap: () async {
+                await   _signOut();
+
+                  Future.delayed(Duration(seconds: 2));
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

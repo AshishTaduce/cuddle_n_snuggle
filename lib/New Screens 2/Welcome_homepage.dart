@@ -29,30 +29,13 @@ class NewScreenSecondHomePage extends StatefulWidget {
 
 class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     with AutomaticKeepAliveClientMixin {
-  // final List<String> imgList = [
-  //   'https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-  //   'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  //   'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  //   'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  //   'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  //   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-  // ];
 
-  // late PageController _pageController;
-  // late MenuPositionController _menuPositionController;
-  // bool userPageDragging = false;
-  // int position = 0;
 
   @override
   void initState() {
-    // _menuPositionController = MenuPositionController(initPosition: position);
 
-    // _pageController = PageController(
-    //   initialPage: 0,
-    //   viewportFraction: 1.0,
-    // );
-    // _pageController.page..addListener(handlePageChange);
     super.initState();
+
   }
 
   @override
@@ -60,24 +43,34 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
     return Scaffold(
       // backgroundColor: Color(0xfffdf8ff),
       backgroundColor: Colors.white,
-      // bottomNavigationBar: ConvexAppBar(
-      //   backgroundColor: Color(0xffff9827),
-      //   items: [
-      //     TabItem(icon: Icons.home, title: 'Home'),
-      //     TabItem(
-      //         activeIcon: SvgPicture.asset(
-      //           "asset/calendar.svg",
-      //           color: Color(0xfffe812d),
-      //         ),
-      //         icon: SvgPicture.asset(
-      //           "asset/calendar.svg",
-      //           color: Colors.white,
-      //         ),
-      //         title: 'Discovery'),
-      //     TabItem(icon: Icons.message, title: 'Message'),
-      //     TabItem(icon: Icons.people, title: 'Profile'),
-      //   ],
-      // ),
+
+      bottomNavigationBar: ConvexAppBar(
+        backgroundColor: Color(0xffff9827),
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
+          TabItem(icon: Icons.message, title: 'Message'),
+
+          TabItem(icon: Icons.person, title: 'Profile'),
+        ],
+        initialActiveIndex: 0, //optional, default as 0
+
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+          } else if (index == 1) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CalenderPage()));
+          } else if (index == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MessagePage()));
+          } else if (index == 3) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }
+        },
+      ),
       body: FirebaseAuth.instance.currentUser == null
           ? Center(
               child: Container(
@@ -85,19 +78,20 @@ class _NewScreenSecondHomePageState extends State<NewScreenSecondHomePage>
                 child: CircularProgressIndicator(),
               ),
             )
-          : PageView(
-              key: Key("A"),
-              // controller: _pageController,
-              children: [
-                HomePageBottomBar(),
-                CalenderPage(),
-                MessagePage(),
-                ProfileScreen(),
-              ],
-              // onPageChanged: (page) {
-              //   _menuPositionController.absolutePosition = _pageController.page;
-              // },
-            ),
+          : HomePageBottomBar()
+          // : PageView(
+          //     key: Key("A"),
+          //     // controller: _pageController,
+          //     children: [
+          //       HomePageBottomBar(),
+          //       CalenderPage(),
+          //       MessagePage(),
+          //       ProfileScreen(),
+          //     ],
+          //     // onPageChanged: (page) {
+          //     //   _menuPositionController.absolutePosition = _pageController.page;
+          //     // },
+          //   ),
     );
   }
 
@@ -111,13 +105,13 @@ class HomePageBottomBar extends StatefulWidget {
 }
 
 class _HomePageBottomBarState extends State<HomePageBottomBar> {
-  int selectedpage = 0;
-  final pageoption = [
-    NewScreenSecondHomePage(),
-    CalenderPage(),
-    MessagePage(),
-    ProfileScreen()
-  ];
+  // int selectedpage = 0;
+  // final pageoption = [
+  //   NewScreenSecondHomePage(),
+  //   CalenderPage(),
+  //   MessagePage(),
+  //   ProfileScreen()
+  // ];
   TextEditingController textController = TextEditingController();
 
   @override
@@ -126,6 +120,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
@@ -153,352 +148,159 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
           ],
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              Consumer<MainProvider>(
-                builder: (context, info, __) => UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color(0xfffcc281),
-                  ),
-                  accountName: Text(
-                     info.currentUser!.name,
-                    style: TextStyle(
-                        color: Colors.black,
-                        letterSpacing: 1.2,
-                        fontSize: 20,
-                        fontFamily: 'Arial',
-                        fontWeight: FontWeight.bold),
-                  ),
-                  accountEmail: Text(
-                    info.currentUser!.phoneNumber,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        letterSpacing: 1.2,
-                        fontFamily: 'Arial',
-                        fontWeight: FontWeight.bold),
-                  ),
-                  currentAccountPicture: CircleAvatar(
-                    // backgroundColor: Color(0xfffcc281),
-                    child: Text(
-                      info.currentUser!.name
-                          .toString()
-                          .split(" ")
-                          .map((e) => e[0])
-                          .join(""),
-                      style: TextStyle(fontSize: 30.0),
-                    ),
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NewScreenSecondHomePage()));
-                },
-                title: Text(
-                  "Home",
-                  style: TextStyle(
-                      fontFamily: 'Arial',
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold),
-                ),
-                leading: Icon(Icons.home),
-              ),
-              ListTile(
-                onTap: () {},
-                title: Text(
-                  "My Favourites",
-                  style: TextStyle(
-                      fontFamily: 'Arial',
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold),
-                ),
-                leading: Icon(Icons.favorite),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyPets()));
-                },
-                title: Text(
-                  "My Pets",
-                  style: TextStyle(
-                      fontFamily: 'Arial',
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold),
-                ),
-                leading: Icon(Icons.home),
-              ),
-              Divider(
-                thickness: 1.0,
-              ),
-              ListTile(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CalenderPage()));
-                  },
-                  title: Text(
-                    "Calendar",
-                    style: TextStyle(
-                        fontFamily: 'Arial',
-                        letterSpacing: 1.2,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  leading: Icon(Icons.calendar_today)),
-              ListTile(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MessagePage()));
-                },
-                title: Text(
-                  "Messages",
-                  style: TextStyle(
-                      fontFamily: 'Arial',
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold),
-                ),
-                leading: Icon(Icons.message),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
-                },
-                title: Text(
-                  "Profile",
-                  style: TextStyle(
-                      fontFamily: 'Arial',
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold),
-                ),
-                leading: Icon(Icons.person),
-              )
-            ],
+        // drawer: Drawer(
+        //   child: ListView(
+        //     children: [
+        //       Consumer<MainProvider>(
+        //         builder: (context, info, __) => UserAccountsDrawerHeader(
+        //           decoration: BoxDecoration(
+        //             color: Color(0xfffcc281),
+        //           ),
+        //           accountName: Text(
+        //             info.currentUser!.name,
+        //             style: TextStyle(
+        //                 color: Colors.black,
+        //                 letterSpacing: 1.2,
+        //                 fontSize: 20,
+        //                 fontFamily: 'Arial',
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //           accountEmail: Text(
+        //             info.currentUser!.phoneNumber == null
+        //                 ? ""
+        //                 : info.currentUser!.phoneNumber,
+        //             style: TextStyle(
+        //                 color: Colors.black,
+        //                 fontSize: 18,
+        //                 letterSpacing: 1.2,
+        //                 fontFamily: 'Arial',
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //           currentAccountPicture: CircleAvatar(
+        //             // backgroundColor: Color(0xfffcc281),
+        //             child: Text(
+        //               info.currentUser!.name
+        //                   .toString()
+        //                   .split(" ")
+        //                   .map((e) => e[0])
+        //                   .join(""),
+        //               style: TextStyle(fontSize: 30.0),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => NewScreenSecondHomePage()));
+        //         },
+        //         title: Text(
+        //           "Home",
+        //           style: TextStyle(
+        //               fontFamily: 'Arial',
+        //               letterSpacing: 1.2,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //         leading: Icon(Icons.home),
+        //       ),
+        //       ListTile(
+        //         onTap: () {},
+        //         title: Text(
+        //           "My Favourites",
+        //           style: TextStyle(
+        //               fontFamily: 'Arial',
+        //               letterSpacing: 1.2,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //         leading: Icon(Icons.favorite),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Navigator.push(context,
+        //               MaterialPageRoute(builder: (context) => MyPets()));
+        //         },
+        //         title: Text(
+        //           "My Pets",
+        //           style: TextStyle(
+        //               fontFamily: 'Arial',
+        //               letterSpacing: 1.2,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //         leading: Icon(Icons.home),
+        //       ),
+        //       Divider(
+        //         thickness: 1.0,
+        //       ),
+        //       ListTile(
+        //           onTap: () {
+        //             Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(
+        //                     builder: (context) => CalenderPage()));
+        //           },
+        //           title: Text(
+        //             "Calendar",
+        //             style: TextStyle(
+        //                 fontFamily: 'Arial',
+        //                 letterSpacing: 1.2,
+        //                 fontWeight: FontWeight.bold),
+        //           ),
+        //           leading: Icon(Icons.calendar_today)),
+        //       ListTile(
+        //         onTap: () {
+        //           Navigator.push(context,
+        //               MaterialPageRoute(builder: (context) => MessagePage()));
+        //         },
+        //         title: Text(
+        //           "Messages",
+        //           style: TextStyle(
+        //               fontFamily: 'Arial',
+        //               letterSpacing: 1.2,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //         leading: Icon(Icons.message),
+        //       ),
+        //       ListTile(
+        //         onTap: () {
+        //           Navigator.push(context,
+        //               MaterialPageRoute(builder: (context) => ProfileScreen()));
+        //         },
+        //         title: Text(
+        //           "Profile",
+        //           style: TextStyle(
+        //               fontFamily: 'Arial',
+        //               letterSpacing: 1.2,
+        //               fontWeight: FontWeight.bold),
+        //         ),
+        //         leading: Icon(Icons.person),
+        //       )
+        //     ],
+        //   ),
+        // ),
+        body: FirebaseAuth.instance.currentUser == null
+            ? Center(
+          child: Container(
+            height: 60,
+            child: CircularProgressIndicator(),
           ),
-        ),
-        body: SingleChildScrollView(
+        ):
+        SingleChildScrollView(
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+
+
               SizedBox(
-                height: 10,
-              ),
-              // GradientAppBar("Welcome "),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(
-              //       margin: EdgeInsets.only(left: 10),
-              //       alignment: Alignment.centerLeft,
-              //       child: Row(
-              //         children: [
-              //           InkWell(
-              //               onTap: () {
-              //                 drawer();
-              //               },
-              //               child: Icon(Icons.apps_rounded)),
-              //           Text(
-              //             "We Missed You",
-              //             style: TextStyle(fontSize: 30, fontFamily: 'Myfont'),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     InkWell(
-              //       onTap: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => NotificationPage(),
-              //           ),
-              //         );
-              //       },
-              //       child: Container(
-              //           margin: EdgeInsets.only(right: 10),
-              //           child: Icon(Icons.notifications)),
-              //     )
-              //   ],
-              // ),
-              // Consumer<MainProvider>(builder: (_, acc, __) {
-              //   return Container(
-              //       alignment: Alignment.centerLeft,
-              //       margin: EdgeInsets.only(left: 20),
-              //       child: acc.currentUser!.name == null
-              //           ? Text("hi")
-              //           : Text(
-              //               acc.currentUser!.name.toString(),
-              //               style: TextStyle(
-              //                 color: Colors.black,
-              //                 fontFamily: 'Arial',
-              //                 letterSpacing: 1.3,
-              //                 fontSize: 23,
-              //               ),
-              //             ));
-              // }),
-
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 16.0),
-              //   child: AnimSearchBar(
-              //       helpText: "Search Your Favourite Article",
-              //       suffixIcon: Icon(
-              //         Icons.close,
-              //         color: Color(0xfffe812d),
-              //       ),
-              //       closeSearchOnSuffixTap: true,
-              //       prefixIcon: Icon(
-              //         Icons.search,
-              //         color: Color(0xfffe812d),
-              //       ),
-              //       width: 400,
-              //       textController: textController,
-              //       onSuffixTap: () {
-              //         setState(() {
-              //           textController.clear();
-              //         });
-              //       }),
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     InkWell(
-              //       onTap: () {},
-              //       child: Container(
-              //           width: 70,
-              //           height: 40,
-              //           decoration: BoxDecoration(
-              //             color: Color(0xffff9827),
-              //             borderRadius: BorderRadius.circular(24.0),
-              //           ),
-              //           margin: EdgeInsets.only(left: 40),
-              //           child: Stack(
-              //             children: [
-              //               Positioned(
-              //                 child: Text("All"),
-              //                 top: 12,
-              //                 left: 23,
-              //               )
-              //             ],
-              //           )),
-              //     ),
-              //     SizedBox(
-              //       width: 20,
-              //     ),
-              //     InkWell(
-              //       onTap: () {},
-              //       child: Container(
-              //           width: 70,
-              //           height: 40,
-              //           decoration: BoxDecoration(
-              //             color: Color(
-              //               0xffe2e2e2,
-              //             ),
-              //             borderRadius: BorderRadius.circular(24.0),
-              //           ),
-              //           child: Stack(
-              //             children: [
-              //               Positioned(
-              //                 child: Text("Dogs"),
-              //                 top: 12,
-              //                 left: 20,
-              //               )
-              //             ],
-              //           )),
-              //     ),
-              //     SizedBox(
-              //       width: 20,
-              //     ),
-              //     InkWell(
-              //       onTap: () {},
-              //       child: Container(
-              //           width: 70,
-              //           height: 40,
-              //           decoration: BoxDecoration(
-              //             color: Color(
-              //               0xffe2e2e2,
-              //             ),
-              //             borderRadius: BorderRadius.circular(24.0),
-              //           ),
-              //           child: Stack(
-              //             children: [
-              //               Positioned(
-              //                 child: Text("Cats"),
-              //                 top: 12,
-              //                 left: 20,
-              //               )
-              //             ],
-              //           )),
-              //     ),
-              //     SizedBox(
-              //       width: 20,
-              //     ),
-              //     InkWell(
-              //       onTap: () {},
-              //       child: Container(
-              //           width: 74,
-              //           height: 40,
-              //           decoration: BoxDecoration(
-              //             color: Color(
-              //               0xffe2e2e2,
-              //             ),
-              //             borderRadius: BorderRadius.circular(24.0),
-              //           ),
-              //           child: Stack(
-              //             children: [
-              //               Positioned(
-              //                 child: Text("Rabbits"),
-              //                 top: 12,
-              //                 left: 14,
-              //               )
-              //             ],
-              //           )),
-              //     ),
-              //   ],
-              // ),
-
-              // SizedBox(
-              //   height: 20,
-              // ),
-
-              // Container(
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(25.0),
-              //     ),
-              //     child: CarouselSlider(
-              //       options: CarouselOptions(
-              //         aspectRatio: 2.0,
-              //         enlargeCenterPage: true,
-              //         enableInfiniteScroll: true,
-              //         initialPage: 2,
-              //         autoPlay: true,
-              //       ),
-              //       items: imageSliders,
-              //     )),
-              // SizedBox(
-              //   height: 20.0,
-              // ),
-              // Container(
-              //   alignment: Alignment.centerLeft,
-              //   margin: EdgeInsets.only(left: 30.0),
-              //   child: Text(
-              //     "Our Services",
-              //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              //   ),
-              // ),
-              SizedBox(
-                height: 30,
+                height: 40,
               ),
               Consumer<MainProvider>(
                 builder: (context, acc, __) => Row(
                   children: [
-                    Visibility(
-                      visible: acc.currentUser!.isIndiviual != null,
-                      child: Expanded(
+                    if (acc.currentUser!.isIndiviual == "Indiviual")
+                      Expanded(
                           child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -558,7 +360,6 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
                           ),
                         ),
                       )),
-                    ),
                     SizedBox(
                       width: 40,
                     ),
@@ -1147,64 +948,7 @@ class _HomePageBottomBarState extends State<HomePageBottomBar> {
     );
   }
 
-  final List<Widget> imageSliders = imgList
-      .map((item) => Container(
-            child: Container(
-              margin: EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(200, 0, 0, 0),
-                                Color.fromARGB(0, 0, 0, 0)
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          // child: Text(
-                          //   'No. ${imgList.indexOf(item)} image',
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontSize: 20.0,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-          ))
-      .toList();
+
 }
 
-class drawer extends StatelessWidget {
-  const drawer({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text("Home"),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}

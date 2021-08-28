@@ -22,7 +22,12 @@ class PetMatchScreen extends StatefulWidget {
   final String gender;
   final String selectedPetID;
 
-  const PetMatchScreen({ Key? key, required this.category, required this.gender, required this.subcategory,required this.selectedPetID})
+  const PetMatchScreen(
+      {Key? key,
+      required this.category,
+      required this.gender,
+      required this.subcategory,
+      required this.selectedPetID})
       : super(key: key);
 
   @override
@@ -96,7 +101,8 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
     print("A");
     print([widget.selectedPetID, matchedPet.id]);
 
-    if (isMatch) { ///TODO: Change to isMatch
+    if (isMatch) {
+      ///TODO: Change to isMatch
       FirebaseFirestore.instance
           .collection("chats")
           .doc(chatId(widget.selectedPetID, matchedPet.id))
@@ -171,41 +177,42 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.black,),
           onPressed: () {
             Navigator.pop(
               context,
-
             );
           },
         ),
         centerTitle: true,
         title: Text(
-          isPlayDate?"Pet Match":"PlayDate",
-          style: Theme.of(context).textTheme.bodyText1!.merge(
+          isPlayDate ? "Pet Match" : "PlayDate",
+          style:
                 TextStyle(
                   fontSize: 25,
+    color: Colors.black,
+                  fontFamily: "MyFont",
+                  fontWeight: FontWeight.bold
                 ),
-              ),
+
         ),
       ),
       body: Consumer<MainProvider>(
         builder: (_, pets, __) {
           pets.updateMatchesByGender(
               widget.category, widget.gender, widget.subcategory);
-          List<PetModel> petsList = (isPlayDate
-                  ? pets.matchesByGender
-                  : pets.petMatches
-              ).where((element) => element.userId != pets.currentUser!.id)
-
-              .where((element) => !rejects.contains(element.id))
-              // .where((element) => !oldMatches.contains(element.id))
-              .toList();
+          List<PetModel> petsList =
+              (isPlayDate ? pets.petMatches : pets.matchesByGender)
+                  .where((element) => element.userId != pets.currentUser!.id)
+                  .where((element) => !rejects.contains(element.id))
+                  // .where((element) => !oldMatches.contains(element.id))
+                  .toList();
           bool noMorePets = petsList.isEmpty;
           return Center(
             child: isLoading
@@ -219,30 +226,29 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                         0.9, //Need to be same as max child height
                     child: noMorePets
                         ? Container(
-
-                          height: MediaQuery.of(context).size.height * .78,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.blue,
-                                  radius: 40,
+                            height: MediaQuery.of(context).size.height * .78,
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Color(0xffff9827),
+                                    radius: 40,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "There's no one new around you.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    decoration: TextDecoration.none,
-                                    fontSize: 18),
-                              )
-                            ],
-                          ),
-                        )
+                                Text(
+                                  "There's no one new around you.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Color(0xffff9827),
+                                      decoration: TextDecoration.none,
+                                      fontSize: 18),
+                                )
+                              ],
+                            ),
+                          )
                         : TinderSwapCard(
                             swipeUp: false,
                             swipeDown: false,
@@ -367,8 +373,8 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                                   pets.currentUser!,
                                   petsList[index].id,
                                 );
-                              }
-                              else if (orientation == CardSwipeOrientation.RIGHT) {
+                              } else if (orientation ==
+                                  CardSwipeOrientation.RIGHT) {
                                 updateMatchList(
                                     pets.currentUser!,
                                     petsList[index],
@@ -378,7 +384,8 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                                   _showMatchedDialog();
                                 }
                               }
-                              print("Pets list size: ${petsList.length}, $index, ${index == (petsList.length - 1)}");
+                              print(
+                                  "Pets list size: ${petsList.length}, $index, ${index == (petsList.length - 1)}");
                               if (index == (petsList.length - 1)) {
                                 setState(() {
                                   noMorePets = true;
@@ -390,9 +397,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print(chatId("BultibG8Tuovq8IqcyRa","X0tK5eTUoS3sbtwTRimH",)),
-      ),
+
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(16),
         child: Row(
@@ -415,15 +420,13 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
               heroTag: UniqueKey(),
               backgroundColor: Colors.white,
               child: Icon(
-                isPlayDate? Icons.pets_rounded:Icons.home,
+                isPlayDate ? Icons.pets_rounded : Icons.home,
                 color: Colors.lightBlueAccent,
                 size: 30,
-
               ),
               onPressed: () {
                 setState(() {
                   isPlayDate = !isPlayDate;
-
                 });
               },
             ),
