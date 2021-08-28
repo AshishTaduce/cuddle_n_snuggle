@@ -61,12 +61,12 @@ class _ngoSelectScreenState extends State<ngoSelectScreen> {
       ),
       body: Consumer<MainProvider>(
         builder: (context, currentUser, __) {
-          print(currentUser.ngousers);
-          return currentUser.ngousers == [] ? Center(child: CircularProgressIndicator(),): Padding(
+          print(currentUser.ngoUsers);
+          return currentUser.ngoUsers == [] ? Center(child: CircularProgressIndicator(),): Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                ...currentUser.ngousers
+                ...currentUser.ngoUsers
                     .map(
                       (ngoinfo) => InkWell(
                         onTap: (){

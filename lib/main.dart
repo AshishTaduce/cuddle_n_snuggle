@@ -116,12 +116,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-//For info.plist of iOS Build (Camera permission and privacy declaration.)
-// <key>NSPhotoLibraryUsageDescription</key>
-// <string>Permission required for app to pick image files.</string>
-// <key>NSCameraUsageDescription</key>
-// <string>Permission required to click images.</string>
-// <key>NSMicrophoneUsageDescription</key>
-// <string>Permission required for proper working of camera.</string>
