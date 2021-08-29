@@ -18,7 +18,6 @@ class NewUser {
   dynamic imageUrl = [];
   NewUser({
     @required this.id,
-    // @required this.name,
     this.isIndiviual,
     this.time,
     this.userName,
@@ -53,7 +52,6 @@ class PetOwnerPage extends StatefulWidget {
 class _PetOwnerPageState extends State<PetOwnerPage> {
   List<PetModel> myPets = [];
   List<PetModel> myPetAdoptions = [];
-
   List<PetModel> petMatches = [];
   List<PetModel> matchesByGender = [];
   List<PetModel> matchedPetAdoption = [];
@@ -66,16 +64,15 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
         .where('userId', isEqualTo: widget.currentUserid)
         .get()
         .then((QuerySnapshot snapshot) async {
-      print(NewUser.fromDocument(snapshot.docs[0]).isIndiviual);
-
       test = NewUser.fromDocument(snapshot.docs[0]);
     });
-    //Pet fetch (//test.id, ) - setStatet
+    setState(() {
+
+    });
   }
 
   Future<dynamic> getPets() async {
     try {
-      User user = FirebaseAuth.instance.currentUser!;
       await FirebaseFirestore.instance
           .collection('Pets')
           .where('userId', isEqualTo: test!.id)
@@ -87,9 +84,8 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
 
         if (data.docs.isEmpty) {
           myPets = [];
-          _categories = [];
-          _subCategories = [];
-        } else {
+        }
+        else {
           for (int i = 0; i < data.docs.length; i++) {
             orders.add(
               PetModel.fromDocument(data.docs[i], data.docs[i].data(), false),
@@ -108,7 +104,6 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
             );
           }
         }
-        setState(() {});
       });
     } catch (e) {
       debugPrint("------- Error from pet adoption ---------");
@@ -144,7 +139,6 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
   Future<dynamic> getAdoptionPets() async {
     await FirebaseFirestore.instance
         .collection('PetAdoption')
-
         .get()
         .then((data) {
       matchedPetAdoption = [];
@@ -173,10 +167,7 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
             myPetAdoptions[i].subcategory.toString(),
           );
         }
-
-        // notifyListeners();
       }
-      setState(() {});
     });
   }
 
@@ -206,8 +197,6 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
   void initState() {
     super.initState();
     loadUserDetails();
-    getAdoptionPets();
-    getPets();
   }
 
   @override
@@ -293,87 +282,72 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    // Container(
-                    //   height: 400,
-                    //
-                    //   child: Consumer<MainProvider>(
-                    //     builder: (_, currentUser, __) => ListView(
-                    //       children: [
-                    //         ...currentUser.myPets
-                    //             .map(
-                    //               (ngoinfo) => Card(
-                    //             elevation: 2.0,
-                    //             shape: RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(8),
-                    //             ),
-                    //             child: Container(
-                    //               height: 150,
-                    //               decoration: BoxDecoration(
-                    //                 image: DecorationImage(
-                    //                   alignment: Alignment.centerLeft,
-                    //                   fit: BoxFit
-                    //                       .cover, //I assumed you want to occupy the entire space of the card
-                    //                   image: NetworkImage(
-                    //                     // petInfo.imageUrl[0],
-                    //                       "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
-                    //                 ),
-                    //                 borderRadius: BorderRadius.circular(8),
-                    //               ),
-                    //               child: Stack(
-                    //                 children: [
-                    //                   Positioned(
-                    //                     right: 5,
-                    //                     top: 25,
-                    //                     child: Container(
-                    //                       width: 140,
-                    //                       child: Column(
-                    //                         mainAxisAlignment: MainAxisAlignment.start,
-                    //                         crossAxisAlignment: CrossAxisAlignment.start,
-                    //                         children: [
-                    //                           Text(
-                    //                             ngoinfo.petName,
-                    //                             style: TextStyle(
-                    //                               fontWeight: FontWeight.w600,
-                    //                               color: Colors.white,
-                    //                               fontSize: 24,
-                    //                             ),
-                    //                           ),
-                    //                           Padding(
-                    //                             padding: const EdgeInsets.symmetric(
-                    //                                 vertical: 4.0),
-                    //                             child: Text(
-                    //                               "Est Yr - 2021",
-                    //                               style: TextStyle(
-                    //                                 fontWeight: FontWeight.normal,
-                    //                                 color: Colors.white,
-                    //                                 fontSize: 18,
-                    //                               ),
-                    //                             ),
-                    //                           ),
-                    //                           Text(
-                    //                             "Vasant Kunj",
-                    //                             style: TextStyle(
-                    //                               fontWeight: FontWeight.w300,
-                    //                               color: Colors.white,
-                    //                             ),
-                    //                             maxLines: 3,
-                    //                             overflow: TextOverflow.ellipsis,
-                    //                           ),
-                    //                         ],
-                    //                       ),
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )
-                    //             .toList(),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+                    ),...petMatches
+                        .map(
+                          (pet) => Card(
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Container(
+                              height: 150,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.centerLeft,
+                                  fit: BoxFit
+                                      .cover, //I assumed you want to occupy the entire space of the card
+                                  image: NetworkImage(
+                                    // petInfo.imageUrl[0],
+                                      "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Positioned(
+                                right: 5,
+                                top: 25,
+                                child: Container(
+                                  width: 140,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        pet.petName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 4.0),
+                                        child: Text(
+                                          "Est Yr - 2021",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Vasant Kunj",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    )
+                        .toList(),
 
                     SizedBox(
                       height: 20,
@@ -387,86 +361,85 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    // Container(
-                    //   height: 400,
-                    //
-                    //   child: Consumer<MainProvider>(
-                    //     builder: (_, currentUser, __) => ListView(
-                    //       children: [
-                    //         ...currentUser.myPetAdoptions
-                    //             .map(
-                    //               (ngoinfo) => Card(
-                    //             elevation: 2.0,
-                    //             shape: RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(8),
-                    //             ),
-                    //             child: Container(
-                    //               height: 150,
-                    //               decoration: BoxDecoration(
-                    //                 image: DecorationImage(
-                    //                   alignment: Alignment.centerLeft,
-                    //                   fit: BoxFit
-                    //                       .cover, //I assumed you want to occupy the entire space of the card
-                    //                   image: NetworkImage(
-                    //                     // petInfo.imageUrl[0],
-                    //                       "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
-                    //                 ),
-                    //                 borderRadius: BorderRadius.circular(8),
-                    //               ),
-                    //               child: Stack(
-                    //                 children: [
-                    //                   Positioned(
-                    //                     right: 5,
-                    //                     top: 25,
-                    //                     child: Container(
-                    //                       width: 140,
-                    //                       child: Column(
-                    //                         mainAxisAlignment: MainAxisAlignment.start,
-                    //                         crossAxisAlignment: CrossAxisAlignment.start,
-                    //                         children: [
-                    //                           Text(
-                    //                             ngoinfo.petName,
-                    //                             style: TextStyle(
-                    //                               fontWeight: FontWeight.w600,
-                    //                               color: Colors.white,
-                    //                               fontSize: 24,
-                    //                             ),
-                    //                           ),
-                    //                           Padding(
-                    //                             padding: const EdgeInsets.symmetric(
-                    //                                 vertical: 4.0),
-                    //                             child: Text(
-                    //                               "Est Yr - 2021",
-                    //                               style: TextStyle(
-                    //                                 fontWeight: FontWeight.normal,
-                    //                                 color: Colors.white,
-                    //                                 fontSize: 18,
-                    //                               ),
-                    //                             ),
-                    //                           ),
-                    //                           Text(
-                    //                             "Vasant Kunj",
-                    //                             style: TextStyle(
-                    //                               fontWeight: FontWeight.w300,
-                    //                               color: Colors.white,
-                    //                             ),
-                    //                             maxLines: 3,
-                    //                             overflow: TextOverflow.ellipsis,
-                    //                           ),
-                    //                         ],
-                    //                       ),
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )
-                    //             .toList(),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      height: 400,
+                      child: Consumer<MainProvider>(
+                        builder: (_, currentUser, __) => ListView(
+                          children: [
+                            ...myPetAdoptions
+                                .map(
+                                  (pet) => Card(
+                                elevation: 2.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Container(
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      alignment: Alignment.centerLeft,
+                                      fit: BoxFit
+                                          .cover, //I assumed you want to occupy the entire space of the card
+                                      image: NetworkImage(
+                                        // petInfo.imageUrl[0],
+                                          "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        right: 5,
+                                        top: 25,
+                                        child: Container(
+                                          width: 140,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                pet.petName,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                  fontSize: 24,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    vertical: 4.0),
+                                                child: Text(
+                                                  "Est Yr - 2021",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.normal,
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Vasant Kunj",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  color: Colors.white,
+                                                ),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                                .toList(),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
         ),

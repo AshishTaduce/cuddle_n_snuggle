@@ -29,7 +29,25 @@ class NewUser {
     this.phoneNumber,
   });
   factory NewUser.fromDocument(DocumentSnapshot doc) {
-    return NewUser(
+    return doc['isIndiviual'] == 'Indiviual'
+        ? NewUser(
+      id: doc['userId'],
+      phoneNumber: doc['phoneNumber'],
+      isIndiviual: doc['isIndiviual'],
+      time: doc['timestamp'],
+      name: doc['userName'],
+      emailaddress: "",
+      estyear: "",
+      ngoaddress: "",
+      ngotiming: "",
+      ngotype: "",
+      imageUrl: doc['Pictures'] != null
+          ? List.generate(doc['Pictures'].length, (index) {
+              return doc['Pictures'][index];
+            })
+          : [],
+    )
+        : NewUser(
       id: doc['userId'],
       phoneNumber: doc['phoneNumber'],
       isIndiviual: doc['isIndiviual'],
@@ -42,8 +60,8 @@ class NewUser {
       ngotype: doc['ngotype'],
       imageUrl: doc['Pictures'] != null
           ? List.generate(doc['Pictures'].length, (index) {
-              return doc['Pictures'][index];
-            })
+        return doc['Pictures'][index];
+      })
           : [],
     );
   }

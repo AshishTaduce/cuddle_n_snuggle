@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 
 import 'ngoselection.dart';
 
-class petAdoptionPageSelect extends StatefulWidget {
-  const petAdoptionPageSelect({Key? key}) : super(key: key);
+class PetAdoptionPageSelect extends StatefulWidget {
+  const PetAdoptionPageSelect({Key? key}) : super(key: key);
 
   @override
-  _petAdoptionPageSelectState createState() => _petAdoptionPageSelectState();
+  _PetAdoptionPageSelectState createState() => _PetAdoptionPageSelectState();
 }
 
-class _petAdoptionPageSelectState extends State<petAdoptionPageSelect> {
+class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +77,7 @@ class _petAdoptionPageSelectState extends State<petAdoptionPageSelect> {
               onTap: () {
 
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ngoSelectScreen()));
+                    MaterialPageRoute(builder: (context) => NGOSelectScreen()));
               },
               child: Container(
                 height: 150,
