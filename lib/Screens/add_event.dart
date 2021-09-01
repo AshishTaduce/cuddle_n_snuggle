@@ -24,9 +24,9 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   late DbService dbService;
   late DatabaseHelper databaseHelper;
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _title;
-  late DateTime _eventDate;
-  late TimeOfDay _time;
+  late TextEditingController title;
+  late DateTime eventDate;
+  late TimeOfDay time;
   late bool processing;
   String header = "Add New Reminder";
   String buttonText = "Save";
@@ -38,9 +38,9 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
     super.initState();
     dbService = DbService();
     databaseHelper = DatabaseHelper();
-    _title = TextEditingController();
-    _eventDate = DateTime.now();
-    _time = TimeOfDay.now();
+    title = TextEditingController();
+    eventDate = DateTime.now();
+    time = TimeOfDay.now();
     if (widget.event != null) {
       populateForm();
     }
@@ -48,8 +48,8 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   }
 
   void populateForm() {
-    _eventDate = widget.event!.eventDate;
-    _time = widget.event!.time!;
+    eventDate = widget.event!.eventDate;
+    time = widget.event!.time!;
     header = "Update Appointment";
     buttonText = "Update";
     addNewTask = false;
@@ -61,21 +61,24 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
   void saveTask() async {
     try {
       if (addNewTask) {
-        print(_selectedPet!.petName);
+        print(selectedPet!.petName);
+        print(eventDate);
+        print(time);
+        print(title.text);
         print("^^^^^^^^^");
         await databaseHelper.addTask(EventModel(
-          eventDate: _eventDate,
-          time: _time,
-          pet: _selectedPet!.petName,
-          title: _title.text,
+          eventDate: eventDate,
+          time: time,
+          pet: selectedPet!.petName,
+          title: title.text,
         ));
       } else {
         await databaseHelper.updateTask(EventModel(
             id: widget.event!.id,
-            title: _title.text,
-            pet: _selectedPet!.petName,
-            eventDate: _eventDate,
-            time: _time));
+            title: title.text,
+            pet: selectedPet!.petName,
+            eventDate: eventDate,
+            time: time));
       }
 
       setState(() {
@@ -111,7 +114,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
 
   void scheduleNotification() async {
     var scheduleTime =
-        _eventDate.add(Duration(hours: _time.hour - 1, minutes: _time.minute));
+        eventDate.add(Duration(hours: time.hour - 1, minutes: time.minute));
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
@@ -149,7 +152,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
     );
   }
 
-  PetModel? _selectedPet;
+  PetModel? selectedPet;
 
   void _showDatePicker(ctx) {
     showCupertinoModalPopup(
@@ -167,7 +170,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                       initialDateTime: DateTime.now(),
                       onDateTimeChanged: (val) {
                         setState(() {
-                          _eventDate = val;
+                          eventDate = val;
                         });
                       },
                     ),
@@ -208,11 +211,11 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
             key: _formKey,
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              physics: BouncingScrollPhysics(),
               children: <Widget>[
                 Card(
                   elevation: 5.0,
                   child: TextFormField(
+                    // controller: title,
                     validator: validateTextInput,
                     decoration: InputDecoration(
                       labelText: "Remainder Name",
@@ -228,6 +231,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                 Card(
                   elevation: 5.0,
                   child: DropdownButtonFormField(
+
                     validator: (value) =>
                         value == null ? "Please select a pet." : null,
                     decoration: InputDecoration(
@@ -242,20 +246,34 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                     items: provider.myPets
                         .map(
                           (e) => DropdownMenuItem(
+                              onTap: (){
+                                print(e.imageUrl[0]);
+                              },
                             value: e,
-                            child: Text(e.petName),
+
+                            child: Container(
+                              height: 50,
+                              width: MediaQuery.of(context).size.width/2,
+
+                              child: ListTile(
+                                title: Text(e.petName),
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: NetworkImage(e.imageUrl[0],),),
+                              ),
+                            ),
                           ),
                         )
                         .toList(),
                     onChanged: (PetModel? newPet) {
                       setState(() {
-                        _selectedPet = newPet;
+                        selectedPet = newPet;
                       });
                     },
-                    value: _selectedPet,
+                    value: selectedPet,
                   ),
                 ),
-                // SizedBox(height: 10.0),
+                SizedBox(height: 10.0),
                 Card(
                   elevation: 5.0,
                   child: ListTile(
@@ -267,7 +285,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                       ),
                     ),
                     trailing: Text(
-                      "${_time.hourOfPeriod}:${_time.minute} ${_time.period == DayPeriod.am ? "AM" : "PM"}",
+                      "${time.hourOfPeriod}:${time.minute} ${time.period == DayPeriod.am ? "AM" : "PM"}",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Center(
@@ -280,7 +298,7 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                           initialDateTime: DateTime.now(),
                           onDateTimeChanged: (val) {
                             setState(() {
-                              _time = TimeOfDay.fromDateTime(val);
+                              time = TimeOfDay.fromDateTime(val);
                             });
                           },
                         ),
@@ -299,9 +317,9 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                       ),
                     ),
                     trailing: Text(
-                      "${_eventDate.day} "
-                      "${DateFormat('MMM').format(_eventDate)} "
-                      "${_eventDate.year}",
+                      "${eventDate.day} "
+                      "${DateFormat('MMM').format(eventDate)} "
+                      "${eventDate.year}",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onTap: () => _showDatePicker(context),

@@ -9,6 +9,10 @@ import 'add_pet_screen.dart';
 import 'pet_match.dart';
 
 class MyPets extends StatelessWidget {
+  bool showFavourites = false;
+  MyPets(this.showFavourites);
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -23,7 +27,7 @@ class MyPets extends StatelessWidget {
         ),
         elevation: 0.0,
         title: Text(
-          "My Pets",
+         showFavourites ? "My Favourites" : "My Pets",
           style: TextStyle(
               fontWeight: FontWeight.w600, fontSize: 18, color: Colors.black),
         ),
@@ -39,121 +43,167 @@ class MyPets extends StatelessWidget {
               childAspectRatio: 3 / 4,
             ),
             children: [
-              ...currentUser.myPets
-                  .map(
-                    (petInfo) => Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(32.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                petInfo.imageUrl[0],
-                                fit: BoxFit.cover,
-                                height: 100,
-                                width: 100,
-                                alignment: Alignment.center,
-                                semanticLabel: petInfo.petName,
-                              ),
+              if(!showFavourites)
+                ...currentUser.myPets
+                    .map(
+                      (petInfo) => Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              petInfo.imageUrl[0],
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 100,
+                              alignment: Alignment.center,
+                              semanticLabel: petInfo.petName,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12.0),
-                              child: Text(
-                                petInfo.petName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              petInfo.subcategory,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: Text(
+                              petInfo.petName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 14,
+                                fontSize: 16,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              ...currentUser.myPetAdoptions
-                  .map(
-                    (petInfo) => Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(32.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                petInfo.imageUrl[0],
-                                fit: BoxFit.cover,
-                                height: 100,
-                                width: 100,
-                                alignment: Alignment.center,
-                                semanticLabel: petInfo.petName,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 24.0),
-                              child: Text(
-                                petInfo.petName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Icon(
-                          Icons.add_circle_outline,
-                          size: 32,
-                          color: HexColor("#ffec40"),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          "Add New",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
                           ),
-                        ),
+                          Text(
+                            petInfo.subcategory,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                )
+                    .toList(),
+              if(!showFavourites)
+                ...currentUser.myPetAdoptions
+                    .map(
+                      (petInfo) => Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              petInfo.imageUrl[0],
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 100,
+                              alignment: Alignment.center,
+                              semanticLabel: petInfo.petName,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                              petInfo.petName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+                    .toList(),
+
+              if(showFavourites)
+                ...currentUser.favouritePets
+                    .map(
+                      (petInfo) => Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              petInfo.imageUrl[0],
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 100,
+                              alignment: Alignment.center,
+                              semanticLabel: petInfo.petName,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Text(
+                              petInfo.petName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+                    .toList(),
+
+
+
+              // Card(
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(8),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(32.0),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         Center(
+              //           child: Icon(
+              //             Icons.add_circle_outline,
+              //             size: 32,
+              //             color: HexColor("#ffec40"),
+              //           ),
+              //         ),
+              //         Padding(
+              //           padding: const EdgeInsets.only(top: 8.0),
+              //           child: Text(
+              //             "Add New",
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.w600,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

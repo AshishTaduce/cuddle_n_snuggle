@@ -22,7 +22,7 @@ class EventModel {
     return EventModel(
         id: data['id'],
         title: data['title'],
-        pet: data['pet'],
+        pet: data['description'],
         eventDate: DateTime.parse(data['eventDate']),
         time: TimeOfDay(
             hour: int.parse(data['time'].split(":")[0]),

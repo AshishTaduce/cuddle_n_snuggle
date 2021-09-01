@@ -78,13 +78,13 @@ class DatabaseHelper {
   Future<int> addTask(EventModel eventModel) async {
     ///TODO: Provide proper ID
     ///
-    PetModel? _selectedPet;
+    String selectedPet;
     EventDTO eventDTO = EventDTO(
       id: eventModel.id ?? DateTime.now().second,
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: "_selectedPet!.petName.toString()",
+      description: eventModel.pet,
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );
@@ -106,7 +106,7 @@ class DatabaseHelper {
       time: (eventModel.time!.hour.toString() +
           ':' +
           eventModel.time!.minute.toString()),
-      description: "_selectedPet!.petName.toString()",
+      description: eventModel.pet,
       title: eventModel.title,
       eventDate: eventModel.eventDate.toString(),
     );

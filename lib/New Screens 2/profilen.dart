@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ListTile(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyPets()));
+                      MaterialPageRoute(builder: (context) => MyPets(false)));
                 },
                 title: Text("My Pets"),
                 trailing: Icon(Icons.navigate_next),
@@ -188,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyPets()));
+                      MaterialPageRoute(builder: (context) => MyPets(true)));
                 },
                 title: Text("My Favourites"),
 

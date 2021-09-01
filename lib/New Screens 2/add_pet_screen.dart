@@ -260,9 +260,10 @@ class _AddPetAdoption extends State<AddPetScreen> {
             minimumAspectRatio: 1.0,
           ));
       if (croppedFile != null) {
+
+        _image = await _compressImage(image);
         setState(() {
-          _compressImage(image);
-          _image = File(image.path);
+
         });
       }
     }

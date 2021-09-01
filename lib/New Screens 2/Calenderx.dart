@@ -298,55 +298,58 @@ class _CalenderPageState extends State<CalenderPage> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         )),
-                    ..._selectedEvents.value.map((event) => Container(
-                        padding: EdgeInsets.symmetric(horizontal: 32),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                                child: Text(
-                              event.time!.format(context),
-                              // event.time.toString(),
-                              style: TextStyle(fontSize: 16),
-                            )),
-                            GestureDetector(
-                              onTap: () {
-                                awaitReturnValueFromAddEventForUpdate(event);
-                              },
-                              child: Container(
-                                  key: Key("$valueFromAddEvent"),
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  padding: EdgeInsets.all(10),
-                                  alignment: Alignment.center,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red[300],
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black26,
-                                            offset: Offset(0, 2),
-                                            blurRadius: 2.0)
-                                      ]),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        event.title,
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        event.pet.toString(),
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                    ],
+                    ..._selectedEvents.value.map((event) {
+
+                      return Container(
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                  child: Text(
+                                    event.time!.format(context),
+                                    // event.time.toString(),
+                                    style: TextStyle(fontSize: 16),
                                   )),
-                            )
-                          ],
-                        ))),
+                              GestureDetector(
+                                onTap: () {
+                                  awaitReturnValueFromAddEventForUpdate(event);
+                                },
+                                child: Container(
+                                    key: Key("$valueFromAddEvent"),
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    padding: EdgeInsets.all(10),
+                                    alignment: Alignment.center,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red[300],
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black26,
+                                              offset: Offset(0, 2),
+                                              blurRadius: 2.0)
+                                        ]),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          event.title,
+                                          style: TextStyle(
+                                              color: Colors.white, fontSize: 12),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          event.pet.toString(),
+                                          style: TextStyle(
+                                              color: Colors.white, fontSize: 12),
+                                        ),
+                                      ],
+                                    )),
+                              )
+                            ],
+                          ),);
+                    }),
                     SizedBox(
                       height: 20,
                     )
