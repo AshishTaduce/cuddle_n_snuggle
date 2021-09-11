@@ -260,11 +260,8 @@ class _AddPetAdoption extends State<AddPetScreen> {
             minimumAspectRatio: 1.0,
           ));
       if (croppedFile != null) {
-
         _image = await _compressImage(image);
-        setState(() {
-
-        });
+        setState(() {});
       }
     }
     Navigator.pop(context);
@@ -305,7 +302,7 @@ class _AddPetAdoption extends State<AddPetScreen> {
                               radius: 50,
                               child: Center(
                                 child: Icon(
-                                  Icons.camera,
+                                  Icons.camera_enhance,
                                   color: Colors.black,
                                 ),
                               ),

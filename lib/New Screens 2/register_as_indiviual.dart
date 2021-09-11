@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cns/New%20Screens%202/Welcome_homepage.dart';
 import 'package:cns/Screens/auth/otp.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 import '../provider/main_provider.dart';
@@ -214,16 +215,9 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
               },
               onPressed: () {},
             ),
-
-            // Text(
-            //   "OR",
-            //   style: TextStyle(fontSize: 18),
-            //   textAlign: TextAlign.center,
-            //
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
+            SizedBox(
+              height: 30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -233,10 +227,6 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                         await Provider.of<MainProvider>(context, listen: false)
                             .handleGoogleSign(context, "Indiviual");
                     if (res == "Success") {
-                      final snackbar =
-                          SnackBar(content: Text("Sign In Successfull"));
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -253,12 +243,13 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                   },
                   child: Image.asset(
                     "asset/google.png",
-                    height: 35,
+                    height: 45,
                   ),
                 ),
                 SizedBox(
                   width: 15,
                 ),
+
                 InkWell(
                   onTap: () async {
                     final dynamic res =
@@ -314,13 +305,11 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
                     }
                   },
                   child: Image.asset(
-                    "asset/fb.png",
+                    "asset/facebook.png",
                     height: 45,
                   ),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+
                 // InkWell(
                 //   onTap: () {
                 //     bool updateNumber = false;
@@ -341,17 +330,12 @@ class _RegisterIndiviualState extends State<RegisterIndiviual> {
               height: 15,
             ),
             Container(
-
-              height: 150,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset("asset/below.png",fit: BoxFit.contain,),
-            ),
-
-
+              child: Image.asset("asset/doggy.png",
+                  width: MediaQuery.of(context).size.width / 1.1),
+            )
           ],
         ),
       ),
-
     );
   }
 }

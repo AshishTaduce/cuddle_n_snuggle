@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cns/New%20Screens%202/pet_details.dart';
 import 'package:cns/models/pets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +152,7 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Looks like you Match!.'),
+                Text('Looks like you Matched!.'),
                 Text('Would you like to approve of this message?'),
               ],
             ),
@@ -183,7 +184,10 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.pop(
               context,
@@ -193,14 +197,11 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
         centerTitle: true,
         title: Text(
           isPlayDate ? "Pet Match" : "PlayDate",
-          style:
-                TextStyle(
-                  fontSize: 25,
-    color: Colors.black,
-                  fontFamily: "MyFont",
-                  fontWeight: FontWeight.bold
-                ),
-
+          style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+              fontFamily: "MyFont",
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Consumer<MainProvider>(
@@ -219,7 +220,9 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                 ? Container(
                     height: 60,
                     width: 60,
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Color(0xfffcc281),
+                    ),
                   )
                 : Container(
                     height: MediaQuery.of(context).size.width *
@@ -262,100 +265,111 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
                             minWidth: MediaQuery.of(context).size.width * 0.78,
                             minHeight: MediaQuery.of(context).size.width * 0.78,
                             cardBuilder: (context, index) => Card(
-                              child: Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          '${petsList[index].imageUrl[0].toString()}',
-                                      fit: BoxFit.fill,
-                                      placeholder: (context, url) => Center(
-                                        child: CupertinoActivityIndicator(
-                                          radius: 15,
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                          Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.error,
-                                            color: Colors.black,
-                                            size: 30,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PetDetails(
+                                              petInfo: petsList[index])));
+                                },
+                                child: Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            '${petsList[index].imageUrl[0].toString()}',
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) => Center(
+                                          child: CupertinoActivityIndicator(
+                                            radius: 15,
                                           ),
-                                          Text(
-                                            "Enable to load",
-                                            style: TextStyle(
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.error,
                                               color: Colors.black,
+                                              size: 30,
+                                            ),
+                                            Text(
+                                              "Enable to load",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        height: 365,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: RichText(
+                                              softWrap: true,
+                                              text: TextSpan(
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style,
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    text:
+                                                        "${petsList[index].petName}",
+                                                    style: GoogleFonts.nunito(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 30,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        "  ${petsList[index].category + " - " + petsList[index].subcategory}",
+                                                    style: GoogleFonts.nunito(
+                                                      color: Colors.black,
+                                                      fontSize: 24,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text("${petsList[index].about}",
+                                                    style: GoogleFonts.nunito(
+                                                      color: Colors.black,
+                                                      fontSize: 24,
+                                                    ))
+                                              ],
                                             ),
                                           )
                                         ],
                                       ),
-                                      height: 365,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: RichText(
-                                            softWrap: true,
-                                            text: TextSpan(
-                                              style:
-                                                  DefaultTextStyle.of(context)
-                                                      .style,
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text:
-                                                      "${petsList[index].petName}",
-                                                  style: GoogleFonts.nunito(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 30,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      "  ${petsList[index].category + " - " + petsList[index].subcategory}",
-                                                  style: GoogleFonts.nunito(
-                                                    color: Colors.black,
-                                                    fontSize: 24,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text("${petsList[index].about}",
-                                                  style: GoogleFonts.nunito(
-                                                    color: Colors.black,
-                                                    fontSize: 24,
-                                                  ))
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             cardController: controller,
@@ -397,7 +411,6 @@ class _PetMatchScreenState extends State<PetMatchScreen> {
           );
         },
       ),
-
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(16),
         child: Row(

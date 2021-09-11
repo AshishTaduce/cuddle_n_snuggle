@@ -293,13 +293,10 @@ class _LoginNgoState extends State<LoginNgo> {
                 },
               ),
             ),
+
             Container(
-              height: 150,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                "asset/below.png",
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset("asset/doggy.png",
+                  width: MediaQuery.of(context).size.width / 1.1),
             )
 
             // Container(

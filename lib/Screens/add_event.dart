@@ -215,10 +215,10 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                 Card(
                   elevation: 5.0,
                   child: TextFormField(
-                    // controller: title,
+                    controller: title,
                     validator: validateTextInput,
                     decoration: InputDecoration(
-                      labelText: "Remainder Name",
+                      labelText: "Reminder Name",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -231,7 +231,6 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                 Card(
                   elevation: 5.0,
                   child: DropdownButtonFormField(
-
                     validator: (value) =>
                         value == null ? "Please select a pet." : null,
                     decoration: InputDecoration(
@@ -246,20 +245,21 @@ class _AddEventState extends State<AddEvent> with ValidationMixin {
                     items: provider.myPets
                         .map(
                           (e) => DropdownMenuItem(
-                              onTap: (){
-                                print(e.imageUrl[0]);
-                              },
+                            onTap: () {
+                              print(e.imageUrl[0]);
+                            },
                             value: e,
-
                             child: Container(
                               height: 50,
-                              width: MediaQuery.of(context).size.width/2,
-
+                              width: MediaQuery.of(context).size.width / 2,
                               child: ListTile(
                                 title: Text(e.petName),
                                 leading: CircleAvatar(
                                   backgroundColor: Colors.white,
-                                  backgroundImage: NetworkImage(e.imageUrl[0],),),
+                                  backgroundImage: NetworkImage(
+                                    e.imageUrl[0],
+                                  ),
+                                ),
                               ),
                             ),
                           ),

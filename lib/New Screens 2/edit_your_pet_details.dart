@@ -11,12 +11,14 @@ import 'package:cns/provider/main_provider.dart';
 import 'package:cns/util/color.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditProfile extends StatefulWidget {
   final PetModel e;
   final String documentId;
-  const EditProfile({Key? key, required this.e, required this.documentId}) : super(key: key);
+  const EditProfile({Key? key, required this.e, required this.documentId})
+      : super(key: key);
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -28,8 +30,6 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
   }
-
-  
 
   File? image;
   Future source(
@@ -124,32 +124,29 @@ class _EditProfileState extends State<EditProfile> {
         });
   }
 
-  Future uploadFile(
-      File image, User currentUser, isProfilePicture) async {
+  Future uploadFile(File image, User currentUser, isProfilePicture) async {
     Reference storageReference = FirebaseStorage.instance
         .ref()
         .child('users/${currentUser.uid}/${image.hashCode}.jpg');
     UploadTask uploadTask = storageReference.putFile(image);
-    // if (uploadTask.isInProgress == true) {}
 
-      storageReference.getDownloadURL().then((fileURL) async {
-        Map<String, dynamic> updateObject = {
-          "image": FieldValue.arrayUnion([
-            fileURL,
-          ])
-        };
-        try {
-          await FirebaseFirestore.instance
-              .collection("Users/${currentUser.uid}/Pets")
-              .doc(widget.documentId)
-              .set(updateObject, SetOptions(merge: true));
-          await Provider.of<MainProvider>(context, listen: false).getPets();
-          if (mounted) setState(() {});
-        } catch (err) {
-          print("Error: $err");
-        }
-      });
-
+    storageReference.getDownloadURL().then((fileURL) async {
+      Map<String, dynamic> updateObject = {
+        "image": FieldValue.arrayUnion([
+          fileURL,
+        ])
+      };
+      try {
+        await FirebaseFirestore.instance
+            .collection("Users/${currentUser.uid}/Pets")
+            .doc(widget.documentId)
+            .set(updateObject, SetOptions(merge: true));
+        await Provider.of<MainProvider>(context, listen: false).getPets();
+        if (mounted) setState(() {});
+      } catch (err) {
+        print("Error: $err");
+      }
+    });
   }
 
   Future getImage(
@@ -199,7 +196,7 @@ class _EditProfileState extends State<EditProfile> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               // borderRadius: BorderRadius.circular(25),
-              color: Color(0xff01b4c9),
+              color: Color(0xfffcc281),
             ),
             height: MediaQuery.of(context).size.height * .065,
             width: MediaQuery.of(context).size.width * .55,
@@ -218,7 +215,7 @@ class _EditProfileState extends State<EditProfile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            GradientAppBar("Edit Your Pet Details"),
+            GradientAppBar("Edit Your Pet"),
             Consumer<MainProvider>(
               builder: (_, pet, __) {
                 return Padding(
@@ -252,17 +249,17 @@ class _EditProfileState extends State<EditProfile> {
                                         border: Border.all(
                                           style: BorderStyle.solid,
                                           width: 1,
-                                          color: secondryColor,
+                                          color: Colors.white38,
                                         ),
                                       ),
                                       child: Stack(
                                         children: <Widget>[
                                           widget.e.imageUrl.length > index
                                               ? CachedNetworkImage(
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                .2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .2,
                                                   useOldImageOnUrlChange: true,
                                                   fit: BoxFit.cover,
                                                   placeholder: (context, url) =>
@@ -301,7 +298,7 @@ class _EditProfileState extends State<EditProfile> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
-                                                color: Color(0xff01b4c9),
+                                                color: Color(0xfffcc281),
                                               ),
                                               child: InkWell(
                                                 child: Icon(
@@ -336,13 +333,13 @@ class _EditProfileState extends State<EditProfile> {
                                 style: GoogleFonts.nunito(
                                     fontSize: 24, fontWeight: FontWeight.w700),
                               ),
-                                Text(
-                                  widget.e.petName.toString(),
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 20,
-                                    fontStyle: FontStyle.normal,
-                                  ),
+                              Text(
+                                widget.e.petName.toString(),
+                                style: GoogleFonts.nunito(
+                                  fontSize: 20,
+                                  fontStyle: FontStyle.normal,
                                 ),
+                              ),
                             ],
                           ),
                         ),
@@ -358,16 +355,15 @@ class _EditProfileState extends State<EditProfile> {
                                 style: GoogleFonts.nunito(
                                     fontSize: 24, fontWeight: FontWeight.w700),
                               ),
-
                               Text(
                                 widget.e.age.toString() + " years",
-                                style: GoogleFonts.nunito(fontSize: 20,
-                                fontWeight: FontWeight.normal),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal),
                               ),
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 10,
                         ),
@@ -382,7 +378,9 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                               Text(
                                 widget.e.category.toString(),
-                                style: GoogleFonts.nunito(fontSize: 20,fontWeight: FontWeight.normal),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal),
                               ),
                             ],
                           ),
@@ -399,69 +397,15 @@ class _EditProfileState extends State<EditProfile> {
                                 style: GoogleFonts.nunito(
                                     fontSize: 24, fontWeight: FontWeight.w700),
                               ),
-                              
                               Text(
                                 widget.e.subcategory.toString(),
-                                style: GoogleFonts.nunito(fontSize: 20,fontWeight: FontWeight.normal),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal),
                               ),
                             ],
                           ),
                         ),
-                        Card(
-                          elevation: 8.0,
-                          shadowColor: Colors.black,
-                          child: Container(
-                            height: 130.0,
-                            width: 450.0,
-                            color: Colors.transparent,
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
-
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        new Text(
-                                          widget.e.petName.toString(),
-                                          style: TextStyle(color: Colors.black, fontSize: 22),
-                                          textAlign: TextAlign.start,),
-                                        new Text(
-                                          widget.e.age.toString() + " years",
-                                          style: TextStyle(color: Colors.black, fontSize: 22),
-                                          textAlign: TextAlign.start,),
-
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        new Text(
-                                          widget.e.category.toString(),
-                                          style: TextStyle(color: Colors.black, fontSize: 22),
-                                          textAlign: TextAlign.start,),
-                                        new Text(
-                                          widget.e.subcategory.toString(),
-                                          style: TextStyle(color: Colors.black, fontSize: 22),
-                                          textAlign: TextAlign.center,),
-                                        new Text(
-                                          widget.e.sex.toString(),
-                                          style:TextStyle(color: Colors.black,fontSize: 22),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-
-
-                            ),
-                          ),
-                        ),
-
                         SizedBox(
                           height: 10,
                         ),
@@ -498,14 +442,22 @@ class _EditProfileState extends State<EditProfile> {
                             SizedBox(
                               width: 35,
                             ),
-                            CupertinoSwitch(
-                              value: _switchValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  _switchValue = value;
-                                });
-                              },
-                            ),
+                            Platform.isIOS
+                                ? CupertinoSwitch(
+                                    value: _switchValue,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _switchValue = value;
+                                      });
+                                    },
+                                  )
+                                : Switch(
+                                    value: _switchValue,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _switchValue = value;
+                                      });
+                                    })
                           ],
                         ),
                         SizedBox(
@@ -513,20 +465,27 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                           children: [
                             Text("KCI Certified"),
                             SizedBox(
                               width: 20,
                             ),
-                            CupertinoSwitch(
-                              value: _switchValue2,
-                              onChanged: (value) {
-                                setState(() {
-                                  _switchValue2 = value;
-                                });
-                              },
-                            ),
+                            Platform.isIOS
+                                ? CupertinoSwitch(
+                                    value: _switchValue2,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _switchValue2 = value;
+                                      });
+                                    },
+                                  )
+                                : Switch(
+                                    value: _switchValue2,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _switchValue2 = value;
+                                      });
+                                    })
                           ],
                         ),
                       ],
@@ -561,22 +520,17 @@ class GradientAppBar extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Platform.isAndroid
+                  ? Icon(Icons.arrow_back)
+                  : Icon(Icons.navigate_before),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            SizedBox(
-              height: 15,
-            ),
             Center(
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.bodyText1!.merge(
-                      TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
+                style: TextStyle(fontSize: 20, fontFamily: 'MyFont'),
               ),
             ),
           ],
@@ -584,11 +538,9 @@ class GradientAppBar extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
           colors: [
-            Color(0xff01b4c9),
-            Color(0xff01b4c9),
+            Color(0xffff9827),
+            Color(0xfffcc281),
           ],
         ),
       ),

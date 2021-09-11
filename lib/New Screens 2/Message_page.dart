@@ -8,6 +8,7 @@ import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/New%20Screens%202/pet_adoption.dart';
 import 'package:cns/models/new_user_model.dart';
 import 'package:cns/provider/main_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -24,22 +25,22 @@ class _MessagePageState extends State<MessagePage>
   TabController? _controller;
   List<Widget> list = [
     Tab(
-        icon: Icon(
-      Icons.pets_sharp,
-      color: Colors.black,
+        icon: SvgPicture.asset(
+      "asset/mating.svg",
     )),
     Tab(
-        icon: Icon(
-      Icons.home_filled,
-      color: Colors.black,
+        icon: SvgPicture.asset(
+      "asset/adoption.svg",
     )),
   ];
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        TabController(length: list.length, vsync: this,);
+    _controller = TabController(
+      length: list.length,
+      vsync: this,
+    );
   }
 
   @override
@@ -49,14 +50,13 @@ class _MessagePageState extends State<MessagePage>
       length: 2,
 
       child: Scaffold(
-          backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         bottomNavigationBar: ConvexAppBar(
           backgroundColor: Color(0xffff9827),
           items: [
             TabItem(icon: Icons.home, title: 'Home'),
             TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
             TabItem(icon: Icons.message, title: 'Message'),
-
             TabItem(icon: Icons.person, title: 'Profile'),
           ],
           disableDefaultTabController: true,
@@ -64,8 +64,10 @@ class _MessagePageState extends State<MessagePage>
 
           onTap: (index) {
             if (index == 0) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewScreenSecondHomePage()));
             } else if (index == 1) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CalenderPage()));
@@ -80,14 +82,13 @@ class _MessagePageState extends State<MessagePage>
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
-
           title: Text(
             "Message",
-
-            style: TextStyle(color: Colors.black,
+            style: TextStyle(
+                color: Colors.black,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-            fontFamily: "MyFont"),
+                fontFamily: "MyFont"),
           ),
           backgroundColor: Colors.white,
           bottom: TabBar(
@@ -95,12 +96,10 @@ class _MessagePageState extends State<MessagePage>
             tabs: list,
           ),
         ),
-
         body: TabBarView(
           controller: _controller,
           children: [
             Container(
-              
               key: Key("1"),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
@@ -286,6 +285,7 @@ class RecentChats extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 1.0, top: 10.0),
                     child: ListTile(
                       leading: CircleAvatar(
+                        backgroundColor: Color(0xfffcc281),
                         radius: 40.0,
                         backgroundImage: NetworkImage(
                             "${petslist[0].imageUrl[0].toString()}"),

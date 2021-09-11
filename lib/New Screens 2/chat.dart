@@ -373,20 +373,19 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.white,
-              expandedHeight: 220.0,
-              floating: true,
-              snap: true,
-              pinned: true,
-              flexibleSpace: ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
-                child: FlexibleSpaceBar(
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.white,
+                expandedHeight: 220.0,
+                floating: false,
+                snap: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     collapseMode: CollapseMode.none,
                     title: Text(widget.matchedPet.petName,
@@ -416,69 +415,65 @@ class _ChatPageState extends State<ChatPage> {
                                 ))
                             .toList(),
                         options: CarouselOptions(
+                            autoPlay: true,
                             viewportFraction: 1,
                             aspectRatio: 16 / 9,
                             enlargeCenterPage: true),
                       ),
-                      // child: Image.network(
-                      //   widget.matchedPet.imageUrl[
-                      //       0], // add all images of the pets in carousel
-                      //   // appbar shouldnt collapse
-                      //   fit: BoxFit.cover,
-                      // ),
+                      
                     )),
               ),
-            ),
-          ];
-        },
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: ClipRRect(
-            clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(45.0),
-              topRight: Radius.circular(45.0),
-            ),
-            child: Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  StreamBuilder<QuerySnapshot>(
-                    stream: chatReference!
-                        .orderBy('time', descending: true)
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData)
-                        return Container(
-                          height: 15,
-                          width: 15,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(primaryColor),
-                            strokeWidth: 2,
+            ];
+          },
+          body: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: ClipRRect(
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(45.0),
+                topRight: Radius.circular(45.0),
+              ),
+              child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    StreamBuilder<QuerySnapshot>(
+                      stream: chatReference!
+                          .orderBy('time', descending: true)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData)
+                          return Container(
+                            height: 15,
+                            width: 15,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(primaryColor),
+                              strokeWidth: 2,
+                            ),
+                          );
+                        return Expanded(
+                          child: ListView(
+                            reverse: true,
+                            children: generateMessages(snapshot),
                           ),
                         );
-                      return Expanded(
-                        child: ListView(
-                          reverse: true,
-                          children: generateMessages(snapshot),
-                        ),
-                      );
-                    },
-                  ),
-                  Divider(height: 1.0),
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    decoration:
-                        BoxDecoration(color: Theme.of(context).cardColor),
-                    child: isBlocked
-                        ? Text("Sorry You can't send message!")
-                        : _buildTextComposer(),
-                  ),
-                ],
-              ), /**/
+                      },
+                    ),
+                    Divider(height: 1.0),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      decoration:
+                          BoxDecoration(color: Theme.of(context).cardColor),
+                      child: isBlocked
+                          ? Text("Sorry You can't send message!")
+                          : _buildTextComposer(),
+                    ),
+                  ],
+                ), /**/
+              ),
             ),
           ),
         ),

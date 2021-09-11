@@ -274,6 +274,104 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                     SizedBox(
                       height: 10,
                     ),
+                    // Container(
+                    //   margin: EdgeInsets.only(left: 10),
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text(
+                    //     "Pet Match Pets",
+                    //     style: TextStyle(
+                    //         fontSize: 18, fontWeight: FontWeight.bold),
+                    //   ),
+                    // ),...petMatches
+                    //     .map(
+                    //       (pet) => Card(
+                    //         elevation: 2.0,
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //         ),
+                    //         child: Container(
+                    //           height: 150,
+                    //           decoration: BoxDecoration(
+                    //             image: DecorationImage(
+                    //               alignment: Alignment.centerLeft,
+                    //               fit: BoxFit
+                    //                   .cover, //I assumed you want to occupy the entire space of the card
+                    //               image: NetworkImage(
+                    //                 // petInfo.imageUrl[0],
+                    //                   "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                    //             ),
+                    //             borderRadius: BorderRadius.circular(8),
+                    //           ),
+                    //           child: Positioned(
+                    //             right: 5,
+                    //             top: 25,
+                    //             child: Container(
+                    //               width: 140,
+                    //               child: Column(
+                    //                 mainAxisAlignment: MainAxisAlignment.start,
+                    //                 crossAxisAlignment: CrossAxisAlignment.start,
+                    //                 children: [
+                    //                   Text(
+                    //                     pet.petName,
+                    //                     style: TextStyle(
+                    //                       fontWeight: FontWeight.w600,
+                    //                       color: Colors.white,
+                    //                       fontSize: 24,
+                    //                     ),
+                    //                   ),
+                    //                   Padding(
+                    //                     padding: const EdgeInsets.symmetric(
+                    //                         vertical: 4.0),
+                    //                     child: Text(
+                    //                       "Est Yr - 2021",
+                    //                       style: TextStyle(
+                    //                         fontWeight: FontWeight.normal,
+                    //                         color: Colors.white,
+                    //                         fontSize: 18,
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                   Text(
+                    //                     "Vasant Kunj",
+                    //                     style: TextStyle(
+                    //                       fontWeight: FontWeight.w300,
+                    //                       color: Colors.white,
+                    //                     ),
+                    //                     maxLines: 3,
+                    //                     overflow: TextOverflow.ellipsis,
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    // )
+                    //     .toList(),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "About Owner",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using",
+                        style: TextStyle(
+                            fontSize: 15, ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
                       alignment: Alignment.centerLeft,
@@ -282,73 +380,76 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                    ),...petMatches
-                        .map(
-                          (pet) => Card(
-                            elevation: 2.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 200,
+                      child: GridView.count(
+                        scrollDirection: Axis.vertical,
+                        crossAxisCount: 2,
+                        children: [
+                          Card(
                             child: Container(
-                              height: 150,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  alignment: Alignment.centerLeft,
-                                  fit: BoxFit
-                                      .cover, //I assumed you want to occupy the entire space of the card
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
                                   image: NetworkImage(
                                     // petInfo.imageUrl[0],
-                                      "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                                    "https://images.unsplash.com/photo-1551717743-49959800b1f6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                                  ),
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Positioned(
-                                right: 5,
-                                top: 25,
-                                child: Container(
-                                  width: 140,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        pet.petName,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                          fontSize: 24,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4.0),
-                                        child: Text(
-                                          "Est Yr - 2021",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Vasant Kunj",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          color: Colors.white,
-                                        ),
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Text("Romy",style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 19
+                                    ),),
+                                  )
+                                ],
                               ),
                             ),
-                          ),
-                    )
-                        .toList(),
 
+                          ),
+                          Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                                  image: NetworkImage(
+                                    // petInfo.imageUrl[0],
+                                    "https://images.unsplash.com/photo-1560743641-3914f2c45636?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                                  ),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Text("Tommy",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 19
+                                    ),),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                          ),
+
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -361,85 +462,186 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       height: 400,
-                      child: Consumer<MainProvider>(
-                        builder: (_, currentUser, __) => ListView(
-                          children: [
-                            ...myPetAdoptions
-                                .map(
-                                  (pet) => Card(
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      alignment: Alignment.centerLeft,
-                                      fit: BoxFit
-                                          .cover, //I assumed you want to occupy the entire space of the card
-                                      image: NetworkImage(
-                                        // petInfo.imageUrl[0],
-                                          "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        right: 5,
-                                        top: 25,
-                                        child: Container(
-                                          width: 140,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                pet.petName,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                  fontSize: 24,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 4.0),
-                                                child: Text(
-                                                  "Est Yr - 2021",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "Vasant Kunj",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w300,
-                                                  color: Colors.white,
-                                                ),
-                                                maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                      child: GridView.count(
+                        scrollDirection: Axis.vertical,
+                        crossAxisCount: 2,
+                        children: [
+                          Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                                  image: NetworkImage(
+                                    // petInfo.imageUrl[0],
+                                    "https://images.unsplash.com/photo-1551717743-49959800b1f6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
                                   ),
                                 ),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                            )
-                                .toList(),
-                          ],
-                        ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Text("Romy",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 19
+                                    ),),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                          ),
+                          Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                                  image: NetworkImage(
+                                    // petInfo.imageUrl[0],
+                                    "https://images.unsplash.com/photo-1560743641-3914f2c45636?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                                  ),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Text("Tommy",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 19
+                                    ),),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                          ),
+                          Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
+                                  image: NetworkImage(
+                                    // petInfo.imageUrl[0],
+                                    "https://images.unsplash.com/photo-1562317305-58a17fe2c09e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGRvZ3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                                  ),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Text("Romy",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 19
+                                    ),),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                          ),
+
+                        ],
                       ),
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+                    // Container(
+                    //   height: 400,
+                    //   child: Consumer<MainProvider>(
+                    //     builder: (_, currentUser, __) => ListView(
+                    //       children: [
+                    //         ...myPetAdoptions
+                    //             .map(
+                    //               (pet) => Card(
+                    //             elevation: 2.0,
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(8),
+                    //             ),
+                    //             child: Container(
+                    //               height: 150,
+                    //               decoration: BoxDecoration(
+                    //                 image: DecorationImage(
+                    //                   alignment: Alignment.centerLeft,
+                    //                   fit: BoxFit
+                    //                       .cover, //I assumed you want to occupy the entire space of the card
+                    //                   image: NetworkImage(
+                    //                     // petInfo.imageUrl[0],
+                    //                       "https://images.unsplash.com/photo-1577407371215-693fce1c5181?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG5nb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                    //                 ),
+                    //                 borderRadius: BorderRadius.circular(8),
+                    //               ),
+                    //               child: Stack(
+                    //                 children: [
+                    //                   Positioned(
+                    //                     right: 5,
+                    //                     top: 25,
+                    //                     child: Container(
+                    //                       width: 140,
+                    //                       child: Column(
+                    //                         mainAxisAlignment: MainAxisAlignment.start,
+                    //                         crossAxisAlignment: CrossAxisAlignment.start,
+                    //                         children: [
+                    //                           Text(
+                    //                             pet.petName,
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w600,
+                    //                               color: Colors.white,
+                    //                               fontSize: 24,
+                    //                             ),
+                    //                           ),
+                    //                           Padding(
+                    //                             padding: const EdgeInsets.symmetric(
+                    //                                 vertical: 4.0),
+                    //                             child: Text(
+                    //                               "Est Yr - 2021",
+                    //                               style: TextStyle(
+                    //                                 fontWeight: FontWeight.normal,
+                    //                                 color: Colors.white,
+                    //                                 fontSize: 18,
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           Text(
+                    //                             "Vasant Kunj",
+                    //                             style: TextStyle(
+                    //                               fontWeight: FontWeight.w300,
+                    //                               color: Colors.white,
+                    //                             ),
+                    //                             maxLines: 3,
+                    //                             overflow: TextOverflow.ellipsis,
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         )
+                    //             .toList(),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
         ),
@@ -448,6 +650,4 @@ class _PetOwnerPageState extends State<PetOwnerPage> {
   }
 }
 
-// on tap of any of the pets .. pet detail page should open
-// dont worry about design i will do that aap bass data call kardo
-// for image make it in grid of axis count 2
+

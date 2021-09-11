@@ -6,6 +6,7 @@ import 'package:cns/New%20Screens%202/chat.dart';
 import 'package:cns/provider/main_provider.dart';
 import 'package:provider/provider.dart';
 
+
 class PetAdoption extends StatefulWidget {
   @override
   _PetAdoptionState createState() => _PetAdoptionState();
@@ -58,6 +59,7 @@ class _PetAdoptionState extends State<PetAdoption> {
                                     alignment: Alignment.center,
                                     fit: BoxFit.cover, //I assumed you want to occupy the entire space of the card
                                     image: NetworkImage(
+                                      
                                       // petInfo.imageUrl[0],
                                       currentUser.matchedPetAdoption[index].imageUrl[0].toString(),
                                     ),

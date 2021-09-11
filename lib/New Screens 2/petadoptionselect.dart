@@ -15,6 +15,8 @@ class PetAdoptionPageSelect extends StatefulWidget {
 }
 
 class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
+  bool individualmode = false;
+  bool ngomode = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +44,11 @@ class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PetAdoption()));
+                setState(() {
+                  individualmode = !individualmode;
+                });
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => PetAdoption()));
               },
               child: Container(
                 height: 150,
@@ -51,19 +56,27 @@ class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
                     image: DecorationImage(
                   fit: BoxFit.contain,
                   alignment: Alignment.centerLeft,
-                  image: NetworkImage("https://i.ibb.co/WvFWkF3/1.jpg"),
+                  image: AssetImage("asset/1.jpg"),
                 )),
                 child: Stack(
                   children: [
                     Positioned(
                       right: 10,
                       top: 45,
-                      child: Text(
-                        "Adopt From \nIndividual",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                    )
+                      child: individualmode
+                          ? Text(
+                              "Adopt From \nIndividual",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            )
+                          : Text(
+                              "Adopt From \nIndividual",
+                              style: TextStyle(
+                                  color: Color(0xffff9827),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                    ),
                   ],
                 ),
                 margin: EdgeInsets.only(left: 20, right: 20),
@@ -75,9 +88,11 @@ class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
             ),
             InkWell(
               onTap: () {
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NGOSelectScreen()));
+                setState(() {
+                  ngomode = !ngomode;
+                });
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => NGOSelectScreen()));
               },
               child: Container(
                 height: 150,
@@ -85,19 +100,27 @@ class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
                     image: DecorationImage(
                   fit: BoxFit.contain,
                   alignment: Alignment.centerLeft,
-                  image: NetworkImage("https://i.ibb.co/9Hy6GXV/2.jpg"),
+                  image: AssetImage("asset/2.jpg"),
                 )),
                 child: Stack(
                   children: [
                     Positioned(
                       right: 10,
                       top: 45,
-                      child: Text(
-                        "Adopt From \nShelter",
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                    )
+                      child: ngomode
+                          ? Text(
+                              "Adopt From \nShelter",
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            )
+                          : Text(
+                              "Adopt From \nShelter",
+                              style: TextStyle(
+                                  color: Color(0xffff9827),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                    ),
                   ],
                 ),
                 margin: EdgeInsets.only(left: 20, right: 20),
@@ -107,6 +130,32 @@ class _PetAdoptionPageSelectState extends State<PetAdoptionPageSelect> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Color(0xffff9827),
+          onPressed: () {
+            if (!individualmode && !ngomode) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PetAdoption()));
+            } else if (!individualmode && ngomode) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PetAdoption()));
+            } else if (individualmode && !ngomode) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NGOSelectScreen()));
+            } else {
+              final snackBar = SnackBar(
+                backgroundColor: Color(0xffff9827),
+                content: const Text('Please Select one option'),
+                action: SnackBarAction(
+                  label: '',
+                  onPressed: () {},
+                ),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          label: Text("Proceed")),
     );
   }
 }

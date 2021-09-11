@@ -1,9 +1,6 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cns/New%20Screens%202/Welcome_homepage.dart';
 import 'package:cns/provider/main_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_state_button/iconed_button.dart';
@@ -365,138 +362,10 @@ class _ngoAdditionalInfoState extends State<ngoAdditionalInfo> {
             ),
 
             Container(
-
-              height: 150,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset("asset/below.png",fit: BoxFit.contain,),
+              child: Image.asset("asset/doggy.png",
+                  width: MediaQuery.of(context).size.width / 1.1),
             )
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     InkWell(
-            //       onTap: () async {
-            //         final dynamic res =
-            //             await Provider.of<MainProvider>(context, listen: false)
-            //                 .handleGoogleSignNGO(context, "NGO");
-            //         if (res == "Success") {
-            //           showDialog(
-            //               barrierDismissible: false,
-            //               context: context,
-            //               builder: (_) {
-            //                 Future.delayed(Duration(seconds: 1), () async {
-            //                   Navigator.pushReplacement(
-            //                     context,
-            //                     MaterialPageRoute(
-            //                       builder: (BuildContext context) =>
-            //                           NewScreenSecondHomePage(),
-            //                     ),
-            //                   );
-            //                 });
-            //                 return Center(
-            //                     child: Container(
-            //                         width: 180.0,
-            //                         height: 200.0,
-            //                         decoration: BoxDecoration(
-            //                             color: Colors.white,
-            //                             shape: BoxShape.rectangle,
-            //                             borderRadius:
-            //                                 BorderRadius.circular(20)),
-            //                         child: Column(
-            //                           children: <Widget>[
-            //                             Image.asset(
-            //                               "asset/auth/verified.jpg",
-            //                               height: 100,
-            //                             ),
-            //                             Text(
-            //                               "Verified\n Successfully",
-            //                               textAlign: TextAlign.center,
-            //                               style: TextStyle(
-            //                                   decoration: TextDecoration.none,
-            //                                   color: Colors.black,
-            //                                   fontSize: 20),
-            //                             )
-            //                           ],
-            //                         )));
-            //               });
-            //         } else {
-            //           // _scaffoldKey.currentState.showSnackBar(SnackBar(
-            //           //   content: Text('Sign In Failed!'),
-            //           //   duration: Duration(seconds: 3),
-            //           // ));
-            //         }
-            //       },
-            //       child: Image.asset(
-            //         "asset/google.png",
-            //         height: 35,
-            //       ),
-            //     ),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     InkWell(
-            //       onTap: () async {
-            //         final dynamic res =
-            //             await Provider.of<MainProvider>(context, listen: false)
-            //                 .handleFacebookLogin(context);
-            //         if (res == "Success") {
-            //           showDialog(
-            //             barrierDismissible: false,
-            //             context: context,
-            //             builder: (_) {
-            //               Future.delayed(Duration(seconds: 2), () async {
-            //                 Navigator.pushReplacement(
-            //                   context,
-            //                   MaterialPageRoute(
-            //                     builder: (BuildContext context) =>
-            //                         NewScreenSecondHomePage(),
-            //                   ),
-            //                 );
-            //               });
-            //               return Center(
-            //                 child: Container(
-            //                   width: 180.0,
-            //                   height: 200.0,
-            //                   decoration: BoxDecoration(
-            //                       color: Colors.white,
-            //                       shape: BoxShape.rectangle,
-            //                       borderRadius: BorderRadius.circular(20)),
-            //                   child: Column(
-            //                     children: <Widget>[
-            //                       Image.asset(
-            //                         "asset/auth/verified.jpg",
-            //                         height: 100,
-            //                       ),
-            //                       Text(
-            //                         "Verified\n Successfully",
-            //                         textAlign: TextAlign.center,
-            //                         style: TextStyle(
-            //                             decoration: TextDecoration.none,
-            //                             color: Colors.black,
-            //                             fontSize: 20),
-            //                       )
-            //                     ],
-            //                   ),
-            //                 ),
-            //               );
-            //             },
-            //           );
-            //         } else {
-            //           // _scaffoldKey.currentState.showSnackBar(SnackBar(
-            //           //   content: Text('$res'),
-            //           //   duration: Duration(seconds: 3),
-            //           // ));
-            //         }
-            //       },
-            //       child: Image.asset(
-            //         "asset/fb.png",
-            //         height: 45,
-            //       ),
-            //     ),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //   ],
-            // ),
+           
           ],
         ),
       ),

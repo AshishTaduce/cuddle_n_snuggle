@@ -36,6 +36,7 @@ class _CalenderPageState extends State<CalenderPage> {
     // _calendarController = PageController();
     _eventController = TextEditingController();
     _events = {};
+    // _reloadPage();
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay));
     dbService = DbService();
     databaseHelper = DatabaseHelper();
@@ -118,15 +119,16 @@ class _CalenderPageState extends State<CalenderPage> {
           TabItem(icon: Icons.home, title: 'Home'),
           TabItem(icon: Icons.calendar_today_outlined, title: 'Calendar'),
           TabItem(icon: Icons.message, title: 'Message'),
-
           TabItem(icon: Icons.person, title: 'Profile'),
         ],
         initialActiveIndex: 1, //optional, default as 0
 
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => NewScreenSecondHomePage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NewScreenSecondHomePage()));
           } else if (index == 1) {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => CalenderPage()));
@@ -178,6 +180,7 @@ class _CalenderPageState extends State<CalenderPage> {
                         firstDay: DateTime.utc(2010, 10, 16),
                         lastDay: DateTime.utc(2030, 3, 14),
                         focusedDay: _focusedDay,
+
                         eventLoader: (event) {
                           // setState(() {
                           //   _selectedEvents =  _events![event] ?? [];
@@ -185,8 +188,11 @@ class _CalenderPageState extends State<CalenderPage> {
 
                           return _events[event] ?? [];
                         },
+
                         calendarFormat: CalendarFormat.month,
+
                         calendarStyle: CalendarStyle(
+                          markerDecoration: BoxDecoration(color: Colors.black),
                           todayDecoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
@@ -202,7 +208,7 @@ class _CalenderPageState extends State<CalenderPage> {
                             shape: BoxShape.circle,
                           ),
                           weekendTextStyle: TextStyle(color: Colors.white),
-                          outsideDaysVisible: true,
+                          outsideDaysVisible: false,
                         ),
                         headerStyle: HeaderStyle(
                           titleCentered: true,
@@ -238,11 +244,6 @@ class _CalenderPageState extends State<CalenderPage> {
                         selectedDayPredicate: (day) =>
                             isSameDay(_selectedDay, day),
                         onDaySelected: (selectedDate, focusedDate) {
-                          print(
-                              "Events are: ${_events[dateFormat.format(selectedDate)]} for ${dateFormat.format(selectedDate)}");
-                          print("All Events are: $_events");
-
-                          ///TODO: Rewrite this concept.
                           bool temp = _events.keys.toList().any(
                                 (element) =>
                                     dateFormat.format(element) ==
@@ -261,6 +262,14 @@ class _CalenderPageState extends State<CalenderPage> {
                           });
                         },
                         calendarBuilders: CalendarBuilders(
+                          markerBuilder: (context, date, events) =>
+                              _selectedEvents.value.isEmpty
+                                  ? Container()
+                                  : Container(
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.white,
+                                    ),
                           selectedBuilder: (context, date, events) => Container(
                               margin: EdgeInsets.all(4),
                               alignment: Alignment.center,
@@ -298,57 +307,62 @@ class _CalenderPageState extends State<CalenderPage> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         )),
+                    SizedBox(
+                      height: 10,
+                    ),
                     ..._selectedEvents.value.map((event) {
-
                       return Container(
-                          padding: EdgeInsets.symmetric(horizontal: 32),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                  child: Text(
-                                    event.time!.format(context),
-                                    // event.time.toString(),
-                                    style: TextStyle(fontSize: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                                child: Text(
+                              event.pet.toString(),
+                              // event.time.toString(),
+                              style: TextStyle(fontSize: 16),
+                            )),
+                            GestureDetector(
+                              onTap: () {
+                                awaitReturnValueFromAddEventForUpdate(event);
+                              },
+                              child: Container(
+                                  key: Key("$valueFromAddEvent"),
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  padding: EdgeInsets.all(10),
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffff9827),
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black26,
+                                            offset: Offset(0, 2),
+                                            blurRadius: 2.0)
+                                      ]),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Appointment Time -" +
+                                            event.time!.format(context),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        "Appointment For - " +
+                                            event.title.toString(),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ],
                                   )),
-                              GestureDetector(
-                                onTap: () {
-                                  awaitReturnValueFromAddEventForUpdate(event);
-                                },
-                                child: Container(
-                                    key: Key("$valueFromAddEvent"),
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    padding: EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red[300],
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black26,
-                                              offset: Offset(0, 2),
-                                              blurRadius: 2.0)
-                                        ]),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          event.title,
-                                          style: TextStyle(
-                                              color: Colors.white, fontSize: 12),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          event.pet.toString(),
-                                          style: TextStyle(
-                                              color: Colors.white, fontSize: 12),
-                                        ),
-                                      ],
-                                    )),
-                              )
-                            ],
-                          ),);
+                            )
+                          ],
+                        ),
+                      );
                     }),
                     SizedBox(
                       height: 20,
@@ -359,8 +373,7 @@ class _CalenderPageState extends State<CalenderPage> {
             }),
       ),
       floatingActionButton: FloatingActionButton(
-
-          child : Icon(Icons.add),
+          child: Icon(Icons.add),
           backgroundColor: HexColor("#ff9827"),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
